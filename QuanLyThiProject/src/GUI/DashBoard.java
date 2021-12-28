@@ -929,7 +929,13 @@ public class DashBoard extends javax.swing.JFrame
 
     private void thisinhLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_thisinhLabelMouseClicked
     {//GEN-HEADEREND:event_thisinhLabelMouseClicked
-         if (thiSinhForm.getjTabbedPane1().getComponentCount() == 3)
+        thiSinhDTOs = thiSinhDAO.getList();
+        khoaThiDTOs = khoaThiDAO.getList();
+        
+        //trinhDoDTOs = trinhDoDAO.getList();
+        
+        thiSinhForm.initTable();
+        if (thiSinhForm.getjTabbedPane1().getComponentCount() == 3)
         {
             thiSinhForm.getjTabbedPane1().remove(thiSinhForm.getjTabbedPane1().getComponentAt(1));
             thiSinhForm.getjTabbedPane1().setEnabledAt(0, true);
@@ -937,8 +943,7 @@ public class DashBoard extends javax.swing.JFrame
             thiSinhForm.getjBtnThemTS1().setEnabled(true);
             thiSinhForm.getjBtnTaoPhieu().setEnabled(false);
             thiSinhForm.getjBtnCancel1().setEnabled(false);
-            thiSinhForm.getjBtnXoaTS1().setEnabled(false);
-            
+            thiSinhForm.getjBtnXoaTS1().setEnabled(false);           
         }
         jPanelThiSinh.setVisible(true);
         jPanelGiangVien.setVisible(false);
