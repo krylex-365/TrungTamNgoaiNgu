@@ -877,6 +877,8 @@ public class DashBoard extends javax.swing.JFrame
     private void cathiLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_cathiLabelMouseClicked
     {//GEN-HEADEREND:event_cathiLabelMouseClicked
 //        diadiemForm.initTableDiaDiem();
+        caThiDTOs = caThiDAO.getList();
+        caThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(false);
@@ -993,6 +995,8 @@ public class DashBoard extends javax.swing.JFrame
 
     private void khoathiLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_khoathiLabelMouseClicked
         khoaThiDTOs = khoaThiDAO.getList();
+        phongThiDTOs = phongThiDAO.getList();
+        thiSinhDTOs = thiSinhDAO.getList();
         khoaThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);

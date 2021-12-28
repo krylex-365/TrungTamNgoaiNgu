@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import BUS.CaThiBUS;
+import DTO.CaThiDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,20 +34,17 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class CaThiForm extends javax.swing.JPanel
-{
+public class CaThiForm extends javax.swing.JPanel {
 
     DefaultTableModel tbModelCaThi, tbModelTKTD;
-    int rowTbl;
-    private int rowChiPhi;
-    private String maLoaiChiPhi;
-    private String tenLoaiChiPhi;
+    private int rowCaThi;
+    private CaThiDTO caThiSelected = new CaThiDTO();
+    CaThiBUS caThiBUS = new CaThiBUS();
 
     /**
      * Creates new form jPanel2
      */
-    public CaThiForm()
-    {
+    public CaThiForm() {
         initComponents();
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
@@ -55,6 +54,42 @@ public class CaThiForm extends javax.swing.JPanel
         tbModelTKTD.setRowCount(0);
     }
 
+    public void initTable() {
+        tbModelCaThi.setRowCount(0);
+        tableModel(tbModelCaThi);
+        jTableCaThi.setRowSorter(null);
+        jTableCaThi.setAutoCreateRowSorter(true);
+        jTableCaThi.setModel(tbModelCaThi);
+        jTableCaThi.clearSelection();
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (CaThiDTO khoaThi : DashBoard.caThiDTOs) {
+            Vector row = new Vector();
+            row.add(khoaThi.getMaCaThi());
+            row.add(khoaThi.getGioBatDau());
+            row.add(khoaThi.getGioKetThuc());
+            model.addRow(row);
+        }
+    }
+
+    public void themVector(DefaultTableModel model, CaThiDTO caThiDTO) {
+        Vector newrow = new Vector();
+        newrow.add(caThiDTO.getMaCaThi());
+        newrow.add(caThiDTO.getGioBatDau());
+        newrow.add(caThiDTO.getGioKetThuc());
+        model.addRow(newrow);
+    }
+
+    public void suaVector(DefaultTableModel model, int row, CaThiDTO caThiDTO) {
+        model.setValueAt(caThiDTO.getGioBatDau(), row, 1);
+        model.setValueAt(caThiDTO.getGioKetThuc(), row, 2);
+    }
+
+    public void xoaVector(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,8 +97,7 @@ public class CaThiForm extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelKhoaThi = new javax.swing.JPanel();
@@ -108,8 +142,8 @@ public class CaThiForm extends javax.swing.JPanel
         jPanel3.setBackground(new java.awt.Color(233, 242, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Ca Thi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102)));
 
-        jLabel2.setText("<html> <body> Mã Ca Thi <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("<html> <body> Mã Ca Thi <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
 
         jTextMaCT.setEditable(false);//[214,217,223]
         jTextMaCT.setBackground(new java.awt.Color(214, 217, 223));
@@ -119,10 +153,8 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnCapPhatMaTD.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaTD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnCapPhatMaTD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnCapPhatMaTD.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnCapPhatMaTD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCapPhatMaTDActionPerformed(evt);
             }
         });
@@ -131,10 +163,8 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnThemCT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemCT.setText("Thêm");
         jBtnThemCT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemCT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemCTActionPerformed(evt);
             }
         });
@@ -143,10 +173,8 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnSuaCT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaCT.setText("Sửa");
         jBtnSuaCT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaCT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaCTActionPerformed(evt);
             }
         });
@@ -155,10 +183,8 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnXoaCT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaCT.setText("Xóa");
         jBtnXoaCT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaCT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaCTActionPerformed(evt);
             }
         });
@@ -167,27 +193,25 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyActionPerformed(evt);
             }
         });
 
-        jLabel29.setText("<html> <body>Giờ Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
         jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel29.setText("<html> <body>Giờ Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
 
-        jLabel30.setText("<html> <body>Giờ Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
         jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel30.setText("<html> <body>Giờ Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
 
         jComboPhut1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
         jComboPhut2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        jComboGio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
+        jComboGio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
-        jComboGio2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
+        jComboGio2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -198,62 +222,57 @@ public class CaThiForm extends javax.swing.JPanel
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnXoaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnThemCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(194, 194, 194)
-                                .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtnXoaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBtnSuaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboGio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboGio1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboPhut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboPhut1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(194, 194, 194)
-                                .addComponent(jBtnSuaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtnThemCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboGio1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboPhut1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboPhut1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jComboGio1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnThemCT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnSuaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -272,11 +291,9 @@ public class CaThiForm extends javax.swing.JPanel
         tableCol.add("Giờ Bắt Đầu");
         tableCol.add("Giờ Kết Thúc");
 
-        tbModelCaThi = new DefaultTableModel (tableCol,5)
-        {
+        tbModelCaThi = new DefaultTableModel (tableCol,5){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -291,12 +308,11 @@ public class CaThiForm extends javax.swing.JPanel
         jTableCaThi.getTableHeader().setForeground(new Color(141, 22, 22));
         jTableCaThi.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableCaThi.setSelectionBackground(new Color(52,152,219));
+        jTableCaThi.setAutoCreateRowSorter(true);
         jTableCaThi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableCaThi.setGridColor(new java.awt.Color(83, 86, 88));
-        jTableCaThi.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableCaThi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableCaThiMouseClicked(evt);
             }
         });
@@ -314,10 +330,8 @@ public class CaThiForm extends javax.swing.JPanel
         jPanelKhoaThi.add(jTextTimKiemCT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 30));
 
         jBtnTimKiemCT.setText("Tìm kiếm");
-        jBtnTimKiemCT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnTimKiemCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTimKiemCTActionPerformed(evt);
             }
         });
@@ -328,10 +342,8 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefreshActionPerformed(evt);
             }
         });
@@ -345,10 +357,8 @@ public class CaThiForm extends javax.swing.JPanel
 
         jButtonThongKe.setText("Thống Kê");
         jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonThongKe.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonThongKeActionPerformed(evt);
             }
         });
@@ -360,19 +370,15 @@ public class CaThiForm extends javax.swing.JPanel
 
         Vector tbColThongKe=new Vector();
         jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
-        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableThongkeMouseClicked(evt);
             }
         });
@@ -383,11 +389,9 @@ public class CaThiForm extends javax.swing.JPanel
         tbColThongKe.add ("Ngày Đi");
         tbColThongKe.add ("Ngày Về");
         tbColThongKe.add ("Tổng Chi Phí");
-        tbModelTKTD = new DefaultTableModel(tbColThongKe, 0)
-        {
+        tbModelTKTD = new DefaultTableModel(tbColThongKe, 0){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -445,6 +449,7 @@ public class CaThiForm extends javax.swing.JPanel
 
     private void jBtnCapPhatMaTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaTDActionPerformed
         // TODO add your handling code here:
+        jTextMaCT.setText(caThiBUS.capPhat());
         jBtnCapPhatMaTD.setEnabled(false);
         jBtnThemCT.setEnabled(true);
         jBtnSuaCT.setEnabled(false);
@@ -455,47 +460,94 @@ public class CaThiForm extends javax.swing.JPanel
 
     private void jBtnThemCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemCTActionPerformed
         // TODO add your handling code here:
-
+        String maCaThi = (String) jTextMaCT.getText(),
+                gioBD = jComboGio1.getSelectedItem().toString(),
+                phutBD = jComboPhut1.getSelectedItem().toString(),
+                gioKT = jComboGio2.getSelectedItem().toString(),
+                phutKT = jComboPhut2.getSelectedItem().toString();
+        if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT)) {
+            JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
+            return;
+        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
+                && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT)) {
+            JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
+            return;
+        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
+                && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30) {
+            JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
+            return;
+        }
+        CaThiDTO caThiDTO = new CaThiDTO(maCaThi, gioBD + ":" + phutBD, gioKT + ":" + phutKT);
+        if (caThiBUS.them(caThiDTO, DashBoard.caThiDTOs)) {
+            themVector(tbModelCaThi, caThiDTO);
+            JOptionPane.showMessageDialog(this, "Thêm ca thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm ca thi thất bại!");
+        }
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
         jBtnSuaCT.setEnabled(false);
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-  
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnThemCTActionPerformed
 
 
     private void jBtnSuaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaCTActionPerformed
         // TODO add your handling code here:
+        String gioBD = jComboGio1.getSelectedItem().toString(),
+                phutBD = jComboPhut1.getSelectedItem().toString(),
+                gioKT = jComboGio2.getSelectedItem().toString(),
+                phutKT = jComboPhut2.getSelectedItem().toString();
+        if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT)) {
+            JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
+            return;
+        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
+                && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT)) {
+            JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
+            return;
+        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
+                && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30) {
+            JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
+            return;
+        }
+        CaThiDTO caThiDTO = new CaThiDTO(caThiSelected.getMaCaThi(), gioBD + ":" + phutBD, gioKT + ":" + phutKT);
+        if (caThiBUS.sua(caThiDTO, DashBoard.caThiDTOs)) {
+            suaVector(tbModelCaThi, rowCaThi, caThiDTO);
+            JOptionPane.showMessageDialog(this, "Sửa ca thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa ca thi thất bại!");
+        }
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
         jBtnSuaCT.setEnabled(false);
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-     
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnSuaCTActionPerformed
 
     private void jBtnXoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaCTActionPerformed
         // TODO add your handling code here:
-
+        CaThiDTO caThiDTO = new CaThiDTO(caThiSelected.getMaCaThi(), caThiSelected.getGioBatDau(), caThiSelected.getGioKetThuc());
+        if (caThiBUS.xoa(caThiDTO, DashBoard.caThiDTOs)) {
+            xoaVector(tbModelCaThi, rowCaThi);
+            JOptionPane.showMessageDialog(this, "Xóa ca thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa ca thi thất bại!");
+        }
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
         jBtnSuaCT.setEnabled(false);
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-       
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnXoaCTActionPerformed
 
-    private boolean isNullOrEmpty(String text)
-    {
-        if (text == null || text.equals(""))
-        {
+    private boolean isNullOrEmpty(String text) {
+        if (text == null || text.equals("")) {
             return true;
         }
         return false;
@@ -546,30 +598,31 @@ public class CaThiForm extends javax.swing.JPanel
     private void jTableCaThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableCaThiMouseClicked
     {//GEN-HEADEREND:event_jTableCaThiMouseClicked
         // TODO add your handling code here:
-        rowChiPhi = jTableCaThi.getSelectedRow();
-        if (rowChiPhi != -1)
-        {
-//            maLoaiChiPhi = (String) jTableCaThi.getModel().getValueAt(rowChiPhi, 0);
-//            tenLoaiChiPhi = (String) jTableCaThi.getModel().getValueAt(rowChiPhi, 1);
-//            if (!maLoaiChiPhi.equals("null"))
-//            {
-//                jTextMaCT.setText(maLoaiChiPhi);
-//            }
+        rowCaThi = jTableCaThi.getSelectedRow();
+        if (rowCaThi != -1) {
+            caThiSelected.setMaCaThi((String) jTableCaThi.getModel().getValueAt(rowCaThi, 0));
+            caThiSelected.setGioBatDau((String) jTableCaThi.getModel().getValueAt(rowCaThi, 1));
+            caThiSelected.setGioKetThuc((String) jTableCaThi.getModel().getValueAt(rowCaThi, 2));
+            String[] tgBD = caThiSelected.getGioBatDau().split(":"),
+                    tgKT = caThiSelected.getGioKetThuc().split(":");
+            jTextMaCT.setText(caThiSelected.getMaCaThi());
+            jComboGio1.setSelectedItem(tgBD[0]);
+            jComboPhut1.setSelectedItem(tgBD[1]);
+            jComboGio2.setSelectedItem(tgKT[0]);
+            jComboPhut2.setSelectedItem(tgKT[1]);
+            jBtnCapPhatMaTD.setEnabled(false);
+            jBtnThemCT.setEnabled(false);
+            jBtnSuaCT.setEnabled(true);
+            jBtnXoaCT.setEnabled(true);
+            jBtnHuy.setEnabled(true);
         }
-        jBtnCapPhatMaTD.setEnabled(false);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(true);
-        jBtnXoaCT.setEnabled(true);
-        jBtnHuy.setEnabled(true);
     }//GEN-LAST:event_jTableCaThiMouseClicked
 
-    public void xoaLoaiChiPhi(DefaultTableModel model, int row)
-    {
+    public void xoaLoaiChiPhi(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value)
-    {
+    public void timKiem(DefaultTableModel model, JTable jTable, String value) {
         model.setRowCount(0);
 
     }

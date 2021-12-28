@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author User
  */
 public class KhoaThiBUS {
-
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
     KhoaThiDAO khoaThiDAO = new KhoaThiDAO();

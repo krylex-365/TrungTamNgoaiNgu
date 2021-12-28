@@ -7,6 +7,8 @@ package GUI;
 
 import BUS.KhoaThiBUS;
 import DTO.KhoaThiDTO;
+import DTO.PhongThiDTO;
+import DTO.ThiSinhDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -495,23 +497,47 @@ public class KhoaThiForm extends javax.swing.JPanel {
         jTableKhoaThi.clearSelection();
     }//GEN-LAST:event_jBtnSuaKTActionPerformed
 
+    public String checkBeforeDel(String maKhoaThi) {
+        String noti = "";
+        for (PhongThiDTO p : DashBoard.phongThiDTOs) {
+            System.out.println(p);
+            if (p.getMaKhoaThi().equals(maKhoaThi)) {
+                noti += "- Còn phòng thi thuộc khóa thi này!\n";
+                break;
+            }
+        }
+        for (ThiSinhDTO ts : DashBoard.thiSinhDTOs) {
+            if (ts.getMaKhoaThi().equals(maKhoaThi)) {
+                noti += "- Còn thí sinh thuộc khóa thi này!\n";
+                break;
+            }
+        }
+        return noti;
+    }
+    
     private void jBtnXoaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaKTActionPerformed
         // TODO add your handling code here:
-        if (khoaThiBUS.xoa(khoaThiSelected, DashBoard.khoaThiDTOs)) {
-            xoaVector(tbModelKhoaThi, rowKhoaThi);
-            JOptionPane.showMessageDialog(this, "Xóa khóa thi thành công!");
+        String check = checkBeforeDel(khoaThiSelected.getMaKhoaThi());
+        if (check.equals("")) {
+            if (khoaThiBUS.xoa(khoaThiSelected, DashBoard.khoaThiDTOs)) {
+                xoaVector(tbModelKhoaThi, rowKhoaThi);
+                JOptionPane.showMessageDialog(this, "Xóa khóa thi thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa khóa thi thất bại!");
+            }
+            jBtnCapPhatMaKT.setEnabled(true);
+            jBtnThemKT.setEnabled(false);
+            jBtnSuaKT.setEnabled(false);
+            jBtnXoaKT.setEnabled(false);
+            jBtnHuy.setEnabled(false);
+            jTextMaKT.setText("");
+            jTextTenKT.setText("");
+            jDateNgayThi.setCalendar(null);
+            jTableKhoaThi.clearSelection();
         } else {
-            JOptionPane.showMessageDialog(this, "Xóa khóa thi thất bại!");
+            check = "Không thể xóa\n" + check;
+            JOptionPane.showMessageDialog(this, check);
         }
-        jBtnCapPhatMaKT.setEnabled(true);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(false);
-        jBtnXoaKT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaKT.setText("");
-        jTextTenKT.setText("");
-        jDateNgayThi.setCalendar(null);
-        jTableKhoaThi.clearSelection();
     }//GEN-LAST:event_jBtnXoaKTActionPerformed
 
     private boolean isNullOrEmpty(String text) {
@@ -583,12 +609,12 @@ public class KhoaThiForm extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, e);
                 System.out.println("- Load sai ngày thi!");
             }
+            jBtnCapPhatMaKT.setEnabled(false);
+            jBtnThemKT.setEnabled(false);
+            jBtnSuaKT.setEnabled(true);
+            jBtnXoaKT.setEnabled(true);
+            jBtnHuy.setEnabled(true);
         }
-        jBtnCapPhatMaKT.setEnabled(false);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(true);
-        jBtnXoaKT.setEnabled(true);
-        jBtnHuy.setEnabled(true);
     }//GEN-LAST:event_jTableKhoaThiMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

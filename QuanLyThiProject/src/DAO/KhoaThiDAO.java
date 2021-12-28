@@ -27,11 +27,11 @@ public class KhoaThiDAO {
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                KhoaThiDTO cp = new KhoaThiDTO();
-                cp.setMaKhoaThi(conn.rs.getString(1));
-                cp.setTenKhoaThi(conn.rs.getString(2));
-                cp.setNgayThi(conn.rs.getString(3));
-                khoaThiDTOs.add(cp);
+                KhoaThiDTO dto = new KhoaThiDTO();
+                dto.setMaKhoaThi(conn.rs.getString(1));
+                dto.setTenKhoaThi(conn.rs.getString(2));
+                dto.setNgayThi(conn.rs.getString(3));
+                khoaThiDTOs.add(dto);
             }
         } catch (SQLException e) {
             System.out.println(e);
