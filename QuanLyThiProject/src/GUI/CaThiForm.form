@@ -89,16 +89,27 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
                                           <Component id="jBtnHuy" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jBtnXoaCT" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jComboGio2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboGio1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="timePickerKT" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jComboPhut2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboPhut1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -120,12 +131,6 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jBtnCapPhatMaTD" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="timePickerBD" min="-2" pref="190" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <EmptySpace pref="58" max="32767" attributes="0"/>
                       </Group>
@@ -135,22 +140,31 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jTextMaCT" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="jTextMaCT" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jBtnCapPhatMaTD" min="-2" pref="32" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel29" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jComboPhut1" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel30" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jComboPhut2" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="jBtnCapPhatMaTD" min="-2" pref="32" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel29" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="timePickerBD" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel30" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="timePickerKT" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jComboGio1" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jComboGio2" min="-2" pref="34" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -170,10 +184,10 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; M&#xe3; Ca Thi &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; M&#xe3; Ca Thi &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextMaCT">
@@ -279,28 +293,116 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel29">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Gi&#x1edd; B&#x103;t &#x110;&#x1ea7;u&lt;span style=&quot;color:rgb(216, 74, 67);&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt; "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Gi&#x1edd; B&#x103;t &#x110;&#x1ea7;u&lt;span style=&quot;color:rgb(216, 74, 67);&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt; "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel30">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Gi&#x1edd; K&#x1ebf;t Th&#xfa;c&lt;span style=&quot;color:rgb(216, 74, 67);&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt; "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Gi&#x1edd; K&#x1ebf;t Th&#xfa;c&lt;span style=&quot;color:rgb(216, 74, 67);&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt; "/>
                   </Properties>
                 </Component>
-                <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePickerBD">
+                <Component class="javax.swing.JComboBox" name="jComboPhut1">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="00"/>
+                        <StringItem index="1" value="05"/>
+                        <StringItem index="2" value="10"/>
+                        <StringItem index="3" value="15"/>
+                        <StringItem index="4" value="20"/>
+                        <StringItem index="5" value="25"/>
+                        <StringItem index="6" value="30"/>
+                        <StringItem index="7" value="35"/>
+                        <StringItem index="8" value="40"/>
+                        <StringItem index="9" value="45"/>
+                        <StringItem index="10" value="50"/>
+                        <StringItem index="11" value="55"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTextField t1=timePickerBD.getComponentTimeTextField();&#xa;t1.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePickerKT">
+                <Component class="javax.swing.JComboBox" name="jComboPhut2">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="00"/>
+                        <StringItem index="1" value="05"/>
+                        <StringItem index="2" value="10"/>
+                        <StringItem index="3" value="15"/>
+                        <StringItem index="4" value="20"/>
+                        <StringItem index="5" value="25"/>
+                        <StringItem index="6" value="30"/>
+                        <StringItem index="7" value="35"/>
+                        <StringItem index="8" value="40"/>
+                        <StringItem index="9" value="45"/>
+                        <StringItem index="10" value="50"/>
+                        <StringItem index="11" value="55"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTextField t2=timePickerKT.getComponentTimeTextField();&#xa;t2.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboGio1">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="15">
+                        <StringItem index="0" value="07"/>
+                        <StringItem index="1" value="08"/>
+                        <StringItem index="2" value="09"/>
+                        <StringItem index="3" value="10"/>
+                        <StringItem index="4" value="11"/>
+                        <StringItem index="5" value="12"/>
+                        <StringItem index="6" value="13"/>
+                        <StringItem index="7" value="14"/>
+                        <StringItem index="8" value="15"/>
+                        <StringItem index="9" value="16"/>
+                        <StringItem index="10" value="17"/>
+                        <StringItem index="11" value="18"/>
+                        <StringItem index="12" value="19"/>
+                        <StringItem index="13" value="20"/>
+                        <StringItem index="14" value="21"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboGio2">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="15">
+                        <StringItem index="0" value="07"/>
+                        <StringItem index="1" value="08"/>
+                        <StringItem index="2" value="09"/>
+                        <StringItem index="3" value="10"/>
+                        <StringItem index="4" value="11"/>
+                        <StringItem index="5" value="12"/>
+                        <StringItem index="6" value="13"/>
+                        <StringItem index="7" value="14"/>
+                        <StringItem index="8" value="15"/>
+                        <StringItem index="9" value="16"/>
+                        <StringItem index="10" value="17"/>
+                        <StringItem index="11" value="18"/>
+                        <StringItem index="12" value="19"/>
+                        <StringItem index="13" value="20"/>
+                        <StringItem index="14" value="21"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

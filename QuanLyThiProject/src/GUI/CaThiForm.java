@@ -77,8 +77,10 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnHuy = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        timePickerBD = new com.github.lgooddatepicker.components.TimePicker();
-        timePickerKT = new com.github.lgooddatepicker.components.TimePicker();
+        jComboPhut1 = new javax.swing.JComboBox<>();
+        jComboPhut2 = new javax.swing.JComboBox<>();
+        jComboGio1 = new javax.swing.JComboBox<>();
+        jComboGio2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCaThi = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -106,8 +108,8 @@ public class CaThiForm extends javax.swing.JPanel
         jPanel3.setBackground(new java.awt.Color(233, 242, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Ca Thi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102)));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("<html> <body> Mã Ca Thi <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jTextMaCT.setEditable(false);//[214,217,223]
         jTextMaCT.setBackground(new java.awt.Color(214, 217, 223));
@@ -173,17 +175,19 @@ public class CaThiForm extends javax.swing.JPanel
             }
         });
 
-        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel29.setText("<html> <body>Giờ Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
+        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel30.setText("<html> <body>Giờ Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
+        jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        JTextField t1=timePickerBD.getComponentTimeTextField();
-        t1.setEditable(false);
+        jComboPhut1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        JTextField t2=timePickerKT.getComponentTimeTextField();
-        t2.setEditable(false);
+        jComboPhut2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+
+        jComboGio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
+
+        jComboGio2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,15 +197,23 @@ public class CaThiForm extends javax.swing.JPanel
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(194, 194, 194)
                                 .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jBtnXoaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboGio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(timePickerKT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboPhut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,31 +227,32 @@ public class CaThiForm extends javax.swing.JPanel
                         .addGap(29, 29, 29)
                         .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(timePickerBD, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timePickerBD, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timePickerKT, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextMaCT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboPhut1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboPhut2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jComboGio1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboGio2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnThemCT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,8 +462,7 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-        timePickerBD.setTime(null);
-        timePickerKT.setTime(null);
+  
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnThemCTActionPerformed
 
@@ -463,8 +475,7 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-        timePickerBD.setTime(null);
-        timePickerKT.setTime(null);
+     
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnSuaCTActionPerformed
 
@@ -477,8 +488,7 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-        timePickerBD.setTime(null);
-        timePickerKT.setTime(null);
+       
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnXoaCTActionPerformed
 
@@ -499,9 +509,6 @@ public class CaThiForm extends javax.swing.JPanel
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(false);
         jTextMaCT.setText("");
-
-        timePickerBD.setTime(null);
-        timePickerKT.setTime(null);
         jTableCaThi.clearSelection();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
@@ -576,6 +583,10 @@ public class CaThiForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnTimKiemCT;
     private javax.swing.JButton jBtnXoaCT;
     private javax.swing.JButton jButtonThongKe;
+    private javax.swing.JComboBox<String> jComboGio1;
+    private javax.swing.JComboBox<String> jComboGio2;
+    private javax.swing.JComboBox<String> jComboPhut1;
+    private javax.swing.JComboBox<String> jComboPhut2;
     private com.toedter.calendar.JDateChooser jDateNgayBDTK;
     private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private javax.swing.JLabel jLabel2;
@@ -594,7 +605,5 @@ public class CaThiForm extends javax.swing.JPanel
     private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextMaCT;
     private javax.swing.JTextField jTextTimKiemCT;
-    private com.github.lgooddatepicker.components.TimePicker timePickerBD;
-    private com.github.lgooddatepicker.components.TimePicker timePickerKT;
     // End of variables declaration//GEN-END:variables
 }
