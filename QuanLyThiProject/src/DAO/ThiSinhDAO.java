@@ -16,6 +16,7 @@ public class ThiSinhDAO {
     Connect conn;
 
     public ThiSinhDAO() {
+        
     }
     
     public ArrayList<ThiSinhDTO> getList(){
@@ -26,30 +27,92 @@ public class ThiSinhDAO {
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                ThiSinhDTO dto = new ThiSinhDTO();
-                dto.setMaThiSinh(conn.rs.getString(1));
-                dto.setHoTen(conn.rs.getString(2));
-                dto.setGioiTinh(conn.rs.getString(3));
-                dto.setNgaySinh(conn.rs.getString(4));
-                dto.setCmnd(conn.rs.getString(5));
-                dto.setNgayCap(conn.rs.getString(6));
-                dto.setNoiCap(conn.rs.getString(7));
-                dto.setSdt(conn.rs.getString(8));
-                dto.setMail(conn.rs.getString(9));
-                dto.setDiaChi(conn.rs.getString(10));
-                dto.setMaKhoaThi(conn.rs.getString(11));
-                dto.setMaTrinhDo(conn.rs.getString(12));
-                thiSinhDTOs.add(dto);
+                ThiSinhDTO cp = new ThiSinhDTO();
+                cp.setMaThiSinh(conn.rs.getString(1));
+                cp.setHoTen(conn.rs.getString(2));
+                cp.setGioiTinh(conn.rs.getString(3));
+                cp.setNgaySinh(conn.rs.getString(4));
+                cp.setCmnd(conn.rs.getString(5));
+                cp.setNgayCap(conn.rs.getString(6));
+                cp.setNoiCap(conn.rs.getString(7));
+                cp.setSdt(conn.rs.getString(8));
+                cp.setMail(conn.rs.getString(9));
+                cp.setDiaChi(conn.rs.getString(10));
+                cp.setMaKhoaThi(conn.rs.getString(11));
+                cp.setMaTrinhDo(conn.rs.getString(12));
+                cp.setTinhTrang(conn.rs.getInt(13));
+                thiSinhDTOs.add(cp);
             }
         } catch (SQLException e) {
             System.out.println(e);
             System.out.println("ThiSinhDAO.getList.executeQuery error.");
         }
         try{
-        conn.getConn().close();
+            conn.getConn().close();
         }catch (SQLException e){
             System.out.println("ThiSinhDAO.getList.close error.");
         }
         return thiSinhDTOs;
     }
+    
+    public boolean insertThiSinh(ThiSinhDTO thiSinhDTO) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "INSERT INTO ThiSinh"
+                + " VALUES ('" + thiSinhDTO.getMaThiSinh()
+                + "',N'" + thiSinhDTO.getHoTen()
+                + "','" + thiSinhDTO.getGioiTinh()
+                + "','" + thiSinhDTO.getNgaySinh()
+                + "','" + thiSinhDTO.getCmnd()
+                + "','" + thiSinhDTO.getNgayCap()
+                + "','" + thiSinhDTO.getNoiCap()
+                + "','" + thiSinhDTO.getSdt()
+                + "','" + thiSinhDTO.getMail()
+                + "','" + thiSinhDTO.getDiaChi()
+                + "','" + thiSinhDTO.getMaKhoaThi()
+                + "','" + thiSinhDTO.getMaTrinhDo()
+                + "', 1);";
+        if (conn.executeUpdate(query)) {
+            conn.close();
+            System.out.println("ThiSinhDAO insert success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("ThiSinhDAO insert fail.");
+        return false;
+    }
+//
+//    public boolean updateKhoaThi(ThiSinhDTO khoaThiDTO) {
+//        conn = new Connect();
+//        conn.getConnection();
+//        String sql = "UPDATE KhoaThi SET"
+//                + " TenKhoaThi=N'" + khoaThiDTO.getTenKhoaThi()+ "',"
+//                + " NgayThi='" + khoaThiDTO.getNgayThi()+ "'"
+//                + " WHERE MaKhoaThi='" + khoaThiDTO.getMaKhoaThi()+ "';";
+//        if (conn.executeUpdate(sql)) {
+//            conn.close();
+//            System.out.println("KhoaThiDAO update success.");
+//            return true;
+//        }
+//        conn.close();
+//        System.out.println("KhoaThiDAO update fail.");
+//        return false;
+//    }
+//
+//    public boolean deleteKhoaThi(String maKhoaThi) {
+//        String sql = "update KhoaThi "
+//                + "set Status=0 "
+//                + "where MaKhoaThi='" + maKhoaThi + "'";
+//        conn = new Connect();
+//        conn.getConnection();
+//        if (conn.executeUpdate(sql)) {
+//            conn.close();
+//            System.out.println("KhoaThiDAO delete success.");
+//            return true;
+//        }
+//        conn.close();
+//        System.out.println("KhoaThiDAO delete fail.");
+//        return false;
+//    }
+
 }

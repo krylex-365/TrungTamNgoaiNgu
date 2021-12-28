@@ -6,6 +6,7 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import DTO.ThiSinhDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -46,6 +47,24 @@ public class PhieuBaoDuThi extends javax.swing.JFrame
         setLocationRelativeTo(null);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(true);
+    }
+    
+    public void fillTheForm(ThiSinhDTO thiSinh,String khoaThi,String trinhDo){
+        jTextMaTS.setText(thiSinh.getMaThiSinh());
+        jTextTenTS.setText(thiSinh.getHoTen());
+        jTextSDTTS.setText(thiSinh.getSdt());
+        jTextCMNDTS.setText(thiSinh.getCmnd());
+        jTextNgaySinhTS.setText(thiSinh.getNgaySinh());
+        jTextDiaChiTS.setText(thiSinh.getDiaChi());
+        jTextEmailTS.setText(thiSinh.getMail());
+        jTextKhoaThiTS.setText(khoaThi);
+        
+        jTextSBDTS.setText("");
+        jTextMaPhongTS.setText("");
+        jTextMaCaTS.setText("");
+        jTextNgayThiTS.setText("");
+        
+        jTextTrinhDo.setText(trinhDo);
     }
 
     /**

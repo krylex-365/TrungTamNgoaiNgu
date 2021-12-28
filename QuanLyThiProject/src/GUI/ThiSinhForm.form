@@ -136,7 +136,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableTSMouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Kh&#xf3;a Thi&quot;);&#xa;        tableCol.add (&quot;M&#xe3; Th&#xed; Sinh&quot;);&#xa;tableCol.add (&quot;H&#x1ecd; T&#xea;n Th&#xed; Sinh&quot;);&#xa;tableCol.add (&quot;Gi&#x1edb;i T&#xed;nh&quot;);&#xa;tableCol.add (&quot;Ng&#xe0;y Sinh&quot;);&#xa;        tableCol.add (&quot;N&#x1a1;i Sinh&quot;);&#xa;tableCol.add (&quot;S&#x110;T&quot;);&#xa;tableCol.add (&quot;&#x110;&#x1ecb;a Ch&#x1ec9;&quot;);&#xa;        tableCol.add (&quot;Email&quot;);&#xa;        tableCol.add (&quot;CMND&quot;);&#xa;         tableCol.add (&quot;Ng&#xe0;y C&#x1ea5;p&quot;);&#xa;         tableCol.add (&quot;N&#x1a1;i C&#x1ea5;p&quot;);&#xa;         tableCol.add (&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;        tableCol.add (&quot;T&#xec;nh Tr&#x1ea1;ng&quot;);&#xa;modelthisinh = new DefaultTableModel(tableCol, 20){&#xa;    @Override&#xa;public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableTS.setModel(modelthisinh);&#xa;jTableTS.setShowGrid(true);&#xa;        jTableTS.setFocusable(false);&#xa;        jTableTS.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableTS.setRowHeight(25);  &#xa;        jTableTS.getTableHeader().setOpaque(false);&#xa;        jTableTS.setFillsViewportHeight(true);&#xa;        jTableTS.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableTS.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableTS.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableTS.setSelectionBackground(new Color(52,152,219));&#xa;jTableTS.setGridColor(new java.awt.Color(83, 86, 88));&#xa;&#xa;jTableTS.getColumn (tableCol.elementAt (0)).setPreferredWidth (130);&#xa;        jTableTS.getColumn (tableCol.elementAt (1)).setPreferredWidth (130);&#xa;        jTableTS.getColumn (tableCol.elementAt (2)).setPreferredWidth (170);&#xa;        jTableTS.getColumn (tableCol.elementAt (3)).setPreferredWidth (100);&#xa;        jTableTS.getColumn (tableCol.elementAt (4)).setPreferredWidth (140);&#xa;        jTableTS.getColumn (tableCol.elementAt (5)).setPreferredWidth (150);&#xa; jTableTS.getColumn (tableCol.elementAt (6)).setPreferredWidth (170);&#xa; jTableTS.getColumn (tableCol.elementAt (7)).setPreferredWidth (170);&#xa; jTableTS.getColumn (tableCol.elementAt (8)).setPreferredWidth (170);&#xa;jTableTS.getColumn (tableCol.elementAt (9)).setPreferredWidth (170);&#xa;jTableTS.getColumn (tableCol.elementAt (10)).setPreferredWidth (140);&#xa;jTableTS.getColumn (tableCol.elementAt (11)).setPreferredWidth (160);&#xa;jTableTS.getColumn (tableCol.elementAt (12)).setPreferredWidth (110);&#xa;jTableTS.getColumn (tableCol.elementAt (13)).setPreferredWidth (130);&#xa;jTableTS.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Kh&#xf3;a Thi&quot;);&#xa;tableCol.add (&quot;M&#xe3; Th&#xed; Sinh&quot;);&#xa;tableCol.add (&quot;H&#x1ecd; T&#xea;n Th&#xed; Sinh&quot;);&#xa;tableCol.add (&quot;Gi&#x1edb;i T&#xed;nh&quot;);&#xa;tableCol.add (&quot;Ng&#xe0;y Sinh&quot;);&#xa;tableCol.add (&quot;S&#x110;T&quot;);&#xa;tableCol.add (&quot;&#x110;&#x1ecb;a Ch&#x1ec9;&quot;);&#xa;tableCol.add (&quot;Email&quot;);&#xa;tableCol.add (&quot;CMND&quot;);&#xa;tableCol.add (&quot;Ng&#xe0;y C&#x1ea5;p&quot;);&#xa;tableCol.add (&quot;N&#x1a1;i C&#x1ea5;p&quot;);&#xa;tableCol.add (&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add (&quot;T&#xec;nh Tr&#x1ea1;ng&quot;);&#xa;modelthisinh = new DefaultTableModel(tableCol, 20){&#xa;    @Override&#xa;public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableTS.setModel(modelthisinh);&#xa;jTableTS.setShowGrid(true);&#xa;        jTableTS.setFocusable(false);&#xa;        jTableTS.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableTS.setRowHeight(25);  &#xa;        jTableTS.getTableHeader().setOpaque(false);&#xa;        jTableTS.setFillsViewportHeight(true);&#xa;        jTableTS.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableTS.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableTS.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableTS.setSelectionBackground(new Color(52,152,219));&#xa;jTableTS.setGridColor(new java.awt.Color(83, 86, 88));&#xa;&#xa;jTableTS.getColumn (tableCol.elementAt (0)).setPreferredWidth (130);&#xa;        jTableTS.getColumn (tableCol.elementAt (1)).setPreferredWidth (130);&#xa;        jTableTS.getColumn (tableCol.elementAt (2)).setPreferredWidth (170);&#xa;        jTableTS.getColumn (tableCol.elementAt (3)).setPreferredWidth (100);&#xa;        jTableTS.getColumn (tableCol.elementAt (4)).setPreferredWidth (140);&#xa;        jTableTS.getColumn (tableCol.elementAt (5)).setPreferredWidth (150);&#xa; jTableTS.getColumn (tableCol.elementAt (6)).setPreferredWidth (170);&#xa; jTableTS.getColumn (tableCol.elementAt (7)).setPreferredWidth (170);&#xa;jTableTS.getColumn (tableCol.elementAt (8)).setPreferredWidth (170);&#xa;jTableTS.getColumn (tableCol.elementAt (9)).setPreferredWidth (140);&#xa;jTableTS.getColumn (tableCol.elementAt (10)).setPreferredWidth (160);&#xa;jTableTS.getColumn (tableCol.elementAt (11)).setPreferredWidth (110);&#xa;jTableTS.getColumn (tableCol.elementAt (12)).setPreferredWidth (130);&#xa;jTableTS.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -161,6 +161,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnReLoadActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="310" y="30" width="-1" height="30"/>
@@ -360,7 +363,7 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" pref="34" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" pref="36" max="32767" attributes="0"/>
                                           <Component id="jTextTenThiSinh" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
@@ -369,68 +372,62 @@
                                           <Component id="jCbGioiTinh" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jTextNoiSinh" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="jBtnTuyBien" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel16" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="jTextSDT" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jTextDiaChi" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jTextEmail" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel16" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                                      <Component id="jLabel12" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="37" pref="17" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jBtnHuy" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="jCbTinhTrang" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                                  <Component id="jTextSDT" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jDateNgayCap" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jTextNoiCap" min="-2" pref="180" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="jTextCMND" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jBtnHuy" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="54" pref="275" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jTextDiaChi" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jTextEmail" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel12" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jCbTinhTrang" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                                      <Component id="jDateNgayCap" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="jTextNoiCap" min="-2" pref="180" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="jTextCMND" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="234" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -477,17 +474,12 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextNoiSinh" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="jLabel28" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jCbTrinhDo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextSDT" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel17" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="jTextDiaChi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -512,25 +504,24 @@
                                       <Component id="jTextNoiCap" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="jLabel30" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jCbTinhTrang" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jCbTinhTrang" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jCbTrinhDo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jTextSDT" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel16" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jBtnTuyBien" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="jBtnHuy" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="45" max="32767" attributes="0"/>
+                          <EmptySpace pref="40" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -701,16 +692,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextCMND">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextNoiSinh">
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel28">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="14" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;N&#x1a1;i Sinh&lt;span style=&quot;color:rgb(216, 74, 67);&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt; "/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -720,19 +701,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jCbTinhTrang">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="2">
-                        <StringItem index="0" value="&#x110;&#xe3; &#x110;&#xf3;ng Ti&#x1ec1;n"/>
-                        <StringItem index="1" value="Ch&#x1b0;a &#x110;&#xf3;ng Ti&#x1ec1;n"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbTinhTrangActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TinhTrang&gt;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel8">
@@ -744,19 +717,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jCbKhoaThi">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="2">
-                        <StringItem index="0" value="Kh&#xf3;a 1"/>
-                        <StringItem index="1" value="Kh&#xf3;a 2"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbKhoaThiActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;KhoaThiDTO&gt;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
@@ -768,21 +733,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jCbTrinhDo">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="A1"/>
-                        <StringItem index="1" value="A2"/>
-                        <StringItem index="2" value="B1"/>
-                        <StringItem index="3" value="B2"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbTrinhDoActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TrinhDoDTO&gt;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel29">

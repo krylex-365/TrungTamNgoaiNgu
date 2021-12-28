@@ -47,8 +47,13 @@ public class KhoaThiDTO {
         this.ngayThi = ngayThi;
     }
 
+//    @Override
+//    public String toString() {
+//        return "KhoaThiDTO{" + "maKhoaThi=" + maKhoaThi + ", tenKhoaThi=" + tenKhoaThi + ", ngayThi=" + ngayThi + '}';
+//    }
+    
     @Override
     public String toString() {
-        return "KhoaThiDTO{" + "maKhoaThi=" + maKhoaThi + ", tenKhoaThi=" + tenKhoaThi + ", ngayThi=" + ngayThi + '}';
+        return tenKhoaThi;
     }
 }

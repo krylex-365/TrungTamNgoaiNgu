@@ -4,10 +4,33 @@
  */
 package BUS;
 
+import DAO.MaDuLieuCuoiDAO;
+import DAO.ThiSinhDAO;
+import DTO.ThiSinhDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class ThiSinhBUS {
+    private Utils utl = new Utils();
+    private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
+    ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
     
+    
+    public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
+        if(thiSinhDAO.insertThiSinh(thiSinh)){
+            thiSinhDTOS.add(thiSinh);
+            maLast.updateMaThiSinh(thiSinh.getMaThiSinh());
+            System.out.println("ThiSinhBUS.Add success");
+            return true;
+        }
+        System.out.println("ThiSinhBUS.Add fail");
+        return false;
+    }
+    
+    public String capPhat (){
+        return utl.initMaThiSinh();
+    }
 }

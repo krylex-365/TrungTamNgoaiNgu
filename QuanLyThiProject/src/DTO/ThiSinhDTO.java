@@ -22,12 +22,12 @@ public class ThiSinhDTO {
     private String diaChi;
     private String maKhoaThi;
     private String maTrinhDo;
-    private String tinhTrang;
+    private int tinhTrang;
 
     public ThiSinhDTO() {
     }
 
-    public ThiSinhDTO(String maThiSinh, String hoTen, String gioiTinh, String ngaySinh, String cmnd, String ngayCap, String noiCap, String sdt, String mail, String diaChi, String maKhoaThi, String maTrinhDo, String tinhTrang) {
+    public ThiSinhDTO(String maThiSinh, String hoTen, String gioiTinh, String ngaySinh, String cmnd, String ngayCap, String noiCap, String sdt, String mail, String diaChi, String maKhoaThi, String maTrinhDo, int tinhTrang) {
         this.maThiSinh = maThiSinh;
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
@@ -139,11 +139,11 @@ public class ThiSinhDTO {
         this.maTrinhDo = maTrinhDo;
     }
 
-    public String getTinhTrang() {
+    public int getTinhTrang() {
         return tinhTrang;
     }
 
-    public void setTinhTrang(String tinhTrang) {
+    public void setTinhTrang(int tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
 
