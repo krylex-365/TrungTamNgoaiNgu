@@ -8,6 +8,8 @@ package GUI;
 //import DAO.*;
 //import DTO.*;
 
+import DAO.*;
+import DTO.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
@@ -36,6 +38,24 @@ public class DashBoard extends javax.swing.JFrame
     TrinhDoForm trinhDoForm;
     CaThiForm caThiForm;
     KetQuaForm ketQuaForm;
+    KhoaThiDAO khoaThiDAO;
+    public static ArrayList<KhoaThiDTO> khoaThiDTOs;
+    TrinhDoDAO trinhDoDAO;
+    public static ArrayList<TrinhDoDTO> trinhDoDTOs;
+    PhongThiDAO phongThiDAO;
+    public static ArrayList<PhongThiDTO> phongThiDTOs;
+    CaThiDAO caThiDAO;
+    public static ArrayList<CaThiDTO> caThiDTOs;
+    GiaoVienDAO giaoVienDAO;
+    public static ArrayList<GiaoVienDTO> giaoVienDTOs;
+    ThiSinhDAO thiSinhDAO;
+    public static ArrayList<ThiSinhDTO> thiSinhDTOs;
+    PhanCongDAO phanCongDAO;
+    public static ArrayList<PhanCongDTO> phanCongDTOs;
+    PhieuBaoDuThiDAO phieuBaoDuThiDAO;
+    public static ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs;
+    KetQuaThiDAO ketQuaThiDAO;
+    public static ArrayList<KetQuaThiDTO> ketQuaThiDTOs;
 
     /**
      * Creates new form DashBoard
@@ -49,6 +69,15 @@ public class DashBoard extends javax.swing.JFrame
         trinhDoForm = new TrinhDoForm();
         caThiForm = new CaThiForm();
         ketQuaForm = new KetQuaForm();
+        khoaThiDAO = new KhoaThiDAO();
+        trinhDoDAO = new TrinhDoDAO();
+        phongThiDAO = new PhongThiDAO();
+        caThiDAO = new CaThiDAO();
+        giaoVienDAO = new GiaoVienDAO();
+        thiSinhDAO = new ThiSinhDAO();
+        phanCongDAO = new PhanCongDAO();
+        phieuBaoDuThiDAO = new PhieuBaoDuThiDAO();
+        ketQuaThiDAO = new KetQuaThiDAO();
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
@@ -963,7 +992,8 @@ public class DashBoard extends javax.swing.JFrame
     }//GEN-LAST:event_khoathiLabelMouseEntered
 
     private void khoathiLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_khoathiLabelMouseClicked
-
+        khoaThiDTOs = khoaThiDAO.getList();
+        khoaThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(true);

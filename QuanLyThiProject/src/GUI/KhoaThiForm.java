@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import BUS.KhoaThiBUS;
+import DTO.KhoaThiDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,20 +34,17 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class KhoaThiForm extends javax.swing.JPanel
-{
+public class KhoaThiForm extends javax.swing.JPanel {
 
     DefaultTableModel tbModelKhoaThi, tbModelTKKT;
-    int rowTbl;
-    private int rowChiPhi;
-    private String maLoaiChiPhi;
-    private String tenLoaiChiPhi;
+    private int rowKhoaThi;
+    private KhoaThiDTO khoaThiSelected = new KhoaThiDTO();
+    KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
 
     /**
      * Creates new form jPanel2
      */
-    public KhoaThiForm()
-    {
+    public KhoaThiForm() {
         initComponents();
         jBtnCapPhatMaKT.setEnabled(true);
         jBtnThemKT.setEnabled(false);
@@ -55,6 +54,42 @@ public class KhoaThiForm extends javax.swing.JPanel
         tbModelTKKT.setRowCount(0);
     }
 
+    public void initTable() {
+        tbModelKhoaThi.setRowCount(0);
+        tableModel(tbModelKhoaThi);
+        jTableKhoaThi.setRowSorter(null);
+        jTableKhoaThi.setAutoCreateRowSorter(true);
+        jTableKhoaThi.setModel(tbModelKhoaThi);
+        jTableKhoaThi.clearSelection();
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (KhoaThiDTO khoaThi : DashBoard.khoaThiDTOs) {
+            Vector row = new Vector();
+            row.add(khoaThi.getMaKhoaThi());
+            row.add(khoaThi.getTenKhoaThi());
+            row.add(khoaThi.getNgayThi());
+            model.addRow(row);
+        }
+    }
+
+    public void themVector(DefaultTableModel model, KhoaThiDTO khoaThiDTO) {
+        Vector newrow = new Vector();
+        newrow.add(khoaThiDTO.getMaKhoaThi());
+        newrow.add(khoaThiDTO.getTenKhoaThi());
+        newrow.add(khoaThiDTO.getNgayThi());
+        model.addRow(newrow);
+    }
+
+    public void suaVector(DefaultTableModel model, int row, KhoaThiDTO khoaThiDTO) {
+        model.setValueAt(khoaThiDTO.getTenKhoaThi(), row, 1);
+        model.setValueAt(khoaThiDTO.getNgayThi(), row, 2);
+    }
+
+    public void xoaVector(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,8 +97,7 @@ public class KhoaThiForm extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelKhoaThi = new javax.swing.JPanel();
@@ -122,10 +156,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnCapPhatMaKT.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaKT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnCapPhatMaKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnCapPhatMaKT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnCapPhatMaKT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCapPhatMaKTActionPerformed(evt);
             }
         });
@@ -134,10 +166,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnThemKT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemKT.setText("Thêm");
         jBtnThemKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemKT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemKT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemKTActionPerformed(evt);
             }
         });
@@ -146,10 +176,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnSuaKT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaKT.setText("Sửa");
         jBtnSuaKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaKT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaKT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaKTActionPerformed(evt);
             }
         });
@@ -158,10 +186,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnXoaKT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaKT.setText("Xóa");
         jBtnXoaKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaKT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaKT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaKTActionPerformed(evt);
             }
         });
@@ -170,10 +196,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyActionPerformed(evt);
             }
         });
@@ -259,11 +283,9 @@ public class KhoaThiForm extends javax.swing.JPanel
         tableCol.add("Tên Khóa Thi");
         tableCol.add("Ngày Thi");
 
-        tbModelKhoaThi = new DefaultTableModel (tableCol,5)
-        {
+        tbModelKhoaThi = new DefaultTableModel (tableCol,5){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -278,12 +300,11 @@ public class KhoaThiForm extends javax.swing.JPanel
         jTableKhoaThi.getTableHeader().setForeground(new Color(141, 22, 22));
         jTableKhoaThi.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableKhoaThi.setSelectionBackground(new Color(52,152,219));
+        jTableKhoaThi.setAutoCreateRowSorter(true);
         jTableKhoaThi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableKhoaThi.setGridColor(new java.awt.Color(83, 86, 88));
-        jTableKhoaThi.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableKhoaThi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableKhoaThiMouseClicked(evt);
             }
         });
@@ -301,10 +322,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jPanelKhoaThi.add(jTextTimKiemKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 30));
 
         jBtnTimKiemKT.setText("Tìm kiếm");
-        jBtnTimKiemKT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnTimKiemKT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTimKiemKTActionPerformed(evt);
             }
         });
@@ -315,10 +334,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefreshActionPerformed(evt);
             }
         });
@@ -332,10 +349,8 @@ public class KhoaThiForm extends javax.swing.JPanel
 
         jButtonThongKe.setText("Thống Kê");
         jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonThongKe.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonThongKeActionPerformed(evt);
             }
         });
@@ -347,19 +362,15 @@ public class KhoaThiForm extends javax.swing.JPanel
 
         Vector tbColThongKe=new Vector();
         jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
-        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableThongkeMouseClicked(evt);
             }
         });
@@ -370,11 +381,9 @@ public class KhoaThiForm extends javax.swing.JPanel
         tbColThongKe.add ("Ngày Đi");
         tbColThongKe.add ("Ngày Về");
         tbColThongKe.add ("Tổng Chi Phí");
-        tbModelTKKT = new DefaultTableModel(tbColThongKe, 0)
-        {
+        tbModelTKKT = new DefaultTableModel(tbColThongKe, 0){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -432,17 +441,26 @@ public class KhoaThiForm extends javax.swing.JPanel
 
     private void jBtnCapPhatMaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaKTActionPerformed
         // TODO add your handling code here:
+        jTextMaKT.setText(khoaThiBUS.capPhat());
         jBtnCapPhatMaKT.setEnabled(false);
         jBtnThemKT.setEnabled(true);
         jBtnSuaKT.setEnabled(false);
         jBtnXoaKT.setEnabled(false);
         jBtnHuy.setEnabled(true);
-
     }//GEN-LAST:event_jBtnCapPhatMaKTActionPerformed
 
     private void jBtnThemKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemKTActionPerformed
         // TODO add your handling code here:
-
+        String maKhoaThi = (String) jTextMaKT.getText(),
+                tenKhoaThi = (String) jTextTenKT.getText(),
+                ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
+        KhoaThiDTO khoaThiDTO = new KhoaThiDTO(maKhoaThi, tenKhoaThi, ngayThi);
+        if (khoaThiBUS.them(khoaThiDTO, DashBoard.khoaThiDTOs)) {
+            themVector(tbModelKhoaThi, khoaThiDTO);
+            JOptionPane.showMessageDialog(this, "Thêm khóa thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm khóa thi thất bại!");
+        }
         jBtnCapPhatMaKT.setEnabled(true);
         jBtnThemKT.setEnabled(false);
         jBtnSuaKT.setEnabled(false);
@@ -457,7 +475,15 @@ public class KhoaThiForm extends javax.swing.JPanel
 
     private void jBtnSuaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaKTActionPerformed
         // TODO add your handling code here:
-
+        String tenKhoaThi = (String) jTextTenKT.getText(),
+                ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
+        KhoaThiDTO khoaThiDTO = new KhoaThiDTO(khoaThiSelected.getMaKhoaThi(), tenKhoaThi, ngayThi);
+        if (khoaThiBUS.sua(khoaThiDTO, DashBoard.khoaThiDTOs)) {
+            suaVector(tbModelKhoaThi, rowKhoaThi, khoaThiDTO);
+            JOptionPane.showMessageDialog(this, "Sửa khóa thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa khóa thi thất bại!");
+        }
         jBtnCapPhatMaKT.setEnabled(true);
         jBtnThemKT.setEnabled(false);
         jBtnSuaKT.setEnabled(false);
@@ -471,8 +497,12 @@ public class KhoaThiForm extends javax.swing.JPanel
 
     private void jBtnXoaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaKTActionPerformed
         // TODO add your handling code here:
-
-
+        if (khoaThiBUS.xoa(khoaThiSelected, DashBoard.khoaThiDTOs)) {
+            xoaVector(tbModelKhoaThi, rowKhoaThi);
+            JOptionPane.showMessageDialog(this, "Xóa khóa thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa khóa thi thất bại!");
+        }
         jBtnCapPhatMaKT.setEnabled(true);
         jBtnThemKT.setEnabled(false);
         jBtnSuaKT.setEnabled(false);
@@ -484,10 +514,8 @@ public class KhoaThiForm extends javax.swing.JPanel
         jTableKhoaThi.clearSelection();
     }//GEN-LAST:event_jBtnXoaKTActionPerformed
 
-    private boolean isNullOrEmpty(String text)
-    {
-        if (text == null || text.equals(""))
-        {
+    private boolean isNullOrEmpty(String text) {
+        if (text == null || text.equals("")) {
             return true;
         }
         return false;
@@ -535,22 +563,26 @@ public class KhoaThiForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jBtnTimKiemKTActionPerformed
         // TODO add your handling code here:
         //Tìm kiếm = mã hoặc like tên
-        timKiem(tbModelKhoaThi, jTableKhoaThi, jTextTimKiemKT.getText());
     }//GEN-LAST:event_jBtnTimKiemKTActionPerformed
 
     private void jTableKhoaThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhoaThiMouseClicked
     {//GEN-HEADEREND:event_jTableKhoaThiMouseClicked
         // TODO add your handling code here:
-        rowChiPhi = jTableKhoaThi.getSelectedRow();
-        if (rowChiPhi != -1)
-        {
-            //            maLoaiChiPhi = (String) jTableTrinhDo.getModel().getValueAt(rowChiPhi, 0);
-//            tenLoaiChiPhi = (String) jTableTrinhDo.getModel().getValueAt(rowChiPhi, 1);
-//            if (!maLoaiChiPhi.equals("null"))
-//            {
-//                jTextMaTD.setText(maLoaiChiPhi);
-//                jTextTenTD.setText(tenLoaiChiPhi);
-//            }
+        rowKhoaThi = jTableKhoaThi.getSelectedRow();
+        if (rowKhoaThi != -1) {
+            khoaThiSelected.setMaKhoaThi((String) jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 0));
+            khoaThiSelected.setTenKhoaThi((String) jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 1));
+            jTextMaKT.setText(khoaThiSelected.getMaKhoaThi());
+            jTextTenKT.setText(khoaThiSelected.getTenKhoaThi());
+            try {
+                String ngayThi = jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 2).toString();
+                khoaThiSelected.setNgayThi(ngayThi);
+                Date dateThi = new SimpleDateFormat("yyyy-MM-dd").parse(ngayThi);
+                jDateNgayThi.setDate(dateThi);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+                System.out.println("- Load sai ngày thi!");
+            }
         }
         jBtnCapPhatMaKT.setEnabled(false);
         jBtnThemKT.setEnabled(false);
@@ -558,17 +590,6 @@ public class KhoaThiForm extends javax.swing.JPanel
         jBtnXoaKT.setEnabled(true);
         jBtnHuy.setEnabled(true);
     }//GEN-LAST:event_jTableKhoaThiMouseClicked
-
-    public void xoaLoaiChiPhi(DefaultTableModel model, int row)
-    {
-        model.removeRow(row);
-    }
-
-    public void timKiem(DefaultTableModel model, JTable jTable, String value)
-    {
-        model.setRowCount(0);
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaKT;

@@ -43,10 +43,8 @@ create table GiaoVien(
 	MaGiaoVien nvarchar(20) primary key,
 	HoTen nvarchar(50),
 	GioiTinh nvarchar(20),
-	NgaySinh date,
 	Sdt nvarchar(20),
 	Mail nvarchar(40),
-	DiaChi nvarchar(50),
 	Status int default 1
 );
 
@@ -156,11 +154,11 @@ values ('CA000001','07:00:00','10:00:00',1),
 ('CA000004','14:00:00','17:00:00',1);
 
 insert into GiaoVien
-values ('GV000001','Nguyen A','1','1972-11-17','0909090909','A@mail.com','123/ABC',1),
-('GV000002','Tran B','1','1980-07-20','0909090909','B@mail.com','456/DEF',1),
-('GV000003','Le C','0','1974-12-04','0909090909','C@mail.com','789/GHI',1),
-('GV000004','Thai D','1','1976-02-21','0909090909','D@mail.com','123/JKL',1),
-('GV000005','Phung E','0','1969-06-09','0909090909','E@mail.com','456/MNO',1);
+values ('GV000001','Nguyen A','1','0909090909','A@mail.com',1),
+('GV000002','Tran B','1','0909090909','B@mail.com',1),
+('GV000003','Le C','0','0909090909','C@mail.com',1),
+('GV000004','Thai D','1','0909090909','D@mail.com',1),
+('GV000005','Phung E','0','0909090909','E@mail.com',1);
 
 insert into PhanCong
 values ('PG000001','CA000001','GV000001','Canh thi',1),
