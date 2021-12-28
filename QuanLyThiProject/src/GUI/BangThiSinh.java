@@ -325,6 +325,7 @@ public class BangThiSinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jBtnQuayLaiActionPerformed
         jTextMaTS.setText("");
         jTextTenTS.setText("");
+        phongThiForm.getjBtnThemTSPT().setEnabled(true);
         dispose();
 //        jTextTennv.setText("");
 //        jTextPban.setText("");
@@ -352,7 +353,7 @@ public class BangThiSinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
         if (jTableThiSinh.getSelectionModel().isSelectionEmpty())
         {
-            System.out.println("Empty!!");
+            JOptionPane.showMessageDialog(this, "Empty!!");
         } else
         {
 
@@ -369,7 +370,8 @@ public class BangThiSinh extends javax.swing.JFrame
 
         }
 
-//        dispose();
+        dispose();
+        phongThiForm.getjBtnThemTSPT().setEnabled(true);
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableThiSinhMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThiSinhMouseClicked

@@ -844,77 +844,47 @@ public class ThiSinhForm extends javax.swing.JPanel
 
         if (!jBtnThemTS1.isEnabled()) // Ch?c nang cho them
         {
-            jBtnCapPhatMaTS.setEnabled(true);
-            jBtnTuyBien.setEnabled(false);
-            jBtnHuy.setEnabled(true);
-            jBtnXoaTS1.setEnabled(false);
-            jBtnTaoPhieu.setEnabled(false);
-            jBtnCancel1.setEnabled(false);
-            jBtnThemTS1.setEnabled(true);
-
-            jTextMaThiSinh.setText("");
-            jTextTenThiSinh.setText("");
-            jTextSDT.setText("");
-            jTextDiaChi.setText("");
-            jTextNoiSinh.setText("");
-            jDateNgaySinh.setCalendar(null);
-            jTextEmail.setText("");
-            jTextCMND.setText("");
-            jTextNoiCap.setText("");
-            jDateNgayCap.setCalendar(null);
-            jTableTS.clearSelection();
             JOptionPane.showMessageDialog(this, "Thêm Thông tin thành Công!!");
+            clear();
 
-            jTabbedPane1.setEnabledAt(0, true);
-            jTabbedPane1.setSelectedIndex(0);
-            jTabbedPane1.remove(jPanelTS);
         } else // Ch?c nang cho Sửa
         {
-            jBtnCapPhatMaTS.setEnabled(true);
-            jBtnTuyBien.setEnabled(false);
-            jBtnHuy.setEnabled(true);
-            jBtnXoaTS1.setEnabled(false);
-            jBtnTaoPhieu.setEnabled(false);
-            jBtnCancel1.setEnabled(false);
-            jBtnThemTS1.setEnabled(true);
 
-            jTextMaThiSinh.setText("");
-            jTextTenThiSinh.setText("");
-            jTextSDT.setText("");
-            jTextDiaChi.setText("");
-            jTextNoiSinh.setText("");
-            jDateNgaySinh.setCalendar(null);
-            jTextEmail.setText("");
-            jTextCMND.setText("");
-            jTextNoiCap.setText("");
-            jDateNgayCap.setCalendar(null);
-            jTableTS.clearSelection();
             JOptionPane.showMessageDialog(this, "Sửa Thông tin thành Công!!");
-
-            jTabbedPane1.setEnabledAt(0, true);
-            jTabbedPane1.setSelectedIndex(0);
-            jTabbedPane1.remove(jPanelTS);
+            clear();
         }
 
     }//GEN-LAST:event_jBtnTuyBienActionPerformed
 
-    private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
+    public void clear()
+    {
         jBtnCapPhatMaTS.setEnabled(true);
         jBtnTuyBien.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jBtnThemTS1.setEnabled(true);
+        jBtnHuy.setEnabled(true);
         jBtnXoaTS1.setEnabled(false);
-        jBtnCancel1.setEnabled(false);
         jBtnTaoPhieu.setEnabled(false);
+        jBtnCancel1.setEnabled(false);
+        jBtnThemTS1.setEnabled(true);
+
         jTextMaThiSinh.setText("");
         jTextTenThiSinh.setText("");
         jTextSDT.setText("");
         jTextDiaChi.setText("");
+        jTextNoiSinh.setText("");
         jDateNgaySinh.setCalendar(null);
+        jTextEmail.setText("");
+        jTextCMND.setText("");
+        jTextNoiCap.setText("");
+        jDateNgayCap.setCalendar(null);
         jTableTS.clearSelection();
+
         jTabbedPane1.setEnabledAt(0, true);
         jTabbedPane1.setSelectedIndex(0);
         jTabbedPane1.remove(jPanelTS);
+    }
+
+    private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
+       clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jCbGioiTinhActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbGioiTinhActionPerformed
@@ -988,6 +958,7 @@ public class ThiSinhForm extends javax.swing.JPanel
             jBtnTuyBien.setText("Sửa");
             jBtnTuyBien.setEnabled(true);
             jBtnHuy.setEnabled(true);
+            jBtnCapPhatMaTS.setEnabled(false);
         } else
         {
             jBtnXoaTS1.setEnabled(true);
@@ -1146,7 +1117,7 @@ public class ThiSinhForm extends javax.swing.JPanel
     {
         return jBtnXoaTS1;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancel1;
