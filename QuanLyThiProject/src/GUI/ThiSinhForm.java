@@ -51,8 +51,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class ThiSinhForm extends javax.swing.JPanel
-{
+public class ThiSinhForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
@@ -75,18 +74,18 @@ public class ThiSinhForm extends javax.swing.JPanel
         jTableTS.setModel(modelthisinh);
         jTableTS.clearSelection();
     }
-    
-    public void tableModel(TableModel model){
+
+    public void tableModel(TableModel model) {
         Vector row = null;
-        
-        for(ThiSinhDTO thisinh: DashBoard.thiSinhDTOs){
+
+        for (ThiSinhDTO thisinh : DashBoard.thiSinhDTOs) {
             row = new Vector();
             row.add(thisinh.getMaKhoaThi());
             row.add(thisinh.getMaThiSinh());
             row.add(thisinh.getHoTen());
-            if(thisinh.getGioiTinh().equals("1")){
+            if (thisinh.getGioiTinh().equals("1")) {
                 row.add("Nam");
-            }else{
+            } else {
                 row.add("Nữ");
             }
             row.add(thisinh.getNgaySinh());
@@ -96,25 +95,24 @@ public class ThiSinhForm extends javax.swing.JPanel
             row.add(thisinh.getCmnd());
             row.add(thisinh.getNgayCap());
             row.add(thisinh.getNoiCap());
-            
+
             // bỏ tên trình độ vào đây
             row.add(thisinh.getMaTrinhDo());
 
             row.add(thisinh.getTinhTrang());
             modelthisinh.addRow(row);
-            
+
         }
     }
-    
-    public ThiSinhForm()
-    {
+
+    public ThiSinhForm() {
         thiSinhBUS = new ThiSinhBUS();
-        
+
         initComponents();
-        
-        jCbTinhTrang.addItem(new TinhTrang("Đã đóng tiền",1));
-        jCbTinhTrang.addItem(new TinhTrang("Chưa đóng tiền",0));
-        
+
+        jCbTinhTrang.addItem(new TinhTrang("Đã đóng tiền", 1));
+        jCbTinhTrang.addItem(new TinhTrang("Chưa đóng tiền", 0));
+
         jBtnCapPhatMaTS.setEnabled(true);
         jBtnTuyBien.setEnabled(false);
 //        jBtnSuaTS1212.setEnabled(false);
@@ -247,6 +245,10 @@ public class ThiSinhForm extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu = new javax.swing.JPopupMenu();
+        jMenuItemChuaDong = new javax.swing.JMenuItem();
+        jMenuItemDaDong = new javax.swing.JMenuItem();
+        jMenuItemDaThi = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelQLTS = new javax.swing.JPanel();
         jTextTimKiemTS = new javax.swing.JTextField();
@@ -298,6 +300,30 @@ public class ThiSinhForm extends javax.swing.JPanel
         jDateNgayBDTK = new com.toedter.calendar.JDateChooser();
         jLabel27 = new javax.swing.JLabel();
         jDateNgayKTTK = new com.toedter.calendar.JDateChooser();
+
+        jMenuItemChuaDong.setText("Chưa đóng tiền");
+        jMenuItemChuaDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemChuaDongActionPerformed(evt);
+            }
+        });
+        jPopupMenu.add(jMenuItemChuaDong);
+
+        jMenuItemDaDong.setText("Đã đóng tiền");
+        jMenuItemDaDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDaDongActionPerformed(evt);
+            }
+        });
+        jPopupMenu.add(jMenuItemDaDong);
+
+        jMenuItemDaThi.setText("Đã thi");
+        jMenuItemDaThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDaThiActionPerformed(evt);
+            }
+        });
+        jPopupMenu.add(jMenuItemDaThi);
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -826,8 +852,7 @@ public class ThiSinhForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jBtnCapPhatMaTSActionPerformed
         // TODO add your handling code here:
         jTextMaThiSinh.setText(thiSinhBUS.capPhat());
-        
-        
+
         jBtnCapPhatMaTS.setEnabled(false);
         jBtnTuyBien.setEnabled(true);
         jBtnHuy.setEnabled(true);
@@ -843,18 +868,18 @@ public class ThiSinhForm extends javax.swing.JPanel
         {
             String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
             String ngayCap = (String) ((JTextField) jDateNgayCap.getDateEditor().getUiComponent()).getText();
-            
+
             ThiSinhDTO thiSinh = new ThiSinhDTO();
             thiSinh.setMaThiSinh(jTextMaThiSinh.getText());
             thiSinh.setHoTen(jTextTenThiSinh.getText());
-            if(jCbGioiTinh.getSelectedItem().equals("Nam")){
-                 thiSinh.setGioiTinh("1");
-            }else{
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+                thiSinh.setGioiTinh("1");
+            } else {
                 thiSinh.setGioiTinh("0");
             }
-           
+
             thiSinh.setNgaySinh(ngaySinh);
-            
+
             TrinhDoDTO trinhDo = (TrinhDoDTO) jCbTrinhDo.getSelectedItem();
             //thiSinh.setMaTrinhDo(trinhDo.getMaTrinhDo());
             thiSinh.setMaTrinhDo("TD000001");
@@ -864,22 +889,17 @@ public class ThiSinhForm extends javax.swing.JPanel
             thiSinh.setCmnd(jTextCMND.getText());
             thiSinh.setNgayCap(ngayCap);
             thiSinh.setNoiCap(jTextNoiCap.getText());
-            
+
             TinhTrang tinhTrang = (TinhTrang) jCbTinhTrang.getSelectedItem();
             thiSinh.setTinhTrang(tinhTrang.num);
-            
-            
-            
+
             KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
             thiSinh.setMaKhoaThi(khoaThiTemp.getMaKhoaThi());
-            
-            if(thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)){
+
+            if (thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)) {
                 JOptionPane.showMessageDialog(this, "Thêm Thông tin thành Công!!");
             }
-            
-            
-            
-            
+
             clear();
 
         } else // Ch?c nang cho Sửa
@@ -891,8 +911,7 @@ public class ThiSinhForm extends javax.swing.JPanel
 
     }//GEN-LAST:event_jBtnTuyBienActionPerformed
 
-    public void clear()
-    {
+    public void clear() {
         jBtnCapPhatMaTS.setEnabled(true);
         jBtnTuyBien.setEnabled(false);
         jBtnHuy.setEnabled(true);
@@ -918,7 +937,7 @@ public class ThiSinhForm extends javax.swing.JPanel
     }
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
-       clear();
+        clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jCbGioiTinhActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbGioiTinhActionPerformed
@@ -930,8 +949,7 @@ public class ThiSinhForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
         // TODO add your handling code here:
         modelThongKe.setRowCount(0);
-        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null)
-        {
+        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu và Ngày Kết Thúc không được bỏ trống!");
             return;
         }
@@ -976,14 +994,12 @@ public class ThiSinhForm extends javax.swing.JPanel
     private void jTableTSMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableTSMouseClicked
     {//GEN-HEADEREND:event_jTableTSMouseClicked
         // TODO add your handling code here:
-        if (evt.getClickCount() >= 2)
-        {
+        if (evt.getClickCount() >= 2) {
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
             selectedRow = tempJTable.getSelectedRow();
-            if (row != -1)
-            {
-                
+            if (row != -1) {
+
                 System.out.println("Rơ ch?n : " + row);
                 jTabbedPane1.add(jPanelTS, 1);
                 jTabbedPane1.setTitleAt(1, "Quản Lý Thí Sinh");
@@ -995,11 +1011,19 @@ public class ThiSinhForm extends javax.swing.JPanel
             jBtnTuyBien.setEnabled(true);
             jBtnHuy.setEnabled(true);
             jBtnCapPhatMaTS.setEnabled(false);
-        } else
-        {
-            jBtnXoaTS1.setEnabled(true);
-            jBtnTaoPhieu.setEnabled(true);
-            jBtnCancel1.setEnabled(true);
+        } else {
+            JTable tempJTable = (JTable) evt.getSource();
+            int row = tempJTable.getSelectedRow();
+            if (row != -1) {
+                jBtnXoaTS1.setEnabled(true);
+                jBtnTaoPhieu.setEnabled(true);
+                jBtnCancel1.setEnabled(true);
+                if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+//                    JOptionPane.showMessageDialog(this, "button1");
+                    jPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+
         }
 
     }//GEN-LAST:event_jTableTSMouseClicked
@@ -1020,28 +1044,23 @@ public class ThiSinhForm extends javax.swing.JPanel
 
     }//GEN-LAST:event_jBtnCancel1MouseClicked
 
-    
+
     private void jBtnThemTS1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemTS1ActionPerformed
     {//GEN-HEADEREND:event_jBtnThemTS1ActionPerformed
         // TODO add your handling code here:
         JComboBox<KhoaThiDTO> jComboBoxKT = new JComboBox<KhoaThiDTO>();
         jCbKhoaThi.removeAllItems();
         jCbTrinhDo.removeAllItems();
-        for(KhoaThiDTO kt: DashBoard.khoaThiDTOs){
+        for (KhoaThiDTO kt : DashBoard.khoaThiDTOs) {
             jCbKhoaThi.addItem(kt);
             //jComboBoxKT.addItem(kt);
         }
-        
+
         //Phần trình độ xong thì bỏ //
 //        for(TrinhDoDTO td: DashBoard.trinhDoDTOs){
 //            jCbTrinhDo.addItem(td);
 //            //jComboBoxKT.addItem(kt);
 //        }
-
-
-        
-        
-        
         jBtnThemTS1.setEnabled(false);
         jTabbedPane1.add(jPanelTS, 1);
         jTabbedPane1.setTitleAt(1, "Quản Lý Thí Sinh");
@@ -1067,7 +1086,7 @@ public class ThiSinhForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jBtnTaoPhieuActionPerformed
         // TODO add your handling code here:
         modelthisinh.getValueAt(selectedRow, 0);
-        
+
         PhieuBaoDuThi pbdt = new PhieuBaoDuThi();
         pbdt.thiSinhForm = this;
     }//GEN-LAST:event_jBtnTaoPhieuActionPerformed
@@ -1077,47 +1096,87 @@ public class ThiSinhForm extends javax.swing.JPanel
         initTable();
     }//GEN-LAST:event_jBtnReLoadActionPerformed
 
+    private void jMenuItemChuaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChuaDongActionPerformed
+        // TODO add your handling code here:
+        if (jTableTS.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Empty!!");
+        } else {
+//            System.out.println(jTableTS.getSelectedRowCount());
+            ArrayList<String> a = new ArrayList<>();
+            for (int i = 0; i < jTableTS.getRowCount(); i++) {
+                if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
+                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
+                }
+            }
+            System.out.println("List dc chon!!" + a);
+        }
+    }//GEN-LAST:event_jMenuItemChuaDongActionPerformed
+
+    private void jMenuItemDaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDaDongActionPerformed
+        // TODO add your handling code here:
+        if (jTableTS.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Empty!!");
+        } else {
+//            System.out.println(jTableTS.getSelectedRowCount());
+            ArrayList<String> a = new ArrayList<>();
+            for (int i = 0; i < jTableTS.getRowCount(); i++) {
+                if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
+                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
+                }
+            }
+            System.out.println("List dc chon!!" + a);
+        }
+    }//GEN-LAST:event_jMenuItemDaDongActionPerformed
+
+    private void jMenuItemDaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDaThiActionPerformed
+        // TODO add your handling code here:
+        if (jTableTS.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Empty!!");
+        } else {
+//            System.out.println(jTableTS.getSelectedRowCount());
+            ArrayList<String> a = new ArrayList<>();
+            for (int i = 0; i < jTableTS.getRowCount(); i++) {
+                if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
+                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
+                }
+            }
+            System.out.println("List dc chon!!" + a);
+        }
+    }//GEN-LAST:event_jMenuItemDaThiActionPerformed
+
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
 
-    public JPanel getjPanel1()
-    {
+    public JPanel getjPanel1() {
         return jPanelTS;
     }
 
-    public JTextField getjTextManv()
-    {
+    public JTextField getjTextManv() {
         return jTextMaThiSinh;
     }
 
-    public DefaultTableModel getModelnv()
-    {
+    public DefaultTableModel getModelnv() {
         return modelthisinh;
     }
 
-    public JButton getjBtnCapPhatMaNV()
-    {
+    public JButton getjBtnCapPhatMaNV() {
         return jBtnCapPhatMaTS;
     }
 
-    public int getFlagAcc()
-    {
+    public int getFlagAcc() {
         return flagAcc;
     }
 
-    public void setFlagAcc(int flagAcc)
-    {
+    public void setFlagAcc(int flagAcc) {
         this.flagAcc = flagAcc;
     }
 
-    public String getManv()
-    {
+    public String getManv() {
         return manv;
     }
 
-    public void setManv(String manv)
-    {
+    public void setManv(String manv) {
         this.manv = manv;
     }
 
@@ -1130,65 +1189,56 @@ public class ThiSinhForm extends javax.swing.JPanel
 //    {
 //        this.jBtnRefresh = jBtnRefresh;
 //    }
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
-    public JTextField getjTextTimKiemNV()
-    {
+    public JTextField getjTextTimKiemNV() {
         return jTextTimKiemTS;
     }
 
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV)
-    {
+    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
         this.jTextTimKiemTS = jTextTimKiemNV;
     }
 
-    public JButton getjButtonTimKiem()
-    {
+    public JButton getjButtonTimKiem() {
         return jButtonTimKiem;
     }
 
-    public void setjButtonTimKiem(JButton jButtonTimKiem)
-    {
+    public void setjButtonTimKiem(JButton jButtonTimKiem) {
         this.jButtonTimKiem = jButtonTimKiem;
     }
 
-    public JButton getjBtnCancel1()
-    {
+    public JButton getjBtnCancel1() {
         return jBtnCancel1;
     }
 
-    public JButton getjBtnTaoPhieu()
-    {
+    public JButton getjBtnTaoPhieu() {
         return jBtnTaoPhieu;
     }
 
-    public JButton getjBtnThemTS1()
-    {
+    public JButton getjBtnThemTS1() {
         return jBtnThemTS1;
     }
 
-    public JButton getjBtnXoaTS1()
-    {
+    public JButton getjBtnXoaTS1() {
         return jBtnXoaTS1;
     }
-    
-    public class TinhTrang{
+
+    public class TinhTrang {
+
         public String tinhTrang;
         public int num;
-        
-        public TinhTrang(String tinhTrang,int num){
+
+        public TinhTrang(String tinhTrang, int num) {
             this.tinhTrang = tinhTrang;
             this.num = num;
         }
-        
+
         @Override
         public String toString() {
             return tinhTrang;
@@ -1231,10 +1281,14 @@ public class ThiSinhForm extends javax.swing.JPanel
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItemChuaDong;
+    private javax.swing.JMenuItem jMenuItemDaDong;
+    private javax.swing.JMenuItem jMenuItemDaThi;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelQLTS;
     private javax.swing.JPanel jPanelTS;
     private javax.swing.JPanel jPanelThongkeTS;
+    private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
