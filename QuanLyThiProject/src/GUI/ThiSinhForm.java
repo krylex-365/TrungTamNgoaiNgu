@@ -248,7 +248,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jPopupMenu = new javax.swing.JPopupMenu();
         jMenuItemChuaDong = new javax.swing.JMenuItem();
         jMenuItemDaDong = new javax.swing.JMenuItem();
-        jMenuItemDaThi = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelQLTS = new javax.swing.JPanel();
         jTextTimKiemTS = new javax.swing.JTextField();
@@ -316,14 +315,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
             }
         });
         jPopupMenu.add(jMenuItemDaDong);
-
-        jMenuItemDaThi.setText("Đã thi");
-        jMenuItemDaThi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDaThiActionPerformed(evt);
-            }
-        });
-        jPopupMenu.add(jMenuItemDaThi);
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -1128,22 +1119,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jMenuItemDaDongActionPerformed
 
-    private void jMenuItemDaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDaThiActionPerformed
-        // TODO add your handling code here:
-        if (jTableTS.getSelectionModel().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(this, "Empty!!");
-        } else {
-//            System.out.println(jTableTS.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
-            for (int i = 0; i < jTableTS.getRowCount(); i++) {
-                if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
-                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
-                }
-            }
-            System.out.println("List dc chon!!" + a);
-        }
-    }//GEN-LAST:event_jMenuItemDaThiActionPerformed
-
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
@@ -1283,7 +1258,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemChuaDong;
     private javax.swing.JMenuItem jMenuItemDaDong;
-    private javax.swing.JMenuItem jMenuItemDaThi;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelQLTS;
     private javax.swing.JPanel jPanelTS;
