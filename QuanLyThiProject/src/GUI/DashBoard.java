@@ -912,6 +912,7 @@ public class DashBoard extends javax.swing.JFrame
         khoaThiDTOs = khoaThiDAO.getList();
         trinhDoDTOs = trinhDoDAO.getList();
         phongThiDTOs = phongThiDAO.getList();
+        caThiDTOs = caThiDAO.getList();
         phongThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
@@ -1043,14 +1044,15 @@ public class DashBoard extends javax.swing.JFrame
     private void trinhdoLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_trinhdoLabelMouseClicked
     {//GEN-HEADEREND:event_trinhdoLabelMouseClicked
 //        loaiHinhForm.initTableLH();
+        phongThiDTOs = phongThiDAO.getList();
+        thiSinhDTOs = thiSinhDAO.getList();
+        trinhDoDTOs = trinhDoDAO.getList();
+        trinhDoForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(false);
         jPanelPhongThi.setVisible(false);
         jPanelTrinhDo.setVisible(true);
-        phongThiDTOs = phongThiDAO.getList();
-        thiSinhDTOs = thiSinhDAO.getList();
-        trinhDoForm.reloadTable();
         jPanelCaThi.setVisible(false);
         jPanelKetQua.setVisible(false);
 //        jPanelLoaiHinh.setVisible(false);

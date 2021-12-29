@@ -31,8 +31,7 @@ import javax.swing.ListSelectionModel;
  *
  * @author Hyung
  */
-public class BangThiSinh extends javax.swing.JFrame
-{
+public class BangThiSinh extends javax.swing.JFrame {
 
     /**
      * Creates new form DSNV
@@ -43,8 +42,7 @@ public class BangThiSinh extends javax.swing.JFrame
     DefaultTableModel tbModel;
     PhongThiForm phongThiForm;
 
-    public BangThiSinh()
-    {
+    public BangThiSinh() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
@@ -325,7 +323,6 @@ public class BangThiSinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jBtnQuayLaiActionPerformed
         jTextMaTS.setText("");
         jTextTenTS.setText("");
-        phongThiForm.getjBtnThemTSPT().setEnabled(true);
         dispose();
 //        jTextTennv.setText("");
 //        jTextPban.setText("");
@@ -341,8 +338,7 @@ public class BangThiSinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextMaTSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextMaTSActionPerformed
-    public String ktra()
-    {
+    public String ktra() {
         String temp = "";
 //        if (jTextMaNV.getText().equals("")) {
 //            temp += "- Vui lòng chọn loại hình!";
@@ -351,37 +347,33 @@ public class BangThiSinh extends javax.swing.JFrame
     }
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
     {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
-        if (jTableThiSinh.getSelectionModel().isSelectionEmpty())
-        {
+        if (jTableThiSinh.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(this, "Empty!!");
-        } else
-        {
+        } else {
 
             System.out.println(jTableThiSinh.getSelectedRowCount());
             ArrayList<String> a = new ArrayList<>();
-            for (int i = 0; i < jTableThiSinh.getRowCount(); i++)
-            {
-                if (jTableThiSinh.getSelectionModel().isSelectedIndex(i))
-                {
+            for (int i = 0; i < jTableThiSinh.getRowCount(); i++) {
+                if (jTableThiSinh.getSelectionModel().isSelectedIndex(i)) {
                     a.add((String) jTableThiSinh.getModel().getValueAt(i, 1));
                 }
             }
             System.out.println("List dc chon!!" + a);
-
         }
-
-        dispose();
-        phongThiForm.getjBtnThemTSPT().setEnabled(true);
+        if (true) { // ĐƯA CHỨC NĂNG VÀO ĐÂY
+            dispose();
+            phongThiForm.clearPhongThiTS();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm thí sính vào phòng thi thất bại");
+        }
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableThiSinhMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThiSinhMouseClicked
     {//GEN-HEADEREND:event_jTableThiSinhMouseClicked
         // TODO add your handling code here:
-        if (evt.getSource() == jTableThiSinh)
-        {
+        if (evt.getSource() == jTableThiSinh) {
             rowTbl = jTableThiSinh.getSelectedRow();
-            if (rowTbl != -1)
-            {
+            if (rowTbl != -1) {
                 jTextMaTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 0));
                 jTextTenTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 1));
                 jTextTrinhDo.setText((String) jTableThiSinh.getValueAt(rowTbl, 2));
@@ -450,106 +442,84 @@ public class BangThiSinh extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BangThiSinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BangThiSinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BangThiSinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangThiSinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new BangThiSinh().setVisible(true);
             }
         });
     }
 
-    public JButton getjBtnQuayLai()
-    {
+    public JButton getjBtnQuayLai() {
         return jBtnQuayLai;
     }
 
-    public void setjBtnQuayLai(JButton jBtnQuayLai)
-    {
+    public void setjBtnQuayLai(JButton jBtnQuayLai) {
         this.jBtnQuayLai = jBtnQuayLai;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JButton getjBtnTimKiemNV()
-    {
+    public JButton getjBtnTimKiemNV() {
         return jBtnTimKiemNV;
     }
 
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV)
-    {
+    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV) {
         this.jBtnTimKiemNV = jBtnTimKiemNV;
     }
 
-    public JButton getjBtnXacNhan()
-    {
+    public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
 
-    public void setjBtnXacNhan(JButton jBtnXacNhan)
-    {
+    public void setjBtnXacNhan(JButton jBtnXacNhan) {
         this.jBtnXacNhan = jBtnXacNhan;
     }
 
-    public JTable getjTableDsnv()
-    {
+    public JTable getjTableDsnv() {
         return jTableThiSinh;
     }
 
-    public void setjTableDsnv(JTable jTableDsnv)
-    {
+    public void setjTableDsnv(JTable jTableDsnv) {
         this.jTableThiSinh = jTableDsnv;
     }
 
-    public JTextField getjTextTimKiemNV()
-    {
+    public JTextField getjTextTimKiemNV() {
         return jTextTimKiemNV;
     }
 
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV)
-    {
+    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
         this.jTextTimKiemNV = jTextTimKiemNV;
     }
 

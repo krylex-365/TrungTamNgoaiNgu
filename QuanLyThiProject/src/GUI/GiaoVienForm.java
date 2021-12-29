@@ -5,14 +5,6 @@
  */
 package GUI;
 
-//import BUS.*;
-//import DTO.DoanDuLichDTO;
-//import DTO.NhanVienDTO;
-//import DTO.NhiemVuNhanVienDTO;
-//import DAO.XuatExcel;
-//import DTO.ChucVuDTO;
-//import DTO.CongViecDTO;
-//import DTO.PhongBanDTO;
 import BUS.GiaoVienBUS;
 import DTO.GiaoVienDTO;
 import DTO.PhanCongDTO;
@@ -46,6 +38,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.util.Date;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -57,7 +50,7 @@ public class GiaoVienForm extends javax.swing.JPanel {
      * Creates new form jPanel2
      */
     static int flagtkmk = 0;
-    DefaultTableModel modelgv, modelThongKe;
+    DefaultTableModel tbModelGV, modelThongKe;
     private int flagAcc;
     private String manv;
 //    private NhanVienBUS nhanVienBUS;
@@ -84,12 +77,12 @@ public class GiaoVienForm extends javax.swing.JPanel {
     }
 
     public void initTableGV() {
-        modelgv.setRowCount(0);
-        tableModel(modelgv);
+        tbModelGV.setRowCount(0);
+        tableModel(tbModelGV);
         jTableGV.setRowSorter(null);
         jTableGV.setAutoCreateRowSorter(true);
-        jTableGV.setModel(modelgv);
-        jTableGV.clearSelection();
+        jTableGV.setModel(tbModelGV);
+        clear();
     }
 
     public void tableModel(DefaultTableModel model) {
@@ -108,6 +101,25 @@ public class GiaoVienForm extends javax.swing.JPanel {
         }
     }
 
+    public void clear() {
+        jBtnCapPhatMaGV.setEnabled(true);
+        jBtnThemGV.setEnabled(false);
+        jBtnSuaGV.setEnabled(false);
+        jBtnXoaGV.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaGiangVien.setText("");
+        jTextTenGiangVien.setText("");
+        jTextSDT.setText("");
+        jTextEmail.setText("");
+        jTableGV.clearSelection();
+    }
+
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelGV);
+        jTableGV.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,8 +127,7 @@ public class GiaoVienForm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelGV = new javax.swing.JPanel();
@@ -136,12 +147,11 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jCbGioiTinh = new javax.swing.JComboBox<>();
         jTextEmail = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jTextTimKiemGV = new javax.swing.JTextField();
-        jButtonTimKiem = new javax.swing.JButton();
-        jBtnRefresh = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableGV = new javax.swing.JTable();
+        jTextTimKiem = new javax.swing.JTextField();
+        jBtnRefresh = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
         jPanelThongkeGV = new javax.swing.JPanel();
         jButtonThongKe = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -168,10 +178,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jBtnThemGV.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemGV.setText("Thêm");
         jBtnThemGV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemGV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemGVActionPerformed(evt);
             }
         });
@@ -180,10 +188,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jBtnSuaGV.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaGV.setText("Sửa");
         jBtnSuaGV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaGV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaGVActionPerformed(evt);
             }
         });
@@ -192,10 +198,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jBtnXoaGV.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaGV.setText("Xóa");
         jBtnXoaGV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaGV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaGVActionPerformed(evt);
             }
         });
@@ -204,10 +208,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyActionPerformed(evt);
             }
         });
@@ -221,10 +223,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jBtnCapPhatMaGV.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaGV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_edit_account_16.png"))); // NOI18N
         jBtnCapPhatMaGV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnCapPhatMaGV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnCapPhatMaGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCapPhatMaGVActionPerformed(evt);
             }
         });
@@ -239,10 +239,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jLabel11.setText("<html> <body> Giới Tính <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
 
         jCbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
-        jCbGioiTinh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jCbGioiTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCbGioiTinhActionPerformed(evt);
             }
         });
@@ -326,61 +324,21 @@ public class GiaoVienForm extends javax.swing.JPanel {
 
         jPanelGV.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 400, 410));
 
-        jLabel22.setText("Mã GV");
-        jPanelGV.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, -1, 30));
-
-        jTextTimKiemGV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextTimKiemGVActionPerformed(evt);
-            }
-        });
-        jPanelGV.add(jTextTimKiemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 160, 30));
-
-        jButtonTimKiem.setText("Tìm kiếm");
-        jButtonTimKiem.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonTimKiem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonTimKiemActionPerformed(evt);
-            }
-        });
-        jPanelGV.add(jButtonTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, -1, -1));
-
-        jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
-        jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jBtnRefreshActionPerformed(evt);
-            }
-        });
-        jPanelGV.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 40, 30));
-
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setAutoscrolls(true);
 
+        jTableGV.setAutoCreateRowSorter(true);
         jTableGV.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
-        jTableGV.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableGV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableGVMouseClicked(evt);
             }
         });
@@ -389,15 +347,13 @@ public class GiaoVienForm extends javax.swing.JPanel {
         tableCol.add ("Giới Tính");
         tableCol.add ("Số ĐT");
         tableCol.add ("Email");
-        modelgv = new DefaultTableModel(tableCol, 10)
-        {
+        tbModelGV = new DefaultTableModel(tableCol, 10){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
-        jTableGV.setModel(modelgv);
+        jTableGV.setModel(tbModelGV);
         jTableGV.setShowGrid(true);
         jTableGV.setFocusable(false);
         jTableGV.setIntercellSpacing(new Dimension(0,0));
@@ -420,6 +376,29 @@ public class GiaoVienForm extends javax.swing.JPanel {
 
         jPanelGV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 540, 520));
 
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
+            }
+        });
+        jPanelGV.add(jTextTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 140, 30));
+
+        jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
+        jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefreshActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 40, 30));
+
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+        jPanelGV.add(jLbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, -1, 30));
+
         jTabbedPane1.addTab("Quản Lý Giảng Viên", jPanelGV);
 
         jPanelThongkeGV.setBackground(new java.awt.Color(233, 242, 249));
@@ -428,10 +407,8 @@ public class GiaoVienForm extends javax.swing.JPanel {
 
         jButtonThongKe.setText("Thống Kê");
         jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonThongKe.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonThongKeActionPerformed(evt);
             }
         });
@@ -442,30 +419,24 @@ public class GiaoVienForm extends javax.swing.JPanel {
         jScrollPane3.setAutoscrolls(true);
 
         jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
-        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableThongkeMouseClicked(evt);
             }
         });
         tableColThongKe.add ("Mã Nhân Viên");
         tableColThongKe.add ("Tên Nhân Viên");
         tableColThongKe.add ("Số Lần Đi Tour");
-        modelThongKe = new DefaultTableModel(tableColThongKe, 0)
-        {
+        modelThongKe = new DefaultTableModel(tableColThongKe, 0){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -521,26 +492,6 @@ public class GiaoVienForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimKiemActionPerformed
-        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        tbnv.searchbangnhanvien(modelnv, manv);
-//        jTable1.setModel(modelnv);
-//        System.out.println("click tim kiem");
-        modelgv.setRowCount(0);
-//        searchNhanVienByMaNhanVien(modelnv, jTextTimKiemNV.getText());
-    }//GEN-LAST:event_jButtonTimKiemActionPerformed
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
-//        // TODO add your handling code here:
-//        jTextTimKiemNV.setText("");
-//        tbnv.loadDataNV();
-//        modelnv.setRowCount(0);
-//        tbnv.bangnhanvien(modelnv);
-        jTextTimKiemGV.setText("");
-//        loadData();
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
     private void jBtnCapPhatMaGVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaGVActionPerformed
     {//GEN-HEADEREND:event_jBtnCapPhatMaGVActionPerformed
         // TODO add your handling code here:
@@ -588,10 +539,6 @@ public class GiaoVienForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTableGVMouseClicked
 
-    private void jTextTimKiemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTimKiemGVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextTimKiemGVActionPerformed
-
     private void jBtnThemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemGVActionPerformed
         String magv = (String) jTextMaGiangVien.getText(),
                 tengv = (String) jTextTenGiangVien.getText(),
@@ -614,21 +561,12 @@ public class GiaoVienForm extends javax.swing.JPanel {
             addRow.add(jCbGioiTinh.getSelectedItem());
             addRow.add(sdt);
             addRow.add(mail);
-            modelgv.addRow(addRow);
+            tbModelGV.addRow(addRow);
             JOptionPane.showMessageDialog(this, "Thêm giáo viên thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Thêm giáo viên thất bại!");
         }
-        jBtnCapPhatMaGV.setEnabled(true);
-        jBtnThemGV.setEnabled(false);
-        jBtnSuaGV.setEnabled(false);
-        jBtnXoaGV.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaGiangVien.setText("");
-        jTextTenGiangVien.setText("");
-        jTextSDT.setText("");
-        jTextEmail.setText("");
-        jTableGV.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnThemGVActionPerformed
 
     private void jBtnSuaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaGVActionPerformed
@@ -647,25 +585,16 @@ public class GiaoVienForm extends javax.swing.JPanel {
 
         GiaoVienDTO giaoVienDTO = new GiaoVienDTO(giaoVienSelected.getMaGiaoVien(), tengv, gioiTinh, sdt, mail);
         if (giaoVienBUS.suaGiaoVien(giaoVienDTO, DashBoard.giaoVienDTOs)) {
-            modelgv.setValueAt(magv, selectedRow, 0);
-            modelgv.setValueAt(tengv, selectedRow, 1);
-            modelgv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
-            modelgv.setValueAt(sdt, selectedRow, 3);
-            modelgv.setValueAt(mail, selectedRow, 4);
+            tbModelGV.setValueAt(magv, selectedRow, 0);
+            tbModelGV.setValueAt(tengv, selectedRow, 1);
+            tbModelGV.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
+            tbModelGV.setValueAt(sdt, selectedRow, 3);
+            tbModelGV.setValueAt(mail, selectedRow, 4);
             JOptionPane.showMessageDialog(this, "Sửa giáo viên thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Sửa giáo viên thất bại!");
         }
-        jBtnCapPhatMaGV.setEnabled(true);
-        jBtnThemGV.setEnabled(false);
-        jBtnSuaGV.setEnabled(false);
-        jBtnXoaGV.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaGiangVien.setText("");
-        jTextTenGiangVien.setText("");
-        jTextSDT.setText("");
-        jTextEmail.setText("");
-        jTableGV.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnSuaGVActionPerformed
 
     private String checkBeforeDel(String maGiaoVien) {
@@ -684,10 +613,9 @@ public class GiaoVienForm extends javax.swing.JPanel {
                 if (giaovien.getMaGiaoVien().equals(maGiaoVien)
                         && giaovien.getMaGiaoVien().equals(phancong.getMaGiaoVien())
                         && datePhancong.after(date) || datePhancong.equals(date)) {
-                    noti += "- Giáo viên đã được phân công";
+                    noti += "- Giáo viên hiện đang được phân công!";
                     break;
                 }
-
             }
         }
 
@@ -698,22 +626,12 @@ public class GiaoVienForm extends javax.swing.JPanel {
         String check = checkBeforeDel(giaoVienSelected.getMaGiaoVien());
         if (check.equals("")) {
             if (giaoVienBUS.xoaGiaoVien(giaoVienSelected, DashBoard.giaoVienDTOs)) {
-                modelgv.removeRow(selectedRow);
+                tbModelGV.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Xóa giáo viên thành công!");
             } else {
-                JOptionPane.showMessageDialog(this, "Không thể xoá giáo viên !");
+                JOptionPane.showMessageDialog(this, "Xóa giáo viên thất bại!");
             }
-            jBtnCapPhatMaGV.setEnabled(true);
-            jBtnThemGV.setEnabled(false);
-            jBtnSuaGV.setEnabled(false);
-            jBtnXoaGV.setEnabled(false);
-            jBtnHuy.setEnabled(false);
-            jTextMaGiangVien.setText("");
-            jTextTenGiangVien.setText("");
-            jTextSDT.setText("");
-            jTextEmail.setText("");
-            jTableGV.clearSelection();
-
+            clear();
         } else {
             check = "Không thể xóa\n" + check;
             JOptionPane.showMessageDialog(this, check);
@@ -721,16 +639,7 @@ public class GiaoVienForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jBtnXoaGVActionPerformed
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
-        jBtnCapPhatMaGV.setEnabled(true);
-        jBtnThemGV.setEnabled(false);
-        jBtnSuaGV.setEnabled(false);
-        jBtnXoaGV.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaGiangVien.setText("");
-        jTextTenGiangVien.setText("");
-        jTextSDT.setText("");
-        jTextEmail.setText("");
-        jTableGV.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jCbGioiTinhActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbGioiTinhActionPerformed
@@ -764,6 +673,18 @@ public class GiaoVienForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableThongkeMouseClicked
 
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTableGV();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
@@ -777,7 +698,7 @@ public class GiaoVienForm extends javax.swing.JPanel {
     }
 
     public DefaultTableModel getModelnv() {
-        return modelgv;
+        return tbModelGV;
     }
 
     public JButton getjBtnCapPhatMaNV() {
@@ -816,22 +737,6 @@ public class GiaoVienForm extends javax.swing.JPanel {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
-    public JTextField getjTextTimKiemNV() {
-        return jTextTimKiemGV;
-    }
-
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
-        this.jTextTimKiemGV = jTextTimKiemNV;
-    }
-
-    public JButton getjButtonTimKiem() {
-        return jButtonTimKiem;
-    }
-
-    public void setjButtonTimKiem(JButton jButtonTimKiem) {
-        this.jButtonTimKiem = jButtonTimKiem;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaGV;
     private javax.swing.JButton jBtnHuy;
@@ -840,18 +745,17 @@ public class GiaoVienForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnThemGV;
     private javax.swing.JButton jBtnXoaGV;
     private javax.swing.JButton jButtonThongKe;
-    private javax.swing.JButton jButtonTimKiem;
     private javax.swing.JComboBox<String> jCbGioiTinh;
     private com.toedter.calendar.JDateChooser jDateNgayBDTK;
     private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelGV;
     private javax.swing.JPanel jPanelThongkeGV;
@@ -864,6 +768,6 @@ public class GiaoVienForm extends javax.swing.JPanel {
     private javax.swing.JTextField jTextMaGiangVien;
     private javax.swing.JTextField jTextSDT;
     private javax.swing.JTextField jTextTenGiangVien;
-    private javax.swing.JTextField jTextTimKiemGV;
+    private javax.swing.JTextField jTextTimKiem;
     // End of variables declaration//GEN-END:variables
 }

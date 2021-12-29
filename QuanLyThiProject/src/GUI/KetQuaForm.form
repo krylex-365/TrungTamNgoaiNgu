@@ -228,7 +228,7 @@
                               <Component id="jLabel19" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTextDiemViet" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jBtnSuaDiem" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="jBtnHuyDiem" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -412,32 +412,45 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JTextField" name="jTextTimKiemTS">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTimKiemTSActionPerformed"/>
-              </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="440" y="30" width="160" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonTimKiem">
+            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[79, 30]"/>
-                </Property>
+                <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
+                <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+                <Property name="autoscrolls" type="boolean" value="true"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTimKiemActionPerformed"/>
-              </Events>
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="610" y="30" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="440" y="70" width="530" height="530"/>
                 </Constraint>
               </Constraints>
-            </Component>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="jTableKQThi">
+                  <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="0" rowCount="0"/>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0"/>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableKQThiMouseClicked"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Th&#xed; Sinh&quot;);&#xa;        tableCol.add (&quot;SBD&quot;);&#xa;tableCol.add (&quot;H&#x1ecd; T&#xea;n Th&#xed; Sinh&quot;);&#xa;        tableCol.add (&quot;S&#xd0;T&quot;);&#xa;tableCol.add (&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add (&quot;Ph&#xf2;ng Thi&quot;);&#xa;        tableCol.add (&quot;Ca Thi&quot;);&#xa;tableCol.add (&quot;&#x110;i&#x1ec3;m Nghe&quot;);&#xa;tableCol.add (&quot;&#x110;i&#x1ec3;m N&#xf3;i&quot;);&#xa;        tableCol.add (&quot;&#x110;i&#x1ec3;m &#x110;&#x1ecd;c&quot;);&#xa;        tableCol.add (&quot;&#x110;i&#x1ec3;m Vi&#x1ebf;t&quot;);&#xa;    &#xa;tbModelKQThi = new DefaultTableModel(tableCol, 20){&#xa;    @Override&#xa;public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableKQThi.setModel(tbModelKQThi);&#xa;jTableKQThi.setShowGrid(true);&#xa;        jTableKQThi.setFocusable(false);&#xa;        jTableKQThi.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableKQThi.setRowHeight(25);  &#xa;        jTableKQThi.getTableHeader().setOpaque(false);&#xa;        jTableKQThi.setFillsViewportHeight(true);&#xa;        jTableKQThi.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableKQThi.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableKQThi.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableKQThi.setSelectionBackground(new Color(52,152,219));&#xa;jTableKQThi.setGridColor(new java.awt.Color(83, 86, 88));&#xa;&#xa;jTableKQThi.getColumn (tableCol.elementAt (0)).setPreferredWidth (140);&#xa;        jTableKQThi.getColumn (tableCol.elementAt (1)).setPreferredWidth (140);&#xa;        jTableKQThi.getColumn (tableCol.elementAt (2)).setPreferredWidth (170);&#xa;        jTableKQThi.getColumn (tableCol.elementAt (3)).setPreferredWidth (160);&#xa;        jTableKQThi.getColumn (tableCol.elementAt (4)).setPreferredWidth (110);&#xa;        jTableKQThi.getColumn (tableCol.elementAt (5)).setPreferredWidth (130);&#xa; jTableKQThi.getColumn (tableCol.elementAt (6)).setPreferredWidth (170);&#xa; jTableKQThi.getColumn (tableCol.elementAt (7)).setPreferredWidth (110);&#xa; jTableKQThi.getColumn (tableCol.elementAt (8)).setPreferredWidth (110);&#xa;jTableKQThi.getColumn (tableCol.elementAt (9)).setPreferredWidth (110);&#xa;jTableKQThi.getColumn (tableCol.elementAt (10)).setPreferredWidth (110);&#xa;jTableKQThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
             <Component class="javax.swing.JButton" name="jBtnRefresh">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -461,48 +474,33 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="690" y="30" width="40" height="30"/>
+                  <AbsoluteConstraints x="930" y="30" width="40" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-              <Properties>
-                <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
-                <Property name="verticalScrollBarPolicy" type="int" value="22"/>
-                <Property name="autoscrolls" type="boolean" value="true"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
+            <Component class="javax.swing.JTextField" name="jTextTimKiem">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextTimKiemKeyReleased"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="440" y="70" width="530" height="530"/>
+                  <AbsoluteConstraints x="780" y="30" width="140" height="30"/>
                 </Constraint>
               </Constraints>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="jTableTS">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="0" rowCount="0"/>
-                    </Property>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0"/>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableTSMouseClicked"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Th&#xed; Sinh&quot;);&#xa;        tableCol.add (&quot;SBD&quot;);&#xa;tableCol.add (&quot;H&#x1ecd; T&#xea;n Th&#xed; Sinh&quot;);&#xa;        tableCol.add (&quot;S&#xd0;T&quot;);&#xa;tableCol.add (&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add (&quot;Ph&#xf2;ng Thi&quot;);&#xa;        tableCol.add (&quot;Ca Thi&quot;);&#xa;tableCol.add (&quot;&#x110;i&#x1ec3;m Nghe&quot;);&#xa;tableCol.add (&quot;&#x110;i&#x1ec3;m N&#xf3;i&quot;);&#xa;        tableCol.add (&quot;&#x110;i&#x1ec3;m &#x110;&#x1ecd;c&quot;);&#xa;        tableCol.add (&quot;&#x110;i&#x1ec3;m Vi&#x1ebf;t&quot;);&#xa;    &#xa;modelthisinh = new DefaultTableModel(tableCol, 20){&#xa;    @Override&#xa;public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableTS.setModel(modelthisinh);&#xa;jTableTS.setShowGrid(true);&#xa;        jTableTS.setFocusable(false);&#xa;        jTableTS.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableTS.setRowHeight(25);  &#xa;        jTableTS.getTableHeader().setOpaque(false);&#xa;        jTableTS.setFillsViewportHeight(true);&#xa;        jTableTS.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableTS.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableTS.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableTS.setSelectionBackground(new Color(52,152,219));&#xa;jTableTS.setGridColor(new java.awt.Color(83, 86, 88));&#xa;&#xa;jTableTS.getColumn (tableCol.elementAt (0)).setPreferredWidth (140);&#xa;        jTableTS.getColumn (tableCol.elementAt (1)).setPreferredWidth (140);&#xa;        jTableTS.getColumn (tableCol.elementAt (2)).setPreferredWidth (170);&#xa;        jTableTS.getColumn (tableCol.elementAt (3)).setPreferredWidth (160);&#xa;        jTableTS.getColumn (tableCol.elementAt (4)).setPreferredWidth (110);&#xa;        jTableTS.getColumn (tableCol.elementAt (5)).setPreferredWidth (130);&#xa; jTableTS.getColumn (tableCol.elementAt (6)).setPreferredWidth (170);&#xa; jTableTS.getColumn (tableCol.elementAt (7)).setPreferredWidth (110);&#xa; jTableTS.getColumn (tableCol.elementAt (8)).setPreferredWidth (110);&#xa;jTableTS.getColumn (tableCol.elementAt (9)).setPreferredWidth (110);&#xa;jTableTS.getColumn (tableCol.elementAt (10)).setPreferredWidth (110);&#xa;jTableTS.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
-                  </AuxValues>
-                </Component>
-              </SubComponents>
-            </Container>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLbTimKiem">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;T&#xec;m Ki&#x1ebf;m&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt;&lt;/html&gt;"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="700" y="30" width="-1" height="30"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelThongkeTS">

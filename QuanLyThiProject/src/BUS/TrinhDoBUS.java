@@ -7,8 +7,6 @@ package BUS;
 import DAO.KhoaThiDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DAO.TrinhDoDAO;
-import DTO.PhongThiDTO;
-import DTO.ThiSinhDTO;
 import DTO.TrinhDoDTO;
 
 import java.util.ArrayList;
@@ -28,6 +26,29 @@ public class TrinhDoBUS {
 
     public ArrayList<TrinhDoDTO> getList(){
         return  trinhDoDAO.getList();
+    }
+    
+    public TrinhDoDTO findTrinhDo (String maTrinhDo, ArrayList<TrinhDoDTO> trinhDoDTOs){
+        TrinhDoDTO trinhDoDTO = new TrinhDoDTO();
+        for (TrinhDoDTO trinhDo : trinhDoDTOs) {
+            if (trinhDo.getMaTrinhDo().equals(maTrinhDo)) {
+                trinhDoDTO = trinhDo;
+                break;
+            }
+        }
+        return trinhDoDTO;
+    }
+
+    public int indexTrinhDo (String maTrinhDo, ArrayList<TrinhDoDTO> trinhDoDTOs) {
+        int i = -1, j = 0;
+        for (TrinhDoDTO trinhDo : trinhDoDTOs) {
+            if (trinhDo.getMaTrinhDo().equals(maTrinhDo)) {
+                i = j;
+                break;
+            }
+            j++;
+        }
+        return i;
     }
 
     public boolean them(String maTrinhDo, String tenTrinhDo, String lePhi, ArrayList<TrinhDoDTO> trinhDoDTOs) {
@@ -74,5 +95,43 @@ public class TrinhDoBUS {
                 break;
             }
         }
+    }
+    
+    public boolean capNhatSLTS(String maTrinhDo, int SLTS, ArrayList<TrinhDoDTO> trinhDoDTOs) {
+        if (trinhDoDAO.updateTS(maTrinhDo, SLTS)) {
+            int i = -1, j = 0;
+            TrinhDoDTO trinhDoDTO = new TrinhDoDTO();
+            for (TrinhDoDTO trinhDo : trinhDoDTOs) {
+                if (trinhDo.getMaTrinhDo().equals(maTrinhDo)) {
+                    trinhDoDTO = trinhDo;
+                    i = j;
+                    break;
+                }
+                j++;
+            }
+            trinhDoDTO.setSoLuongTS(SLTS);
+            trinhDoDTOs.set(i, trinhDoDTO);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean capNhatSLPG(String maTrinhDo, int SLPG, ArrayList<TrinhDoDTO> trinhDoDTOs) {
+        if (trinhDoDAO.updatePG(maTrinhDo, SLPG)) {
+            int i = -1, j = 0;
+            TrinhDoDTO trinhDoDTO = new TrinhDoDTO();
+            for (TrinhDoDTO trinhDo : trinhDoDTOs) {
+                if (trinhDo.getMaTrinhDo().equals(maTrinhDo)) {
+                    trinhDoDTO = trinhDo;
+                    i = j;
+                    break;
+                }
+                j++;
+            }
+            trinhDoDTO.setSoLuongPG(SLPG);
+            trinhDoDTOs.set(i, trinhDoDTO);
+            return true;
+        }
+        return false;
     }
 }

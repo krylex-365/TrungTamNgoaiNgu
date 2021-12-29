@@ -76,6 +76,38 @@ public class TrinhDoDAO {
         }
         return false;
     }
+    
+    public boolean updateTS(String maTrinhDo, int soLuongTS) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set SoLuongTS = '" + soLuongTS + "'"
+                + " where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean updatePG(String maTrinhDo, int soLuongPG) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set SoLuongPG = '" + soLuongPG + "'"
+                + " where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
 
     public boolean xoa(String maTrinhDo) {
         conn = new Connect();
