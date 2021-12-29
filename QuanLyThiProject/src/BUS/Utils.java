@@ -138,6 +138,16 @@ public class Utils {
         String date = sdf.format(currentTime).toString();
         return date;
     }
+    
+    public Date getDateWithoutTimeUsingFormat(){
+        try{
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            return formatter.parse(formatter.format(new Date()));
+        }catch(ParseException e){
+            System.out.println(e);
+            return null;   
+        }  
+    }
 
     ////////////////Lấy ngày đầu tiên của tháng kế tiếp
     public String firstDayOfnextMonth(String ngay) {

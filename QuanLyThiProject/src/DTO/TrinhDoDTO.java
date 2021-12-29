@@ -69,6 +69,6 @@ public class TrinhDoDTO {
 
     @Override
     public String toString() {
-        return "TrinhDoDTO{" + "maTrinhDo=" + maTrinhDo + ", tenTrinhDo=" + tenTrinhDo + ", lePhi=" + lePhi + ", soLuongTS=" + soLuongTS + ", soLuongPG=" + soLuongPG + '}';
+        return tenTrinhDo;
     }
 }

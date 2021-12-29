@@ -31,6 +31,15 @@ public class KhoaThiBUS {
         }
         return khoaThiDTO;
     }
+    
+    public String findTenKhoaKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs){
+        for (KhoaThiDTO khoaThi : khoaThiDTOs) {
+            if (khoaThi.getMaKhoaThi().equals(maKhoaThi)) {
+                return khoaThi.getTenKhoaThi();
+            }
+        }
+        return null;
+    }
 
     public int indexKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs) {
         int i = -1, j = 0;
