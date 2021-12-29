@@ -10,6 +10,10 @@ package GUI;
 //import DAO.DocExcel;
 //import DAO.WritePDF;
 //import DAO.XuatExcel;
+import BUS.PhongThiBUS;
+import DTO.KhoaThiDTO;
+import DTO.PhongThiDTO;
+import DTO.TrinhDoDTO;
 import com.mysql.jdbc.jdbc2.optional.JDBC4StatementWrapper;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +23,7 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -33,22 +38,18 @@ import javax.swing.table.JTableHeader;
  *
  * @author Hyung
  */
-public class PhongThiForm extends javax.swing.JPanel
-{
+public class PhongThiForm extends javax.swing.JPanel {
 
     DefaultTableModel tbModelPhongThi, tbModelPTTS, tbModelPTGV;
-//    private Utils ult = new Utils();
-    int rowTbl;
-    private int rowDiaDiem;
-    private String maDiaDiem;
-    private String tenDiaDiem;
-//    private DiaDiemBUS diaDiemBUS;
+    private int rowPhongThi, rowThiSinh, rowGiaoVien;
+    private PhongThiDTO phongThiSelected = new PhongThiDTO();
+    private String tenKhoaThi, tenTrinhDo;
+    PhongThiBUS phongThiBUS = new PhongThiBUS();
 
     /**
      * Creates new form jPanel2
      */
-    public PhongThiForm()
-    {
+    public PhongThiForm() {
         initComponents();
 //        diaDiemBUS = new DiaDiemBUS();
         jBtnCapPhatMaPT.setEnabled(true);
@@ -59,6 +60,90 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnChonGVPT.setEnabled(false);
     }
 
+    public void initTable() {
+        tbModelPhongThi.setRowCount(0);
+        tableModel(tbModelPhongThi);
+        jTablePhongThi.setRowSorter(null);
+        jTablePhongThi.setAutoCreateRowSorter(true);
+        jTablePhongThi.setModel(tbModelPhongThi);
+        jTablePhongThi.clearSelection();
+        jCbKhoaThi.removeAllItems();
+        addComboKhoaThi(jCbKhoaThi, DashBoard.khoaThiDTOs);
+        jCbTrinhDo.removeAllItems();
+        addComboTrinhDo(jCbTrinhDo, DashBoard.trinhDoDTOs);
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (PhongThiDTO phongThi : DashBoard.phongThiDTOs) {
+            Vector row = new Vector();
+            row.add(phongThi.getMaPhongThi());
+            row.add(phongThi.getTenPhongThi());
+            row.add(phongThi.getMaKhoaThi());
+            for (KhoaThiDTO khoaThi : DashBoard.khoaThiDTOs) {
+                if (khoaThi.getMaKhoaThi().equals(phongThi.getMaKhoaThi())) {
+                    row.add(khoaThi.getTenKhoaThi());
+                }
+            }
+            row.add(phongThi.getMaTrinhDo());
+            for (TrinhDoDTO trinhDo : DashBoard.trinhDoDTOs) {
+                if (trinhDo.getMaTrinhDo().equals(phongThi.getMaTrinhDo())) {
+                    row.add(trinhDo.getTenTrinhDo());
+                }
+            }
+            row.add(phongThi.getSoLuong());
+            model.addRow(row);
+        }
+    }
+
+    public void themVector(DefaultTableModel model, PhongThiDTO phongThiDTO, String tenKhoaThi, String tenTrinhDo) {
+        Vector newrow = new Vector();
+        newrow.add(phongThiDTO.getMaPhongThi());
+        newrow.add(phongThiDTO.getTenPhongThi());
+        newrow.add(phongThiDTO.getMaKhoaThi());
+        newrow.add(tenKhoaThi);
+        newrow.add(phongThiDTO.getMaTrinhDo());
+        newrow.add(tenTrinhDo);
+        newrow.add(phongThiDTO.getSoLuong());
+        model.addRow(newrow);
+    }
+
+    public void suaVector(DefaultTableModel model, int row, PhongThiDTO phongThiDTO, String tenKhoaThi, String tenTrinhDo) {
+        model.setValueAt(phongThiDTO.getTenPhongThi(), row, 1);
+        model.setValueAt(phongThiDTO.getMaKhoaThi(), row, 2);
+        model.setValueAt(tenKhoaThi, row, 3);
+        model.setValueAt(phongThiDTO.getMaTrinhDo(), row, 4);
+        model.setValueAt(tenTrinhDo, row, 5);
+        model.setValueAt(phongThiDTO.getSoLuong(), row, 6);
+    }
+
+    public void xoaVector(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
+
+    public void clear() {
+        jBtnCapPhatMaPT.setEnabled(true);
+        jBtnThemPT.setEnabled(false);
+        jBtnSuaPT.setEnabled(false);
+        jBtnXoaPT.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaPT.setText("");
+        jTextTenPhongThi.setText("");
+        jTextSoluong.setText("");
+        jTablePhongThi.clearSelection();
+    }
+
+    public void addComboKhoaThi(JComboBox cmb, ArrayList<KhoaThiDTO> list) {
+        for (KhoaThiDTO a : list) {
+            cmb.addItem(a.getMaKhoaThi() + ". " + a.getTenKhoaThi());
+        }
+    }
+
+    public void addComboTrinhDo(JComboBox cmb, ArrayList<TrinhDoDTO> list) {
+        for (TrinhDoDTO a : list) {
+            cmb.addItem(a.getMaTrinhDo() + ". " + a.getTenTrinhDo());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,9 +151,11 @@ public class PhongThiForm extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
+        jPopupMenuStatus = new javax.swing.JPopupMenu();
+        jMenuItemChuaThi = new javax.swing.JMenuItem();
+        jMenuItemDaThi = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelPhongThi = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -76,7 +163,7 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel2 = new javax.swing.JLabel();
         jTextMaPT = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextTenphongthi = new javax.swing.JTextField();
+        jTextTenPhongThi = new javax.swing.JTextField();
         jBtnCapPhatMaPT = new javax.swing.JButton();
         jBtnThemPT = new javax.swing.JButton();
         jBtnSuaPT = new javax.swing.JButton();
@@ -87,7 +174,7 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel11 = new javax.swing.JLabel();
         jCbTrinhDo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jCbMakhoaThi = new javax.swing.JComboBox<>();
+        jCbKhoaThi = new javax.swing.JComboBox<>();
         jTextTimKiemPT = new javax.swing.JTextField();
         jBtnTimKiemDD = new javax.swing.JButton();
         jBtnRefresh = new javax.swing.JButton();
@@ -132,14 +219,28 @@ public class PhongThiForm extends javax.swing.JPanel
         jComboBoxChonMaCaThi = new javax.swing.JComboBox<>();
         jBtnRefresh2 = new javax.swing.JButton();
 
+        jMenuItemChuaThi.setText("Chưa thi");
+        jMenuItemChuaThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemChuaThiActionPerformed(evt);
+            }
+        });
+        jPopupMenuStatus.add(jMenuItemChuaThi);
+
+        jMenuItemDaThi.setText("Đã thi");
+        jMenuItemDaThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDaThiActionPerformed(evt);
+            }
+        });
+        jPopupMenuStatus.add(jMenuItemDaThi);
+
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
 
         jTabbedPane1.setBackground(new java.awt.Color(233, 242, 249));
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
             }
         });
@@ -168,13 +269,11 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("<html> <body> Tên Phòng Thi <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
 
-        jTextTenphongthi.setEditable(false);
-        jTextTenphongthi.setForeground(new java.awt.Color(51, 51, 51));
-        jTextTenphongthi.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jTextTenphongthiMouseClicked(evt);
+        jTextTenPhongThi.setEditable(false);
+        jTextTenPhongThi.setForeground(new java.awt.Color(51, 51, 51));
+        jTextTenPhongThi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextTenPhongThiMouseClicked(evt);
             }
         });
 
@@ -182,10 +281,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnCapPhatMaPT.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaPT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnCapPhatMaPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnCapPhatMaPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnCapPhatMaPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCapPhatMaPTActionPerformed(evt);
             }
         });
@@ -194,10 +291,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnThemPT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemPT.setText("Thêm");
         jBtnThemPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemPTActionPerformed(evt);
             }
         });
@@ -206,10 +301,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnSuaPT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaPT.setText("Sửa");
         jBtnSuaPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaPTActionPerformed(evt);
             }
         });
@@ -218,10 +311,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnXoaPT.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaPT.setText("Xóa");
         jBtnXoaPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaPTActionPerformed(evt);
             }
         });
@@ -230,10 +321,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyActionPerformed(evt);
             }
         });
@@ -247,10 +336,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel11.setText("<html> <body>Trình Độ <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
 
         jCbTrinhDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A2", "B1" }));
-        jCbTrinhDo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jCbTrinhDo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCbTrinhDoActionPerformed(evt);
             }
         });
@@ -258,12 +345,10 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("<html> <body> Mã Khóa Thi<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
 
-        jCbMakhoaThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khóa 1", "Khóa 2" }));
-        jCbMakhoaThi.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jCbMakhoaThiActionPerformed(evt);
+        jCbKhoaThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khóa 1", "Khóa 2" }));
+        jCbKhoaThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbKhoaThiActionPerformed(evt);
             }
         });
 
@@ -274,33 +359,35 @@ public class PhongThiForm extends javax.swing.JPanel
             .addGroup(jPanelPTLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPTLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jTextMaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelPTLayout.createSequentialGroup()
-                        .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPTLayout.createSequentialGroup()
-                                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBtnThemPT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtnXoaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtnSuaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPTLayout.createSequentialGroup()
-                                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextSoluong, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                    .addComponent(jTextMaPT)
-                                    .addComponent(jTextTenphongthi, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                    .addComponent(jCbTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jCbMakhoaThi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnCapPhatMaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPTLayout.createSequentialGroup()
+                            .addGap(37, 37, 37)
+                            .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBtnThemPT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnXoaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                            .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnSuaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPTLayout.createSequentialGroup()
+                            .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(24, 24, 24)
+                            .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextTenPhongThi, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                .addComponent(jCbTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCbKhoaThi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextSoluong)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnCapPhatMaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanelPTLayout.setVerticalGroup(
             jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,34 +395,34 @@ public class PhongThiForm extends javax.swing.JPanel
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCbMakhoaThi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jCbKhoaThi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCbTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextMaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBtnCapPhatMaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCbTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextTenPhongThi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnSuaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnThemPT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextTenphongthi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnThemPT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnSuaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelPTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnXoaPT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jPanelPhongThi.add(jPanelPT, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 410, 460));
@@ -344,10 +431,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jPanelPhongThi.add(jTextTimKiemPT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 220, 30));
 
         jBtnTimKiemDD.setText("Tìm kiếm");
-        jBtnTimKiemDD.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnTimKiemDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTimKiemDDActionPerformed(evt);
             }
         });
@@ -358,27 +443,25 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefreshActionPerformed(evt);
             }
         });
         jPanelPhongThi.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, 40, 30));
 
         Vector tableCol=new Vector();
-        tableCol.add("Mã Khóa Thi");
         tableCol.add("Mã Phòng Thi");
+        tableCol.add("Tên Phòng Thi");
+        tableCol.add("Mã Khóa Thi");
+        tableCol.add("Tên Khóa Thi");
+        tableCol.add("Mã Trình Độ");
         tableCol.add("Trình Độ");
         tableCol.add("Số Lượng");
-        tableCol.add("Tên Phòng Thi");
 
-        tbModelPhongThi = new DefaultTableModel (tableCol,5)
-        {
+        tbModelPhongThi = new DefaultTableModel (tableCol,0){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -393,20 +476,21 @@ public class PhongThiForm extends javax.swing.JPanel
         jTablePhongThi.getTableHeader().setForeground(new Color(141, 22, 22));
         jTablePhongThi.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTablePhongThi.setSelectionBackground(new Color(52,152,219));
+        jTablePhongThi.setAutoCreateRowSorter(true);
         jTablePhongThi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTablePhongThi.setGridColor(new java.awt.Color(83, 86, 88));
-        jTablePhongThi.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTablePhongThi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePhongThiMouseClicked(evt);
             }
         });
-        jTablePhongThi.getColumn (tableCol.elementAt (0)).setPreferredWidth (150);
+        jTablePhongThi.getColumn (tableCol.elementAt (0)).setPreferredWidth (120);
         jTablePhongThi.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);
         jTablePhongThi.getColumn (tableCol.elementAt (2)).setPreferredWidth (120);
-        jTablePhongThi.getColumn (tableCol.elementAt (3)).setPreferredWidth (100);
+        jTablePhongThi.getColumn (tableCol.elementAt (3)).setPreferredWidth (150);
         jTablePhongThi.getColumn (tableCol.elementAt (4)).setPreferredWidth (120);
+        jTablePhongThi.getColumn (tableCol.elementAt (5)).setPreferredWidth (150);
+        jTablePhongThi.getColumn (tableCol.elementAt (6)).setPreferredWidth (100);
         jTablePhongThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(jTablePhongThi);
 
@@ -423,11 +507,9 @@ public class PhongThiForm extends javax.swing.JPanel
         tableCol2.add("Tên Giáo Viên");
         tableCol2.add("Nhiệm Vụ");
 
-        tbModelPTGV = new DefaultTableModel (tableCol2,10)
-        {
+        tbModelPTGV = new DefaultTableModel (tableCol2,10){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -444,10 +526,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jTablePTGV.setSelectionBackground(new Color(52,152,219));
         jTablePTGV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTablePTGV.setGridColor(new java.awt.Color(83, 86, 88));
-        jTablePTGV.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTablePTGV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePTGVMouseClicked(evt);
             }
         });
@@ -462,10 +542,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnChoose.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnChoose.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnChoose.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnChoose.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnChoose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnChooseActionPerformed(evt);
             }
         });
@@ -486,10 +564,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnChonGVPT.setBackground(new java.awt.Color(81, 113, 131));
         jBtnChonGVPT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnChonGVPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnChonGVPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnChonGVPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnChonGVPTActionPerformed(evt);
             }
         });
@@ -498,10 +574,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnThemGVPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnThemGVPT.setText("Thêm");
         jBtnThemGVPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemGVPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemGVPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemGVPTActionPerformed(evt);
             }
         });
@@ -510,10 +584,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnSuaGVPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnSuaGVPT.setText("Sửa");
         jBtnSuaGVPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaGVPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaGVPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaGVPTActionPerformed(evt);
             }
         });
@@ -522,10 +594,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnXoaGVPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnXoaGVPT.setText("Xóa");
         jBtnXoaGVPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaGVPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaGVPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaGVPTActionPerformed(evt);
             }
         });
@@ -534,10 +604,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnHuyGVPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnHuyGVPT.setText("Hủy");
         jBtnHuyGVPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuyGVPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuyGVPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyGVPTActionPerformed(evt);
             }
         });
@@ -551,10 +619,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jLabel10.setText("<html> <body>Tên Giáo Viên<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
 
         jCbNhiemVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coi Thi", "Chấm Thi" }));
-        jCbNhiemVu.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jCbNhiemVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCbNhiemVuActionPerformed(evt);
             }
         });
@@ -635,10 +701,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnThemTSPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnThemTSPT.setText("Thêm");
         jBtnThemTSPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThemTSPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThemTSPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemTSPTActionPerformed(evt);
             }
         });
@@ -652,10 +716,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnHuyTSPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnHuyTSPT.setText("Hủy");
         jBtnHuyTSPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuyTSPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuyTSPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyTSPTActionPerformed(evt);
             }
         });
@@ -664,10 +726,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnSuaTSPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnSuaTSPT.setText("Sửa");
         jBtnSuaTSPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSuaTSPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSuaTSPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaTSPTActionPerformed(evt);
             }
         });
@@ -676,10 +736,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnXoaTSPT.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jBtnXoaTSPT.setText("Xóa");
         jBtnXoaTSPT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoaTSPT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoaTSPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaTSPTActionPerformed(evt);
             }
         });
@@ -690,10 +748,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jTextSBD.setEditable(false);
         jTextSBD.setBackground(new java.awt.Color(214, 217, 223));
         jTextSBD.setForeground(new java.awt.Color(51, 51, 51));
-        jTextSBD.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTextSBD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextSBDMouseClicked(evt);
             }
         });
@@ -762,11 +818,9 @@ public class PhongThiForm extends javax.swing.JPanel
         tableCol1.add("SBD");
         tableCol1.add("Tên Thí Sinh");
 
-        tbModelPTTS = new DefaultTableModel (tableCol1,15)
-        {
+        tbModelPTTS = new DefaultTableModel (tableCol1,15){
             @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
@@ -783,10 +837,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jTablePTTS.setSelectionBackground(new Color(52,152,219));
         jTablePTTS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTablePTTS.setGridColor(new java.awt.Color(83, 86, 88));
-        jTablePTTS.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTablePTTS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePTTSMouseClicked(evt);
             }
         });
@@ -801,10 +853,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jPanelQlyPT.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 530, 290));
 
         jBtnTimKiem.setText("Tìm kiếm");
-        jBtnTimKiem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTimKiemActionPerformed(evt);
             }
         });
@@ -818,30 +868,24 @@ public class PhongThiForm extends javax.swing.JPanel
         jPanelQlyPT.add(jLabelTenPhongThi, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 110, 30));
 
         jBtnBack.setText("Quay Lại");
-        jBtnBack.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnBackActionPerformed(evt);
             }
         });
         jPanelQlyPT.add(jBtnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 30));
 
         jBtnWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-word-32.png"))); // NOI18N
-        jBtnWord.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnWordActionPerformed(evt);
             }
         });
         jPanelQlyPT.add(jBtnWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 30, 30));
 
         jBtnPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_pdf_32.png"))); // NOI18N
-        jBtnPDF.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnPDFActionPerformed(evt);
             }
         });
@@ -862,10 +906,8 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnRefresh2.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh2.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh2.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefresh2ActionPerformed(evt);
             }
         });
@@ -887,6 +929,7 @@ public class PhongThiForm extends javax.swing.JPanel
 
     private void jBtnCapPhatMaPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaPTActionPerformed
         // TODO add your handling code here:
+        jTextMaPT.setText(phongThiBUS.capPhat());
         jBtnCapPhatMaPT.setEnabled(false);
         jBtnThemPT.setEnabled(true);
         jBtnSuaPT.setEnabled(false);
@@ -896,109 +939,37 @@ public class PhongThiForm extends javax.swing.JPanel
 
     private void jBtnThemPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemPTActionPerformed
         // TODO add your handling code here:
-
-        //Validation
-        StringBuilder message = new StringBuilder();
-//        Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
-//        if (!message.toString().equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, message.toString());
-//            return;
-//        }
-//
-//        if (diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs))
-//        {
-//            themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
-//            JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
-//        }
-        jBtnCapPhatMaPT.setEnabled(true);
-        jBtnThemPT.setEnabled(false);
-        jBtnSuaPT.setEnabled(false);
-        jBtnXoaPT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaPT.setText("");
-        jTextTenphongthi.setText("");
-        jTextSoluong.setText("");
-        jTablePhongThi.clearSelection();
+        String maPhongThi = (String) jTextMaPT.getText(),
+                tenPhongThi = (String) jTextTenPhongThi.getText(),
+                soLuong = (String) jTextSoluong.getText(),
+                maKhoaThi = jCbKhoaThi.getSelectedItem().toString().substring(0, 8),
+                tenKhoaThi = jCbKhoaThi.getSelectedItem().toString().substring(10),
+                maTrinhDo = jCbTrinhDo.getSelectedItem().toString().substring(0, 8),
+                tenTrinhDo = jCbTrinhDo.getSelectedItem().toString().substring(10);
+        System.out.println("- maKhoa: /" + maKhoaThi + "/" + tenKhoaThi);
+        System.out.println("- maTrinh: /" + maTrinhDo + "/" + tenTrinhDo);
+        PhongThiDTO phongThiDTO = new PhongThiDTO(maPhongThi, tenPhongThi, Integer.valueOf(soLuong), maKhoaThi, maTrinhDo);
+        if (phongThiBUS.them(phongThiDTO, DashBoard.phongThiDTOs, DashBoard.trinhDoDTOs)) {
+            themVector(tbModelPhongThi, phongThiDTO, tenKhoaThi, tenTrinhDo);
+            JOptionPane.showMessageDialog(this, "Thêm khóa thi thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm khóa thi thất bại!");
+        }
+        clear();
     }//GEN-LAST:event_jBtnThemPTActionPerformed
-
-//    public void initTableDiaDiem()
-//    {
-//        loadDataDiaDiem();s
-//    }
-    public void loadDataDiaDiem()
-    {
-        tbModelPhongThi.setRowCount(0);
-//        tableModelDiaDiem(tbModelDiaDiem);
-        jTablePhongThi.setModel(tbModelPhongThi);
-        jTablePhongThi.clearSelection();
-    }
 
     private void jBtnSuaPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaPTActionPerformed
         // TODO add your handling code here:
-        maDiaDiem = jTextMaPT.getText();
-        tenDiaDiem = jTextTenphongthi.getText();
-
-        //Validation
-        StringBuilder message = new StringBuilder();
-//        Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
-//        if (!message.toString().equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, message.toString());
-//            return;
-//        }
-//
-//        if (diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs))
-//        {
-//            suaDiaDiem(tbModelDiaDiem, rowDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
-//            JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
-//        }
-        jBtnCapPhatMaPT.setEnabled(true);
-        jBtnThemPT.setEnabled(false);
-        jBtnSuaPT.setEnabled(false);
-        jBtnXoaPT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaPT.setText("");
-        jTextTenphongthi.setText("");
-        jTextSoluong.setText("");
-        jTablePhongThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnSuaPTActionPerformed
 
     private void jBtnXoaPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaPTActionPerformed
         // TODO add your handling code here:
-        maDiaDiem = jTextMaPT.getText();
-        if (!isNullOrEmpty(maDiaDiem))
-        {
-//            if (diaDiemBUS.xoaDiaDiem(maDiaDiem, DashBoard.diaDiemThamQuanDTOs, DashBoard.diaDiemDTOs))
-//            {
-//                xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
-//                JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(this, "Xóa địa điểm thất bại!");
-//            }
-        }
-        jBtnCapPhatMaPT.setEnabled(true);
-        jBtnThemPT.setEnabled(false);
-        jBtnSuaPT.setEnabled(false);
-        jBtnXoaPT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaPT.setText("");
-        jTextTenphongthi.setText("");
-        jTextSoluong.setText("");
-        jTablePhongThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnXoaPTActionPerformed
 
-    private boolean isNullOrEmpty(String text)
-    {
-        if (text == null || text.equals(""))
-        {
+    private boolean isNullOrEmpty(String text) {
+        if (text == null || text.equals("")) {
             return true;
         }
         return false;
@@ -1006,35 +977,23 @@ public class PhongThiForm extends javax.swing.JPanel
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
-        jBtnCapPhatMaPT.setEnabled(true);
-        jBtnThemPT.setEnabled(false);
-        jBtnSuaPT.setEnabled(false);
-        jBtnXoaPT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaPT.setText("");
-        jTextTenphongthi.setText("");
-        jTextSoluong.setText("");
-        jTablePhongThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jBtnTimKiemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemDDActionPerformed
         // TODO add your handling code here:
-        //Tìm kiếm = mã hoặc like tên
-        timKiem(tbModelPhongThi, jTablePhongThi, jTextTimKiemPT.getText());
     }//GEN-LAST:event_jBtnTimKiemDDActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
         jTextMaPT.setText("");
-        jTextTenphongthi.setText("");
+        jTextTenPhongThi.setText("");
         jTextTimKiemPT.setText("");
         jBtnCapPhatMaPT.setEnabled(true);
         jBtnThemPT.setEnabled(false);
         jBtnSuaPT.setEnabled(false);
         jBtnXoaPT.setEnabled(false);
         jBtnHuy.setEnabled(false);
-//        diaDiemBUS = new DiaDiemBUS();
-        loadDataDiaDiem();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     private void jCbTrinhDoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbTrinhDoActionPerformed
@@ -1059,16 +1018,15 @@ public class PhongThiForm extends javax.swing.JPanel
         jBtnChonGVPT.setEnabled(true);
     }//GEN-LAST:event_jBtnChooseActionPerformed
 
-    private void jCbMakhoaThiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbMakhoaThiActionPerformed
-    {//GEN-HEADEREND:event_jCbMakhoaThiActionPerformed
+    private void jCbKhoaThiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbKhoaThiActionPerformed
+    {//GEN-HEADEREND:event_jCbKhoaThiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCbMakhoaThiActionPerformed
+    }//GEN-LAST:event_jCbKhoaThiActionPerformed
 
     private void jTablePhongThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTablePhongThiMouseClicked
     {//GEN-HEADEREND:event_jTablePhongThiMouseClicked
         // TODO add your handling code here:
-        if (evt.getClickCount() >= 2)
-        {
+        if (evt.getClickCount() >= 2) {
             jBtnThemGVPT.setEnabled(false);
             jBtnThemTSPT.setEnabled(false);
             jBtnSuaGVPT.setEnabled(false);
@@ -1079,30 +1037,36 @@ public class PhongThiForm extends javax.swing.JPanel
             jBtnHuyTSPT.setEnabled(false);
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
-            if (row != -1)
-            {
-                System.out.println("Rơ ch?n : " + row);
+            if (row != -1) {
                 jTabbedPane1.add(jPanelQlyPT, 1);
                 jTabbedPane1.setTitleAt(1, "Sắp Xếp Phòng Thi");
                 jTabbedPane1.setSelectedIndex(1);
                 jTabbedPane1.setEnabledAt(0, false);
                 jTabbedPane1.setSelectedIndex(1);
             }
-        } else
-        {
+        } else {
             JTable tempJTable = (JTable) evt.getSource();
-            int row = tempJTable.getSelectedRow();
-            if (row != -1)
-            {
-
+            rowPhongThi = tempJTable.getSelectedRow();
+            if (rowPhongThi != -1) {
+                phongThiSelected.setMaPhongThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 0));
+                phongThiSelected.setTenPhongThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 1));
+                phongThiSelected.setMaKhoaThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 2));
+                tenKhoaThi = (String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 3);
+                phongThiSelected.setMaTrinhDo((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 4));
+                tenTrinhDo = (String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 5);
+                phongThiSelected.setSoLuong((Integer) jTablePhongThi.getModel().getValueAt(rowPhongThi, 6));
+                jTextMaPT.setText(phongThiSelected.getMaPhongThi());
+                jTextTenPhongThi.setText(phongThiSelected.getTenPhongThi());
+                jCbKhoaThi.setSelectedItem(phongThiSelected.getMaKhoaThi() + ". " + tenKhoaThi);
+                jCbTrinhDo.setSelectedItem(phongThiSelected.getMaTrinhDo()+ ". " + tenTrinhDo);
+                jTextSoluong.setText(String.valueOf(phongThiSelected.getSoLuong()));
+                jBtnCapPhatMaPT.setEnabled(false);
+                jBtnThemPT.setEnabled(false);
+                jBtnSuaPT.setEnabled(true);
+                jBtnXoaPT.setEnabled(true);
+                jBtnHuy.setEnabled(true);
             }
-            jBtnCapPhatMaPT.setEnabled(false);
-            jBtnThemPT.setEnabled(false);
-            jBtnSuaPT.setEnabled(true);
-            jBtnXoaPT.setEnabled(true);
-            jBtnHuy.setEnabled(true);
         }
-
     }//GEN-LAST:event_jTablePhongThiMouseClicked
 
     private void jBtnChonGVPTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnChonGVPTActionPerformed
@@ -1197,11 +1161,28 @@ public class PhongThiForm extends javax.swing.JPanel
     private void jTablePTTSMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTablePTTSMouseClicked
     {//GEN-HEADEREND:event_jTablePTTSMouseClicked
         // TODO add your handling code here:
-        jBtnSuaTSPT.setEnabled(true);
-        jBtnXoaTSPT.setEnabled(true);
-        jBtnHuyTSPT.setEnabled(true);
+        rowThiSinh = jTablePTTS.getSelectedRow();
+        if (rowThiSinh != -1) {
+//            maLoaiChiPhi = (String) jTableTrinhDo.getModel().getValueAt(rowChiPhi, 0);
+//            tenLoaiChiPhi = (String) jTableTrinhDo.getModel().getValueAt(rowChiPhi, 1);
+//            if (!maLoaiChiPhi.equals("null"))
+//            {
+//                jTextMaTD.setText(maLoaiChiPhi);
+//                jTextTenTD.setText(tenLoaiChiPhi);
+//            }
+            jBtnSuaTSPT.setEnabled(true);
+            jBtnXoaTSPT.setEnabled(true);
+            jBtnHuyTSPT.setEnabled(true);
 //        jBtnChonTSPT.setEnabled(false);
-        jBtnThemTSPT.setEnabled(false);
+            jBtnThemTSPT.setEnabled(false);
+            JTable tempJTable = (JTable) evt.getSource();
+            int row = tempJTable.getSelectedRow();
+            if (row != -1) {
+                if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+                    jPopupMenuStatus.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+        }
     }//GEN-LAST:event_jTablePTTSMouseClicked
 
     private void jBtnHuyTSPTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyTSPTActionPerformed
@@ -1266,13 +1247,34 @@ public class PhongThiForm extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnPDFActionPerformed
 
-    private void jTextTenphongthiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTextTenphongthiMouseClicked
-    {//GEN-HEADEREND:event_jTextTenphongthiMouseClicked
+    public String initTenPhong() {
+        String tenPhong = "";
+        for (TrinhDoDTO trinhDo : DashBoard.trinhDoDTOs) {
+            if (trinhDo.getMaTrinhDo().equals(jCbTrinhDo.getSelectedItem().toString().substring(0,8))) {
+                int ma = trinhDo.getSoLuongPG() + 1;
+                if (ma < 1000) {
+                    int totalzero = 3;
+                    String add = String.valueOf(ma);
+                    int cpzero = totalzero - add.length();
+                    String init = "P";
+                    for (int i = 0; i < cpzero; i++) {
+                        init += '0';
+                    }
+                    tenPhong = jCbTrinhDo.getSelectedItem().toString().substring(9) + init + add;
+                } else {
+                    tenPhong = jCbTrinhDo.getSelectedItem().toString().substring(9) + "P" + ma;
+                }
+                break;
+            }
+        }
+        return tenPhong;
+    }
+    
+    private void jTextTenPhongThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTextTenPhongThiMouseClicked
+    {//GEN-HEADEREND:event_jTextTenPhongThiMouseClicked
         // TODO add your handling code here:
-
-        String aString = jCbTrinhDo.getSelectedItem().toString();
-        jTextTenphongthi.setText(aString + "P" + "01");
-    }//GEN-LAST:event_jTextTenphongthiMouseClicked
+        jTextTenPhongThi.setText(initTenPhong());
+    }//GEN-LAST:event_jTextTenPhongThiMouseClicked
 
     private void jBtnRefresh2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh2ActionPerformed
     {//GEN-HEADEREND:event_jBtnRefresh2ActionPerformed
@@ -1291,105 +1293,81 @@ public class PhongThiForm extends javax.swing.JPanel
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
-//    public void tableModelDiaDiem(DefaultTableModel model)
-//    {
-//        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs)
-//        {
-//            Vector row = new Vector();
-//            row.add(diaDiemDTO.getMaDiaDiem());
-//            row.add(diaDiemDTO.getTenDiaDiem());
-//            model.addRow(row);
-//        }
-//    }
-//    public void suaDiaDiem(DefaultTableModel model, int row, DiaDiemDTO diaDiemDTO)
-//    {
-//        model.setValueAt(diaDiemDTO.getMaDiaDiem(), row, 0);
-//        model.setValueAt(diaDiemDTO.getTenDiaDiem(), row, 1);
-//    }
-//
-//    public void themDiaDiem(DefaultTableModel model, DiaDiemDTO diaDiemDTO)
-//    {
-//        Vector row = new Vector();
-//        row.add(diaDiemDTO.getMaDiaDiem());
-//        row.add(diaDiemDTO.getTenDiaDiem());
-//        model.addRow(row);
-//    }
-    public void xoaDiaDiem(DefaultTableModel model, int row)
-    {
-        model.removeRow(row);
-    }
+    private void jMenuItemChuaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChuaThiActionPerformed
+        // TODO add your handling code here:
+        if (jTablePTTS.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Empty!!");
+        } else {
+//            System.out.println(jTableTS.getSelectedRowCount());
+            ArrayList<String> a = new ArrayList<>();
+            for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
+                if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
+                    a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                }
+            }
+            System.out.println("List dc chon!!" + a);
+        }
+    }//GEN-LAST:event_jMenuItemChuaThiActionPerformed
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value)
-    {
-        model.setRowCount(0);
-//        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs)
-//        {
-//            if (diaDiemDTO.getMaDiaDiem().equals(value) || diaDiemDTO.getTenDiaDiem().indexOf(value) != -1)
-//            {
-//                Vector row = new Vector();
-//                row.add(diaDiemDTO.getMaDiaDiem());
-//                row.add(diaDiemDTO.getTenDiaDiem());
-//                model.addRow(row);
-//            }
-//        }
-    }
+    private void jMenuItemDaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDaThiActionPerformed
+        // TODO add your handling code here:
+        if (jTablePTTS.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Empty!!");
+        } else {
+//            System.out.println(jTableTS.getSelectedRowCount());
+            ArrayList<String> a = new ArrayList<>();
+            for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
+                if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
+                    a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                }
+            }
+            System.out.println("List dc chon!!" + a);
+        }
+    }//GEN-LAST:event_jMenuItemDaThiActionPerformed
 
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
-    public JButton getjBtnChonGVPT()
-    {
+    public JButton getjBtnChonGVPT() {
         return jBtnChonGVPT;
     }
 
-    public JButton getjBtnHuyGVPT()
-    {
+    public JButton getjBtnHuyGVPT() {
         return jBtnHuyGVPT;
     }
 
-    public JButton getjBtnHuyTSPT()
-    {
+    public JButton getjBtnHuyTSPT() {
         return jBtnHuyTSPT;
     }
 
-    public JButton getjBtnSuaGVPT()
-    {
+    public JButton getjBtnSuaGVPT() {
         return jBtnSuaGVPT;
     }
 
-    public JButton getjBtnSuaTSPT()
-    {
+    public JButton getjBtnSuaTSPT() {
         return jBtnSuaTSPT;
     }
 
-    public JButton getjBtnThemGVPT()
-    {
+    public JButton getjBtnThemGVPT() {
         return jBtnThemGVPT;
     }
 
-    public JButton getjBtnThemTSPT()
-    {
+    public JButton getjBtnThemTSPT() {
         return jBtnThemTSPT;
     }
 
-    public JButton getjBtnXoaGVPT()
-    {
+    public JButton getjBtnXoaGVPT() {
         return jBtnXoaGVPT;
     }
 
-    public JButton getjBtnXoaTSPT()
-    {
+    public JButton getjBtnXoaTSPT() {
         return jBtnXoaTSPT;
     }
-    
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1415,7 +1393,7 @@ public class PhongThiForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnXoaGVPT;
     private javax.swing.JButton jBtnXoaPT;
     private javax.swing.JButton jBtnXoaTSPT;
-    private javax.swing.JComboBox<String> jCbMakhoaThi;
+    private javax.swing.JComboBox<String> jCbKhoaThi;
     private javax.swing.JComboBox<String> jCbNhiemVu;
     private javax.swing.JComboBox<String> jCbTrinhDo;
     private javax.swing.JComboBox<String> jComboBoxChonMaCaThi;
@@ -1433,11 +1411,14 @@ public class PhongThiForm extends javax.swing.JPanel
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelTenPhongThi;
+    private javax.swing.JMenuItem jMenuItemChuaThi;
+    private javax.swing.JMenuItem jMenuItemDaThi;
     private javax.swing.JPanel jPanelChonGV;
     private javax.swing.JPanel jPanelChonThiSinh1;
     private javax.swing.JPanel jPanelPT;
     private javax.swing.JPanel jPanelPhongThi;
     private javax.swing.JPanel jPanelQlyPT;
+    private javax.swing.JPopupMenu jPopupMenuStatus;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1451,8 +1432,8 @@ public class PhongThiForm extends javax.swing.JPanel
     private javax.swing.JTextField jTextSBD;
     private javax.swing.JTextField jTextSoluong;
     private javax.swing.JTextField jTextTenGVPT;
+    private javax.swing.JTextField jTextTenPhongThi;
     private javax.swing.JTextField jTextTenTSPT;
-    private javax.swing.JTextField jTextTenphongthi;
     private javax.swing.JTextField jTextTimKiemPT;
     private javax.swing.JTextField jTextTimKiemPT1;
     // End of variables declaration//GEN-END:variables

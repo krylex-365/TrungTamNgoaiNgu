@@ -66,7 +66,7 @@ public class PhongThiDAO {
         return false;
     }
 
-    public boolean updatePhongThi(PhongThiDTO phongThiDTO, boolean checkMaTrinhDo, boolean checkMaKhoaThi) {
+    public boolean updatePhongThi(PhongThiDTO phongThiDTO, boolean checkMaKhoaThi, boolean checkMaTrinhDo) {
         conn = new Connect();
         conn.getConnection();
         String sql = "UPDATE PhongThi SET"

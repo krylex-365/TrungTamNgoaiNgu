@@ -23,7 +23,7 @@ public class ThiSinhDAO {
         ArrayList<ThiSinhDTO> thiSinhDTOs = new ArrayList<ThiSinhDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from ThiSinh where Status=1";
+        String query = "select * from ThiSinh where Status<>0";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

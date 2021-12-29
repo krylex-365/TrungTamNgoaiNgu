@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenuStatus">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemChuaThi">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ch&#x1b0;a thi"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemChuaThiActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDaThi">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x110;&#xe3; thi"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDaThiActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="f9" green="f2" red="e9" type="rgb"/>
@@ -115,42 +141,44 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Component id="jTextMaPT" min="-2" pref="190" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBtnThemPT" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                                              <Component id="jBtnXoaPT" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="103" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBtnHuy" min="-2" pref="110" max="-2" attributes="0"/>
-                                              <Component id="jBtnSuaPT" min="-2" pref="110" max="-2" attributes="0"/>
-                                          </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jBtnThemPT" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="jBtnXoaPT" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTextSoluong" pref="190" max="32767" attributes="0"/>
-                                              <Component id="jTextMaPT" max="32767" attributes="0"/>
-                                              <Component id="jTextTenphongthi" pref="190" max="32767" attributes="0"/>
-                                              <Component id="jCbTrinhDo" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jCbMakhoaThi" max="32767" attributes="0"/>
-                                          </Group>
+                                      <EmptySpace pref="66" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jBtnHuy" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="jBtnSuaPT" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jBtnCapPhatMaPT" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextTenPhongThi" pref="190" max="32767" attributes="0"/>
+                                          <Component id="jCbTrinhDo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jCbKhoaThi" max="32767" attributes="0"/>
+                                          <Component id="jTextSoluong" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="39" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtnCapPhatMaPT" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace pref="38" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -160,9 +188,14 @@
                           <EmptySpace pref="31" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jCbMakhoaThi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jCbKhoaThi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jCbTrinhDo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -170,32 +203,27 @@
                               </Group>
                               <Component id="jBtnCapPhatMaPT" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jCbTrinhDo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jTextTenPhongThi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTextSoluong" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jBtnSuaPT" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnThemPT" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jTextTenphongthi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jBtnHuy" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnXoaPT" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBtnThemPT" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnSuaPT" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBtnHuy" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnXoaPT" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="84" max="32767" attributes="0"/>
+                          <EmptySpace pref="83" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -231,7 +259,7 @@
                     <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; T&#xea;n Ph&#xf2;ng Thi &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextTenphongthi">
+                <Component class="javax.swing.JTextField" name="jTextTenPhongThi">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -239,7 +267,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextTenphongthiMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextTenPhongThiMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtnCapPhatMaPT">
@@ -376,7 +404,7 @@
                     <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; M&#xe3; Kh&#xf3;a Thi&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jCbMakhoaThi">
+                <Component class="javax.swing.JComboBox" name="jCbKhoaThi">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="2">
@@ -386,7 +414,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbMakhoaThiActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbKhoaThiActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -455,6 +483,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTablePhongThi">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Hand Cursor"/>
                     </Property>
@@ -470,8 +499,8 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Vector tableCol=new Vector();&#xa;tableCol.add(&quot;M&#xe3; Kh&#xf3;a Thi&quot;);&#xa;        tableCol.add(&quot;M&#xe3; Ph&#xf2;ng Thi&quot;);&#xa;        tableCol.add(&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add(&quot;S&#x1ed1; L&#x1b0;&#x1ee3;ng&quot;);&#xa;        tableCol.add(&quot;T&#xea;n Ph&#xf2;ng Thi&quot;);&#xa;&#xa;tbModelPhongThi = new DefaultTableModel (tableCol,5){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTablePhongThi.setModel (tbModelPhongThi);&#xa;jTablePhongThi.setShowGrid(true);&#xa;        jTablePhongThi.setFocusable(false);&#xa;        jTablePhongThi.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTablePhongThi.setRowHeight(25);  &#xa;        jTablePhongThi.getTableHeader().setOpaque(false);&#xa;        jTablePhongThi.setFillsViewportHeight(true);&#xa;        jTablePhongThi.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTablePhongThi.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTablePhongThi.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTablePhongThi.setSelectionBackground(new Color(52,152,219));"/>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="jTablePhongThi.getColumn (tableCol.elementAt (0)).setPreferredWidth (150);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (2)).setPreferredWidth (120);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (3)).setPreferredWidth (100);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (4)).setPreferredWidth (120);&#xa;jTablePhongThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Vector tableCol=new Vector();&#xa;tableCol.add(&quot;M&#xe3; Ph&#xf2;ng Thi&quot;);&#xa;tableCol.add(&quot;T&#xea;n Ph&#xf2;ng Thi&quot;);&#xa;tableCol.add(&quot;M&#xe3; Kh&#xf3;a Thi&quot;);&#xa;tableCol.add(&quot;T&#xea;n Kh&#xf3;a Thi&quot;);        &#xa;tableCol.add(&quot;M&#xe3; Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add(&quot;Tr&#xec;nh &#x110;&#x1ed9;&quot;);&#xa;tableCol.add(&quot;S&#x1ed1; L&#x1b0;&#x1ee3;ng&quot;);&#xa;&#xa;tbModelPhongThi = new DefaultTableModel (tableCol,0){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTablePhongThi.setModel (tbModelPhongThi);&#xa;jTablePhongThi.setShowGrid(true);&#xa;        jTablePhongThi.setFocusable(false);&#xa;        jTablePhongThi.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTablePhongThi.setRowHeight(25);  &#xa;        jTablePhongThi.getTableHeader().setOpaque(false);&#xa;        jTablePhongThi.setFillsViewportHeight(true);&#xa;        jTablePhongThi.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTablePhongThi.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTablePhongThi.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTablePhongThi.setSelectionBackground(new Color(52,152,219));"/>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="jTablePhongThi.getColumn (tableCol.elementAt (0)).setPreferredWidth (120);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (2)).setPreferredWidth (120);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (3)).setPreferredWidth (150);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (4)).setPreferredWidth (120);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (5)).setPreferredWidth (150);&#xa;        jTablePhongThi.getColumn (tableCol.elementAt (6)).setPreferredWidth (100);&#xa;jTablePhongThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

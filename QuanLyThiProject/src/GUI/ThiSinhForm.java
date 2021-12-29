@@ -1074,7 +1074,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jBtnCancel1MouseClicked
 
-
     private void jBtnThemTS1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemTS1ActionPerformed
     {//GEN-HEADEREND:event_jBtnThemTS1ActionPerformed
         // TODO add your handling code here:
