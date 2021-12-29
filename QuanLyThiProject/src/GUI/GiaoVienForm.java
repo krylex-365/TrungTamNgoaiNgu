@@ -13,6 +13,9 @@ package GUI;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
 //import DTO.PhongBanDTO;
+import BUS.GiaoVienBUS;
+import DTO.GiaoVienDTO;
+import DTO.PhanCongDTO;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -42,13 +45,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.util.Date;
 
 /**
  *
  * @author Hyung
  */
-public class GiaoVienForm extends javax.swing.JPanel
-{
+public class GiaoVienForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
@@ -61,9 +64,10 @@ public class GiaoVienForm extends javax.swing.JPanel
 //    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
 //    private Utils ult = new Utils();
+    GiaoVienBUS giaoVienBUS = new GiaoVienBUS();
+    private GiaoVienDTO giaoVienSelected = new GiaoVienDTO();
 
-    public GiaoVienForm()
-    {
+    public GiaoVienForm() {
         initComponents();
         jBtnCapPhatMaGV.setEnabled(true);
         jBtnThemGV.setEnabled(false);
@@ -79,115 +83,31 @@ public class GiaoVienForm extends javax.swing.JPanel
 //        tk.setVisible(false);
     }
 
-//    public void loadData()
-//    {
-//        nhanVienBUS = new NhanVienBUS();
-//        doanDuLichBUS = new DoanDuLichBUS();
-//        modelnv.setRowCount(0);
-//        tbModelNhanVien(modelnv);
-//    }
-//    public void tbModelNhanVien(DefaultTableModel model)
-//    {
-//        Vector row;
-//        for (NhanVienDTO a : DashBoard.nhanVienDTOs)
-//        {
-//            row = new Vector();
-//            row.add(a.getMaNhanVien());
-//            row.add(a.getTenNhanVien());
-//            if (a.getGioiTinh().equals("1"))
-//            {
-//                row.add("Nam");
-//            } else
-//            {
-//                row.add("Nữ");
-//            }
-//            row.add(a.getNgaySinh());
-//            row.add(a.getSDT());
-//            row.add(a.getDiaChi());
-//            model.addRow(row);
-//        }
-//    }
-//
-//    public boolean add(String maNhanVien, String tenNhanVien, String gioiTinh, String ngaySinh, String sdt, String diaChi)
-//    {
-//        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi), DashBoard.nhanVienDTOs);
-//    }
-//
-//    public boolean update(String maNhanVien, String tenNhanVien, String gioiTinh, String ngaySinh, String sdt, String diaChi)
-//    {
-//        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi), DashBoard.nhanVienDTOs);
-//    }
-//
-//    public boolean delete(String maNhanVien)
-//    {
-//        return nhanVienBUS.delete(maNhanVien, DashBoard.nhanVienDTOs);
-//    }
-//
-//    public void searchNhanVienByMaNhanVien(DefaultTableModel model, String maNhanVien)
-//    {
-//        Vector row;
-//        for (NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien, DashBoard.nhanVienDTOs))
-//        {
-//            row = new Vector();
-//            System.out.println(a);
-//            row.add(a.getMaNhanVien());
-//            row.add(a.getTenNhanVien());
-//            if (a.getGioiTinh().equals("1"))
-//            {
-//                row.add("Nam");
-//            } else
-//            {
-//                row.add("Nữ");
-//            }
-//            row.add(a.getNgaySinh());
-//            row.add(a.getSDT());
-//            row.add(a.getDiaChi());
-//            model.addRow(row);
-//            break;
-//        }
-//    }
-//    public void tbModelThongKeNhanVien(DefaultTableModel model, Date start, Date end)
-//    {
-//        //ArrayList<NhanVienDTO> arr = new ArrayList<>();
-//        ArrayList<DoanDuLichDTO> arrDoan = doanDuLichBUS.searchDoanByDate(start, end, DashBoard.doanDuLichDTOs);
-//        Vector rowVector;
-////        if(jDateNgayBDTK.getDate()!=null&&jDateNgayKTTK.getDate()!=null)
-//        if (arrDoan.size() > 0)
-//        {
-//            int count = 0;
-//
-//            for (NhanVienDTO a : DashBoard.nhanVienDTOs)
-//            {
-//                rowVector = new Vector();
-//                for (NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs)
-//                {
-//                    for (DoanDuLichDTO c : arrDoan)
-//                    {
-//                        if ((a.getMaNhanVien().equals(b.getMaNhanVien())) && (b.getMaDoan().equals(c.getMaDoan())))
-//                        {
-//                            count++;
-//                        }
-//                    }
-//                }
-//                rowVector.add(a.getMaNhanVien());
-//                rowVector.add(a.getTenNhanVien());
-//                rowVector.add(count);
-////                System.out.println(rowVector);
-//                model.addRow(rowVector);
-//                count = 0;
-//            }
-//        } else
-//        {
-//            for (NhanVienDTO a : DashBoard.nhanVienDTOs)
-//            {
-//                rowVector = new Vector();
-//                rowVector.add(a.getMaNhanVien());
-//                rowVector.add(a.getTenNhanVien());
-//                rowVector.add(0);
-//            }
-//        }
-//
-//    }
+    public void initTableGV() {
+        modelgv.setRowCount(0);
+        tableModel(modelgv);
+        jTableGV.setRowSorter(null);
+        jTableGV.setAutoCreateRowSorter(true);
+        jTableGV.setModel(modelgv);
+        jTableGV.clearSelection();
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (GiaoVienDTO giaovien : DashBoard.giaoVienDTOs) {
+            Vector row = new Vector();
+            row.add(giaovien.getMaGiaoVien());
+            row.add(giaovien.getHoTen());
+            if (giaovien.getGioiTinh().equals("1")) {
+                row.add("Nam");
+            } else {
+                row.add("Nữ");
+            }
+            row.add(giaovien.getSdt());
+            row.add(giaovien.getMail());
+            model.addRow(row);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -625,12 +545,12 @@ public class GiaoVienForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jBtnCapPhatMaGVActionPerformed
         // TODO add your handling code here:
 //        jTextMaNhanVien.setText(ult.initMaNhanVien());
+        jTextMaGiangVien.setText(giaoVienBUS.capPhat());
         jBtnCapPhatMaGV.setEnabled(false);
-        jTextMaGiangVien.setText("");
+
         jTextTenGiangVien.setText("");
         jTextSDT.setText("");
         jTextEmail.setText("");
-//        jDateNgaySinh.setCalendar(null);
         jTableGV.clearSelection();
         jBtnThemGV.setEnabled(true);
         jBtnSuaGV.setEnabled(false);
@@ -641,23 +561,24 @@ public class GiaoVienForm extends javax.swing.JPanel
 
     private void jTableGVMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableGVMouseClicked
     {//GEN-HEADEREND:event_jTableGVMouseClicked
-        if (evt.getSource() == jTableGV)
-        {
+        if (evt.getSource() == jTableGV) {
             selectedRow = jTableGV.getSelectedRow();
-            if (selectedRow != -1)
-            {
-//                jTextMaGiangVien.setText((String) modelgv.getValueAt(selectedRow, 0));
-//                jTextTenGiangVien.setText((String) modelgv.getValueAt(selectedRow, 1));
-//                if (modelgv.getValueAt(selectedRow, 2).equals("Nam"))
-//                {
-//                    jCbGioiTinh.setSelectedIndex(0);
-//                } else
-//                {
-//                    jCbGioiTinh.setSelectedIndex(1);
-//                }
+            if (selectedRow != -1) {
+                giaoVienSelected.setMaGiaoVien((String) jTableGV.getModel().getValueAt(selectedRow, 0));
+                giaoVienSelected.setHoTen((String) jTableGV.getModel().getValueAt(selectedRow, 1));
+                if (jTableGV.getValueAt(selectedRow, 2).equals("Nam")) {
+                    jCbGioiTinh.setSelectedIndex(0);
+                } else {
+                    jCbGioiTinh.setSelectedIndex(1);
+                }
+                giaoVienSelected.setMail((String) jTableGV.getModel().getValueAt(selectedRow, 4));
+                giaoVienSelected.setSdt((String) jTableGV.getModel().getValueAt(selectedRow, 3));
 
-//                jTextSDT.setText((String) modelgv.getValueAt(selectedRow, 4));
-//                jTextEmail.setText((String) modelgv.getValueAt(selectedRow, 5));
+                jTextTenGiangVien.setText(giaoVienSelected.getHoTen());
+                jTextSDT.setText(giaoVienSelected.getSdt());
+                jTextEmail.setText(giaoVienSelected.getMail());
+                jTextMaGiangVien.setText(giaoVienSelected.getMaGiaoVien());
+
                 jBtnCapPhatMaGV.setEnabled(false);
                 jBtnThemGV.setEnabled(false);
                 jBtnSuaGV.setEnabled(true);
@@ -672,30 +593,32 @@ public class GiaoVienForm extends javax.swing.JPanel
     }//GEN-LAST:event_jTextTimKiemGVActionPerformed
 
     private void jBtnThemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemGVActionPerformed
-//        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-        String gioiTinh;
+        String magv = (String) jTextMaGiangVien.getText(),
+                tengv = (String) jTextTenGiangVien.getText(),
+                gioiTinh,
+                sdt = (String) jTextSDT.getText(),
+                mail = (String) jTextEmail.getText();
+
         Vector addRow = new Vector();
-        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-        {
+        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
             gioiTinh = "1";
-        } else
-        {
+        } else {
             gioiTinh = "0";
         }
-//        if (add(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText()))
-//        {
-//            addRow = new Vector();
-//            addRow.add(jTextMaNhanVien.getText());
-//            addRow.add(jTextTenNhanVien.getText());
-//            addRow.add(jCbGioiTinh.getSelectedItem());
-//            addRow.add(ngaySinh);
-//            addRow.add(jTextSDT.getText());
-//            addRow.add(jTextDiaChi.getText());
-//            modelnv.addRow(addRow);
-//        } else
-//        {
-//
-//        }
+//        
+        GiaoVienDTO gv = new GiaoVienDTO(magv, tengv, gioiTinh, sdt, mail);
+        if (giaoVienBUS.themGiaoVien(gv, DashBoard.giaoVienDTOs)) {
+            addRow = new Vector();
+            addRow.add(magv);
+            addRow.add(tengv);
+            addRow.add(jCbGioiTinh.getSelectedItem());
+            addRow.add(sdt);
+            addRow.add(mail);
+            modelgv.addRow(addRow);
+            JOptionPane.showMessageDialog(this, "Thêm giáo viên thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm giáo viên thất bại!");
+        }
         jBtnCapPhatMaGV.setEnabled(true);
         jBtnThemGV.setEnabled(false);
         jBtnSuaGV.setEnabled(false);
@@ -705,32 +628,34 @@ public class GiaoVienForm extends javax.swing.JPanel
         jTextTenGiangVien.setText("");
         jTextSDT.setText("");
         jTextEmail.setText("");
-//        jDateNgaySinh.setCalendar(null);
         jTableGV.clearSelection();
     }//GEN-LAST:event_jBtnThemGVActionPerformed
 
     private void jBtnSuaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaGVActionPerformed
-//        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-//        String gioiTinh;
-//        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-//        {
-//            gioiTinh = "1";
-//        } else
-//        {
-//            gioiTinh = "0";
-//        }
-//        if (update(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText()))
-//        {
-//            modelnv.setValueAt(jTextMaNhanVien.getText(), selectedRow, 0);
-//            modelnv.setValueAt(jTextTenNhanVien.getText(), selectedRow, 1);
-//            modelnv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
-//            modelnv.setValueAt(ngaySinh, selectedRow, 3);
-//            modelnv.setValueAt(jTextSDT.getText(), selectedRow, 4);
-//            modelnv.setValueAt(jTextDiaChi.getText(), selectedRow, 5);
-//        } else
-//        {
-//
-//        }
+
+        String tengv = (String) jTextTenGiangVien.getText(),
+                sdt = (String) jTextSDT.getText(),
+                mail = (String) jTextEmail.getText(),
+                magv = (String) jTextMaGiangVien.getText();
+
+        String gioiTinh;
+        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+            gioiTinh = "1";
+        } else {
+            gioiTinh = "0";
+        }
+
+        GiaoVienDTO giaoVienDTO = new GiaoVienDTO(giaoVienSelected.getMaGiaoVien(), tengv, gioiTinh, sdt, mail);
+        if (giaoVienBUS.suaGiaoVien(giaoVienDTO, DashBoard.giaoVienDTOs)) {
+            modelgv.setValueAt(magv, selectedRow, 0);
+            modelgv.setValueAt(tengv, selectedRow, 1);
+            modelgv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
+            modelgv.setValueAt(sdt, selectedRow, 3);
+            modelgv.setValueAt(mail, selectedRow, 4);
+            JOptionPane.showMessageDialog(this, "Sửa giáo viên thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa giáo viên thất bại!");
+        }
         jBtnCapPhatMaGV.setEnabled(true);
         jBtnThemGV.setEnabled(false);
         jBtnSuaGV.setEnabled(false);
@@ -740,26 +665,59 @@ public class GiaoVienForm extends javax.swing.JPanel
         jTextTenGiangVien.setText("");
         jTextSDT.setText("");
         jTextEmail.setText("");
-//        jDateNgaySinh.setCalendar(null);
         jTableGV.clearSelection();
     }//GEN-LAST:event_jBtnSuaGVActionPerformed
 
+    private String checkBeforeDel(String maGiaoVien) {
+        String noti = "";
+        long millis = System.currentTimeMillis();
+        Date date = new java.sql.Date(millis);
+        Date datePhancong = null;
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for (GiaoVienDTO giaovien : DashBoard.giaoVienDTOs) {
+            for (PhanCongDTO phancong : DashBoard.phanCongDTOs) {
+                try {
+                    datePhancong = myFormat.parse(phancong.getNgayThi());
+                } catch (ParseException ex) {
+                    Logger.getLogger(GiaoVienForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (giaovien.getMaGiaoVien().equals(maGiaoVien)
+                        && giaovien.getMaGiaoVien().equals(phancong.getMaGiaoVien())
+                        && datePhancong.after(date) || datePhancong.equals(date)) {
+                    noti += "- Giáo viên đã được phân công";
+                    break;
+                }
+
+            }
+        }
+
+        return noti;
+    }
+
     private void jBtnXoaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaGVActionPerformed
-//        if (delete(modelnv.getValueAt(selectedRow, 0).toString()))
-//        {
-//            modelnv.removeRow(selectedRow);
-//        }
-        jBtnCapPhatMaGV.setEnabled(true);
-        jBtnThemGV.setEnabled(false);
-        jBtnSuaGV.setEnabled(false);
-        jBtnXoaGV.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaGiangVien.setText("");
-        jTextTenGiangVien.setText("");
-        jTextSDT.setText("");
-        jTextEmail.setText("");
-//        jDateNgaySinh.setCalendar(null);
-        jTableGV.clearSelection();
+        String check = checkBeforeDel(giaoVienSelected.getMaGiaoVien());
+        if (check.equals("")) {
+            if (giaoVienBUS.xoaGiaoVien(giaoVienSelected, DashBoard.giaoVienDTOs)) {
+                modelgv.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Xóa giáo viên thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Không thể xoá giáo viên !");
+            }
+            jBtnCapPhatMaGV.setEnabled(true);
+            jBtnThemGV.setEnabled(false);
+            jBtnSuaGV.setEnabled(false);
+            jBtnXoaGV.setEnabled(false);
+            jBtnHuy.setEnabled(false);
+            jTextMaGiangVien.setText("");
+            jTextTenGiangVien.setText("");
+            jTextSDT.setText("");
+            jTextEmail.setText("");
+            jTableGV.clearSelection();
+
+        } else {
+            check = "Không thể xóa\n" + check;
+            JOptionPane.showMessageDialog(this, check);
+        }
     }//GEN-LAST:event_jBtnXoaGVActionPerformed
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
@@ -772,7 +730,6 @@ public class GiaoVienForm extends javax.swing.JPanel
         jTextTenGiangVien.setText("");
         jTextSDT.setText("");
         jTextEmail.setText("");
-//        jDateNgaySinh.setCalendar(null);
         jTableGV.clearSelection();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
@@ -785,8 +742,7 @@ public class GiaoVienForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
         // TODO add your handling code here:
         modelThongKe.setRowCount(0);
-        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null)
-        {
+        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu và Ngày Kết Thúc không được bỏ trống!");
             return;
         }
@@ -812,83 +768,67 @@ public class GiaoVienForm extends javax.swing.JPanel
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
 
-    public JPanel getjPanel1()
-    {
+    public JPanel getjPanel1() {
         return jPanelGV;
     }
 
-    public JTextField getjTextManv()
-    {
+    public JTextField getjTextManv() {
         return jTextMaGiangVien;
     }
 
-    public DefaultTableModel getModelnv()
-    {
+    public DefaultTableModel getModelnv() {
         return modelgv;
     }
 
-    public JButton getjBtnCapPhatMaNV()
-    {
+    public JButton getjBtnCapPhatMaNV() {
         return jBtnCapPhatMaGV;
     }
 
-    public int getFlagAcc()
-    {
+    public int getFlagAcc() {
         return flagAcc;
     }
 
-    public void setFlagAcc(int flagAcc)
-    {
+    public void setFlagAcc(int flagAcc) {
         this.flagAcc = flagAcc;
     }
 
-    public String getManv()
-    {
+    public String getManv() {
         return manv;
     }
 
-    public void setManv(String manv)
-    {
+    public void setManv(String manv) {
         this.manv = manv;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
-    public JTextField getjTextTimKiemNV()
-    {
+    public JTextField getjTextTimKiemNV() {
         return jTextTimKiemGV;
     }
 
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV)
-    {
+    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
         this.jTextTimKiemGV = jTextTimKiemNV;
     }
 
-    public JButton getjButtonTimKiem()
-    {
+    public JButton getjButtonTimKiem() {
         return jButtonTimKiem;
     }
 
-    public void setjButtonTimKiem(JButton jButtonTimKiem)
-    {
+    public void setjButtonTimKiem(JButton jButtonTimKiem) {
         this.jButtonTimKiem = jButtonTimKiem;
     }
 
