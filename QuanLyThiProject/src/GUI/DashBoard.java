@@ -909,6 +909,10 @@ public class DashBoard extends javax.swing.JFrame
             phongThiForm.getjTabbedPane1().setEnabledAt(0, true);
             phongThiForm.getjTabbedPane1().setSelectedIndex(0);
         }
+        khoaThiDTOs = khoaThiDAO.getList();
+        trinhDoDTOs = trinhDoDAO.getList();
+        phongThiDTOs = phongThiDAO.getList();
+        phongThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(false);
