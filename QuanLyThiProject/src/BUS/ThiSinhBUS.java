@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.MaDuLieuCuoiDAO;
 import DAO.ThiSinhDAO;
+import DTO.PhieuBaoDuThiDTO;
 import DTO.ThiSinhDTO;
 import GUI.DashBoard;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class ThiSinhBUS {
         return false;
     }
     
+    
     public boolean Update(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.updateThiSinh(thiSinh)){
             for(ThiSinhDTO thisinh: thiSinhDTOS){
@@ -42,6 +44,21 @@ public class ThiSinhBUS {
             return true;
         }
         System.out.println("ThiSinhBUS.Update fail");
+        return false;
+    }
+    
+    public boolean Delete(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+        for(PhieuBaoDuThiDTO pbdt: phieuBaoDuThiDTOs){
+            if(pbdt.getMaThiSinh().equals(maThiSinh)){
+                if(utl.stringToDate(pbdt.getNgayThi()).before(utl.getDateWithoutTimeUsingFormat())){
+                    return false;
+                }
+                break;
+            }
+        }
+        if(thiSinhDAO.deleteThiSinh(maThiSinh)){
+            return true;
+        }
         return false;
     }
     

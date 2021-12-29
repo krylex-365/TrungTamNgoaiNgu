@@ -504,6 +504,11 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jBtnXoaTS1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-delete-32.png"))); // NOI18N
         jBtnXoaTS1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jBtnXoaTS1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnXoaTS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnXoaTS1ActionPerformed(evt);
+            }
+        });
         jPanelQLTS.add(jBtnXoaTS1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, 30));
 
         jBtnThemTS1.setBackground(new java.awt.Color(233, 242, 249));
@@ -1128,8 +1133,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
         modelthisinh.getValueAt(selectedRow, 0);
 
         PhieuBaoDuThi pbdt = new PhieuBaoDuThi();
-        ThiSinhDTO thiSinh = thiSinhBUS.findByMaThiSinh((String)modelthisinh.getValueAt(selectedRow, 2));
-        //pbdt.fillTheForm(thiSinh,khoaThiBUS.findTenKhoaKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs),trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
+        ThiSinhDTO thiSinh = thiSinhBUS.findByMaThiSinh((String)modelthisinh.getValueAt(selectedRow, 1));
+        pbdt.fillTheForm(thiSinh,khoaThiBUS.findTenKhoaKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs),trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         pbdt.thiSinhForm = this;
     }//GEN-LAST:event_jBtnTaoPhieuActionPerformed
 
@@ -1177,6 +1182,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
             System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemDaDongActionPerformed
+
+    private void jBtnXoaTS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaTS1ActionPerformed
+        // TODO add your handling code here:
+        String maThiSinh =(String) modelthisinh.getValueAt(selectedRow, 1);
+        thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs);
+    }//GEN-LAST:event_jBtnXoaTS1ActionPerformed
 
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
