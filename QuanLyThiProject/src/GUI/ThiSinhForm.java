@@ -137,7 +137,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jDateNgayCap.setDate(utl.stringToDate(thiSinh.getNgayCap()));
         jTextNoiCap.setText(thiSinh.getNoiCap());
         for(int i = 0; i < jCbTinhTrang.getItemCount();i++){
-            TinhTrang tt = (TinhTrang) jCbTinhTrang.getItemAt(0);
+            TinhTrang tt = (TinhTrang) jCbTinhTrang.getItemAt(i);
             if(tt.num == thiSinh.getTinhTrang()){
                  jCbTinhTrang.setSelectedIndex(i);
                  break;

@@ -938,8 +938,8 @@ public class DashBoard extends javax.swing.JFrame
         thiSinhDTOs = thiSinhDAO.getList();
         khoaThiDTOs = khoaThiDAO.getList();  
         trinhDoDTOs = trinhDoDAO.getList();
-        //trinhDoDTOs = trinhDoDAO.getList();
-        
+        //phieuBaoDuThiDTOs = phieuBaoDuThiDAO.getList();
+       
         thiSinhForm.initTable();
         if (thiSinhForm.getjTabbedPane1().getComponentCount() == 3)
         {
