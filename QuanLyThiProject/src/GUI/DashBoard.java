@@ -936,8 +936,8 @@ public class DashBoard extends javax.swing.JFrame
     private void thisinhLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_thisinhLabelMouseClicked
     {//GEN-HEADEREND:event_thisinhLabelMouseClicked
         thiSinhDTOs = thiSinhDAO.getList();
-        khoaThiDTOs = khoaThiDAO.getList();
-        
+        khoaThiDTOs = khoaThiDAO.getList();  
+        trinhDoDTOs = trinhDoDAO.getList();
         //trinhDoDTOs = trinhDoDAO.getList();
         
         thiSinhForm.initTable();

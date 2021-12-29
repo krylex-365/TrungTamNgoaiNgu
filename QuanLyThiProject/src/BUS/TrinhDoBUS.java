@@ -20,4 +20,13 @@ public class TrinhDoBUS {
         }
         return null;
     }
+    
+    public String findTenTrinhDo(String maTrinhDo,ArrayList<TrinhDoDTO> maTrinhDoDTOs){
+        for(TrinhDoDTO trinhdo: maTrinhDoDTOs){
+            if(trinhdo.getMaTrinhDo().equals(maTrinhDo)){
+                return trinhdo.getTenTrinhDo();
+            }
+        }
+        return null;
+    }
 }

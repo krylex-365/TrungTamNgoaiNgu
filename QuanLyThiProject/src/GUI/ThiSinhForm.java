@@ -104,8 +104,15 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
             // bỏ tên trình độ vào đây
             row.add(thisinh.getMaTrinhDo());
-
-            row.add(thisinh.getTinhTrang());
+            switch (thisinh.getTinhTrang()){
+                case 1:
+                    row.add("Chưa đóng tiền");
+                    break;
+                case 2:
+                    row.add("Đã đóng tiền");
+                    break;    
+            }
+            
             modelthisinh.addRow(row);
 
         }
@@ -138,6 +145,21 @@ public class ThiSinhForm extends javax.swing.JPanel {
         }
         
     }
+    
+    public void loadComboBox(){
+        jCbKhoaThi.removeAllItems();
+        jCbTrinhDo.removeAllItems();
+        for (KhoaThiDTO kt : DashBoard.khoaThiDTOs) {
+            jCbKhoaThi.addItem(kt);
+            //jComboBoxKT.addItem(kt);
+        }
+
+        //Phần trình độ xong thì bỏ //
+        for(TrinhDoDTO td: DashBoard.trinhDoDTOs){
+            jCbTrinhDo.addItem(td);
+            //jComboBoxKT.addItem(kt);
+        }
+    }
 
     public ThiSinhForm() {
         thiSinhBUS = new ThiSinhBUS();
@@ -146,8 +168,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
         initComponents();
 
-        jCbTinhTrang.addItem(new TinhTrang("Đã đóng tiền", 1));
-        jCbTinhTrang.addItem(new TinhTrang("Chưa đóng tiền", 0));
+        jCbTinhTrang.addItem(new TinhTrang("Đã đóng tiền", 2));
+        jCbTinhTrang.addItem(new TinhTrang("Chưa đóng tiền", 1));
 
         jBtnCapPhatMaTS.setEnabled(true);
         jBtnTuyBien.setEnabled(false);
@@ -891,38 +913,33 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
 //        KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
 //        System.out.println(khoaThiTemp.getMaKhoaThi());
+        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+        String ngayCap = (String) ((JTextField) jDateNgayCap.getDateEditor().getUiComponent()).getText();
+        ThiSinhDTO thiSinh = new ThiSinhDTO();
+        thiSinh.setMaThiSinh(jTextMaThiSinh.getText());
+        thiSinh.setHoTen(jTextTenThiSinh.getText());
+        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+            thiSinh.setGioiTinh("1");
+        } else {
+            thiSinh.setGioiTinh("0");
+        }
+        thiSinh.setNgaySinh(ngaySinh);
+        TrinhDoDTO trinhDo = (TrinhDoDTO) jCbTrinhDo.getSelectedItem();
+        thiSinh.setMaTrinhDo(trinhDo.getMaTrinhDo());
+        thiSinh.setSdt(jTextSDT.getText());
+        thiSinh.setDiaChi(jTextDiaChi.getText());
+        thiSinh.setMail(jTextEmail.getText());
+        thiSinh.setCmnd(jTextCMND.getText());
+        thiSinh.setNgayCap(ngayCap);
+        thiSinh.setNoiCap(jTextNoiCap.getText());
+        TinhTrang tinhTrang = (TinhTrang) jCbTinhTrang.getSelectedItem();
+        thiSinh.setTinhTrang(tinhTrang.num);
+        KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
+        thiSinh.setMaKhoaThi(khoaThiTemp.getMaKhoaThi());
+        
         if (!jBtnThemTS1.isEnabled()) // Ch?c nang cho them
         {
-            String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-            String ngayCap = (String) ((JTextField) jDateNgayCap.getDateEditor().getUiComponent()).getText();
-
-            ThiSinhDTO thiSinh = new ThiSinhDTO();
-            thiSinh.setMaThiSinh(jTextMaThiSinh.getText());
-            thiSinh.setHoTen(jTextTenThiSinh.getText());
-            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
-                thiSinh.setGioiTinh("1");
-            } else {
-                thiSinh.setGioiTinh("0");
-            }
-
-            thiSinh.setNgaySinh(ngaySinh);
-
-            TrinhDoDTO trinhDo = (TrinhDoDTO) jCbTrinhDo.getSelectedItem();
-            //thiSinh.setMaTrinhDo(trinhDo.getMaTrinhDo());
-            thiSinh.setMaTrinhDo("TD000001");
-            thiSinh.setSdt(jTextSDT.getText());
-            thiSinh.setDiaChi(jTextDiaChi.getText());
-            thiSinh.setMail(jTextEmail.getText());
-            thiSinh.setCmnd(jTextCMND.getText());
-            thiSinh.setNgayCap(ngayCap);
-            thiSinh.setNoiCap(jTextNoiCap.getText());
-
-            TinhTrang tinhTrang = (TinhTrang) jCbTinhTrang.getSelectedItem();
-            thiSinh.setTinhTrang(tinhTrang.num);
-
-            KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
-            thiSinh.setMaKhoaThi(khoaThiTemp.getMaKhoaThi());
-
+            
             if (thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)) {
                 JOptionPane.showMessageDialog(this, "Thêm Thông tin thành Công!!");
             }
@@ -931,8 +948,10 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
         } else // Ch?c nang cho Sửa
         {
-            System.out.println("Sửa thông tin");
-            JOptionPane.showMessageDialog(this, "Sửa Thông tin thành Công!!");
+            if(thiSinhBUS.Update(thiSinh, DashBoard.thiSinhDTOs)){
+                JOptionPane.showMessageDialog(this, "Sửa Thông tin thành Công!!");
+            }
+            
             clear();
         }
 
@@ -1022,11 +1041,15 @@ public class ThiSinhForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableTSMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() >= 2) {
+            loadComboBox();
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
             selectedRow = tempJTable.getSelectedRow();
             
-            modelthisinh.getValueAt(selectedRow, 0);
+            String maThiSinh = (String) modelthisinh.getValueAt(selectedRow, 1);
+            
+            fillTheForm(thiSinhBUS.findByMaThiSinh(maThiSinh));
+            
             
             if (row != -1) {
 
@@ -1077,19 +1100,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
     private void jBtnThemTS1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemTS1ActionPerformed
     {//GEN-HEADEREND:event_jBtnThemTS1ActionPerformed
         // TODO add your handling code here:
-        JComboBox<KhoaThiDTO> jComboBoxKT = new JComboBox<KhoaThiDTO>();
-        jCbKhoaThi.removeAllItems();
-        jCbTrinhDo.removeAllItems();
-        for (KhoaThiDTO kt : DashBoard.khoaThiDTOs) {
-            jCbKhoaThi.addItem(kt);
-            //jComboBoxKT.addItem(kt);
-        }
-
-        //Phần trình độ xong thì bỏ //
-//        for(TrinhDoDTO td: DashBoard.trinhDoDTOs){
-//            jCbTrinhDo.addItem(td);
-//            //jComboBoxKT.addItem(kt);
-//        }
+        loadComboBox();
         jBtnThemTS1.setEnabled(false);
         jTabbedPane1.add(jPanelTS, 1);
         jTabbedPane1.setTitleAt(1, "Quản Lý Thí Sinh");
@@ -1117,6 +1128,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
         modelthisinh.getValueAt(selectedRow, 0);
 
         PhieuBaoDuThi pbdt = new PhieuBaoDuThi();
+        ThiSinhDTO thiSinh = thiSinhBUS.findByMaThiSinh((String)modelthisinh.getValueAt(selectedRow, 2));
+        //pbdt.fillTheForm(thiSinh,khoaThiBUS.findTenKhoaKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs),trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         pbdt.thiSinhForm = this;
     }//GEN-LAST:event_jBtnTaoPhieuActionPerformed
 
@@ -1134,8 +1147,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
             ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
+                    jTableTS.getModel().setValueAt("Chưa đóng tiền",i,12);
                     a.add((String) jTableTS.getModel().getValueAt(i, 1));
                 }
+            }
+            for(String str: a){
+                thiSinhBUS.UpdataStatus(str,1);
             }
             System.out.println("List dc chon!!" + a);
         }
@@ -1150,8 +1167,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
             ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
+                    jTableTS.getModel().setValueAt("Đã đóng tiền",i,12);
                     a.add((String) jTableTS.getModel().getValueAt(i, 1));
                 }
+            }
+            for(String str: a){
+                thiSinhBUS.UpdataStatus(str,2);
             }
             System.out.println("List dc chon!!" + a);
         }

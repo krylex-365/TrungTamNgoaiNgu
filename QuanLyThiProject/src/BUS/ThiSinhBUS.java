@@ -31,6 +31,20 @@ public class ThiSinhBUS {
         return false;
     }
     
+    public boolean Update(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
+        if(thiSinhDAO.updateThiSinh(thiSinh)){
+            for(ThiSinhDTO thisinh: thiSinhDTOS){
+                if(thisinh.getMaThiSinh().equals(thiSinh.getMaThiSinh())){
+                    thisinh = thiSinh;
+                }
+            }
+            System.out.println("ThiSinhBUS.Update success");
+            return true;
+        }
+        System.out.println("ThiSinhBUS.Update fail");
+        return false;
+    }
+    
     public ThiSinhDTO findByMaThiSinh(String maThiSinh){    
         for(ThiSinhDTO thisinh: DashBoard.thiSinhDTOs){
             if(thisinh.getMaThiSinh().equals(maThiSinh)){
@@ -38,6 +52,14 @@ public class ThiSinhBUS {
             }
         }
         return null;
+    }
+    
+    public boolean UpdataStatus(String maThiSinh,int status){
+        if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     
