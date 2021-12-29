@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -60,7 +61,7 @@ public class CaThiForm extends javax.swing.JPanel {
         jTableCaThi.setRowSorter(null);
         jTableCaThi.setAutoCreateRowSorter(true);
         jTableCaThi.setModel(tbModelCaThi);
-        jTableCaThi.clearSelection();
+        clear();
     }
 
     public void tableModel(DefaultTableModel model) {
@@ -89,7 +90,23 @@ public class CaThiForm extends javax.swing.JPanel {
     public void xoaVector(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
+    
+    public void clear(){
+        jBtnCapPhatMaTD.setEnabled(true);
+        jBtnThemCT.setEnabled(false);
+        jBtnSuaCT.setEnabled(false);
+        jBtnXoaCT.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaCT.setText("");
+        jTableCaThi.clearSelection();
+    }
 
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelCaThi);
+        jTableCaThi.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,8 +135,8 @@ public class CaThiForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCaThi = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jTextTimKiemCT = new javax.swing.JTextField();
-        jBtnTimKiemCT = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
         jPanelTKKT = new javax.swing.JPanel();
         jButtonThongKe = new javax.swing.JButton();
@@ -327,15 +344,17 @@ public class CaThiForm extends javax.swing.JPanel {
         jLabel6.setText("Danh Sách Ca Thi");
         jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanelKhoaThi.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, 180, 30));
-        jPanelKhoaThi.add(jTextTimKiemCT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 30));
 
-        jBtnTimKiemCT.setText("Tìm kiếm");
-        jBtnTimKiemCT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemCTActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+        jPanelKhoaThi.add(jLbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, -1, 30));
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
-        jPanelKhoaThi.add(jBtnTimKiemCT, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 90, 80, 30));
+        jPanelKhoaThi.add(jTextTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 140, 30));
 
         jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
         jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -455,7 +474,6 @@ public class CaThiForm extends javax.swing.JPanel {
         jBtnSuaCT.setEnabled(false);
         jBtnXoaCT.setEnabled(false);
         jBtnHuy.setEnabled(true);
-
     }//GEN-LAST:event_jBtnCapPhatMaTDActionPerformed
 
     private void jBtnThemCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemCTActionPerformed
@@ -484,13 +502,7 @@ public class CaThiForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Thêm ca thi thất bại!");
         }
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(false);
-        jBtnXoaCT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaCT.setText("");
-        jTableCaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnThemCTActionPerformed
 
 
@@ -519,13 +531,7 @@ public class CaThiForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Sửa ca thi thất bại!");
         }
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(false);
-        jBtnXoaCT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaCT.setText("");
-        jTableCaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnSuaCTActionPerformed
 
     private void jBtnXoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaCTActionPerformed
@@ -537,13 +543,7 @@ public class CaThiForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Xóa ca thi thất bại!");
         }
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(false);
-        jBtnXoaCT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaCT.setText("");
-        jTableCaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnXoaCTActionPerformed
 
     private boolean isNullOrEmpty(String text) {
@@ -555,13 +555,7 @@ public class CaThiForm extends javax.swing.JPanel {
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(false);
-        jBtnXoaCT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaCT.setText("");
-        jTableCaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
@@ -574,26 +568,6 @@ public class CaThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableThongkeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableThongkeMouseClicked
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefreshActionPerformed
-    {//GEN-HEADEREND:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-        jTextMaCT.setText("");
-        jTextTimKiemCT.setText("");
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemCT.setEnabled(false);
-        jBtnSuaCT.setEnabled(false);
-        jBtnXoaCT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
-    private void jBtnTimKiemCTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemCTActionPerformed
-    {//GEN-HEADEREND:event_jBtnTimKiemCTActionPerformed
-        // TODO add your handling code here:
-        //Tìm kiếm = mã hoặc like tên
-        timKiem(tbModelCaThi, jTableCaThi, jTextTimKiemCT.getText());
-    }//GEN-LAST:event_jBtnTimKiemCTActionPerformed
 
     private void jTableCaThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableCaThiMouseClicked
     {//GEN-HEADEREND:event_jTableCaThiMouseClicked
@@ -618,6 +592,18 @@ public class CaThiForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTableCaThiMouseClicked
 
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTable();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
     public void xoaLoaiChiPhi(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
@@ -633,7 +619,6 @@ public class CaThiForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSuaCT;
     private javax.swing.JButton jBtnThemCT;
-    private javax.swing.JButton jBtnTimKiemCT;
     private javax.swing.JButton jBtnXoaCT;
     private javax.swing.JButton jButtonThongKe;
     private javax.swing.JComboBox<String> jComboGio1;
@@ -648,6 +633,7 @@ public class CaThiForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelKhoaThi;
     private javax.swing.JPanel jPanelTKKT;
@@ -657,6 +643,6 @@ public class CaThiForm extends javax.swing.JPanel {
     private javax.swing.JTable jTableCaThi;
     private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextMaCT;
-    private javax.swing.JTextField jTextTimKiemCT;
+    private javax.swing.JTextField jTextTimKiem;
     // End of variables declaration//GEN-END:variables
 }

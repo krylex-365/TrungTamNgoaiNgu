@@ -4,7 +4,9 @@
  */
 package DAO;
 
+import DTO.KhoaThiDTO;
 import DTO.TrinhDoDTO;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,9 +17,6 @@ import java.util.ArrayList;
 public class TrinhDoDAO {
     Connect conn;
 
-    public TrinhDoDAO() {
-    }
-    
     public ArrayList<TrinhDoDTO> getList(){
         ArrayList<TrinhDoDTO> trinhDoDTOs = new ArrayList<TrinhDoDTO>();
         conn = new Connect();
@@ -26,23 +25,102 @@ public class TrinhDoDAO {
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                TrinhDoDTO dto = new TrinhDoDTO();
-                dto.setMaTrinhDo(conn.rs.getString(1));
-                dto.setTenTrinhDo(conn.rs.getString(2));
-                dto.setLePhi(conn.rs.getString(3));
-                dto.setSoLuongTS(conn.rs.getInt(4));
-                dto.setSoLuongPG(conn.rs.getInt(5));
-                trinhDoDTOs.add(dto);
+                TrinhDoDTO cp = new TrinhDoDTO();
+                cp.setMaTrinhDo(conn.rs.getString(1));
+                cp.setTenTrinhDo(conn.rs.getString(2));
+                cp.setLePhi(conn.rs.getString(3));
+                cp.setSoLuongTS(conn.rs.getInt(4));
+                cp.setSoLuongPG(conn.rs.getInt(5));
+                trinhDoDTOs.add(cp);
             }
         } catch (SQLException e) {
             System.out.println(e);
-            System.out.println("TrinhDoDAO.getList.executeQuery error.");
+            System.out.println("KhoaThiDAO.getList.executeQuery error.");
         }
         try{
-        conn.getConn().close();
+            conn.getConn().close();
         }catch (SQLException e){
-            System.out.println("TrinhDoDAO.getList.close error.");
+            System.out.println("KhoaThiDAO.getList.close error.");
         }
         return trinhDoDTOs;
+    }
+
+    public boolean them(String maTrinhDo, String tenTrinhDo, String lePhi) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "insert into TrinhDo values ('" + maTrinhDo + "', N'" + tenTrinhDo + "'," +
+                " '" + lePhi + "', 0, 0, 1);";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean sua(String maTrinhDo, String tenTrinhDo, String lePhi) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set TenTrinhDo = N'" + tenTrinhDo + "', " +
+                "LePhi = '" + lePhi + "' where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean updateTS(String maTrinhDo, int soLuongTS) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set SoLuongTS = '" + soLuongTS + "'"
+                + " where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean updatePG(String maTrinhDo, int soLuongPG) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set SoLuongPG = '" + soLuongPG + "'"
+                + " where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean xoa(String maTrinhDo) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update TrinhDo set Status = " + 0 + " where MaTrinhDo = '" + maTrinhDo + "'";
+        if(conn.executeUpdate(query)){
+            try {
+                conn.getConn().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
     }
 }

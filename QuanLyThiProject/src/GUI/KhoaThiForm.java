@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -62,7 +63,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
         jTableKhoaThi.setRowSorter(null);
         jTableKhoaThi.setAutoCreateRowSorter(true);
         jTableKhoaThi.setModel(tbModelKhoaThi);
-        jTableKhoaThi.clearSelection();
+        clear();
     }
 
     public void tableModel(DefaultTableModel model) {
@@ -91,6 +92,24 @@ public class KhoaThiForm extends javax.swing.JPanel {
     public void xoaVector(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
+    
+    public void clear() {
+        jBtnCapPhatMaKT.setEnabled(true);
+        jBtnThemKT.setEnabled(false);
+        jBtnSuaKT.setEnabled(false);
+        jBtnXoaKT.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaKT.setText("");
+        jTextTenKT.setText("");
+        jDateNgayThi.setCalendar(null);
+        jTableKhoaThi.clearSelection();
+    }
+    
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKhoaThi);
+        jTableKhoaThi.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,8 +137,8 @@ public class KhoaThiForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableKhoaThi = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jTextTimKiemKT = new javax.swing.JTextField();
-        jBtnTimKiemKT = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
         jPanelTKKT = new javax.swing.JPanel();
         jButtonThongKe = new javax.swing.JButton();
@@ -321,15 +340,17 @@ public class KhoaThiForm extends javax.swing.JPanel {
         jLabel6.setText("Danh Sách Khóa Thi");
         jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanelKhoaThi.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, 180, 30));
-        jPanelKhoaThi.add(jTextTimKiemKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 30));
 
-        jBtnTimKiemKT.setText("Tìm kiếm");
-        jBtnTimKiemKT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemKTActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+        jPanelKhoaThi.add(jLbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, -1, 30));
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
-        jPanelKhoaThi.add(jBtnTimKiemKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 90, 80, 30));
+        jPanelKhoaThi.add(jTextTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 140, 30));
 
         jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
         jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -463,15 +484,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Thêm khóa thi thất bại!");
         }
-        jBtnCapPhatMaKT.setEnabled(true);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(false);
-        jBtnXoaKT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaKT.setText("");
-        jTextTenKT.setText("");
-        jDateNgayThi.setCalendar(null);
-        jTableKhoaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnThemKTActionPerformed
 
 
@@ -486,15 +499,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Sửa khóa thi thất bại!");
         }
-        jBtnCapPhatMaKT.setEnabled(true);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(false);
-        jBtnXoaKT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaKT.setText("");
-        jTextTenKT.setText("");
-        jDateNgayThi.setCalendar(null);
-        jTableKhoaThi.clearSelection();
+        clear();
     }//GEN-LAST:event_jBtnSuaKTActionPerformed
 
     public String checkBeforeDel(String maKhoaThi) {
@@ -525,15 +530,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Xóa khóa thi thất bại!");
             }
-            jBtnCapPhatMaKT.setEnabled(true);
-            jBtnThemKT.setEnabled(false);
-            jBtnSuaKT.setEnabled(false);
-            jBtnXoaKT.setEnabled(false);
-            jBtnHuy.setEnabled(false);
-            jTextMaKT.setText("");
-            jTextTenKT.setText("");
-            jDateNgayThi.setCalendar(null);
-            jTableKhoaThi.clearSelection();
+            clear();
         } else {
             check = "Không thể xóa\n" + check;
             JOptionPane.showMessageDialog(this, check);
@@ -549,15 +546,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
-        jBtnCapPhatMaKT.setEnabled(true);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(false);
-        jBtnXoaKT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaKT.setText("");
-        jTextTenKT.setText("");
-        jDateNgayThi.setCalendar(null);
-        jTableKhoaThi.clearSelection();
+        
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
@@ -570,26 +559,6 @@ public class KhoaThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableThongkeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableThongkeMouseClicked
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefreshActionPerformed
-    {//GEN-HEADEREND:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-        jTextMaKT.setText("");
-        jTextTenKT.setText("");
-        jTextTimKiemKT.setText("");
-        jBtnCapPhatMaKT.setEnabled(true);
-        jBtnThemKT.setEnabled(false);
-        jBtnSuaKT.setEnabled(false);
-        jBtnXoaKT.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
-    private void jBtnTimKiemKTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemKTActionPerformed
-    {//GEN-HEADEREND:event_jBtnTimKiemKTActionPerformed
-        // TODO add your handling code here:
-        //Tìm kiếm = mã hoặc like tên
-    }//GEN-LAST:event_jBtnTimKiemKTActionPerformed
 
     private void jTableKhoaThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhoaThiMouseClicked
     {//GEN-HEADEREND:event_jTableKhoaThiMouseClicked
@@ -617,13 +586,24 @@ public class KhoaThiForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTableKhoaThiMouseClicked
 
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTable();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaKT;
     private javax.swing.JButton jBtnHuy;
     private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSuaKT;
     private javax.swing.JButton jBtnThemKT;
-    private javax.swing.JButton jBtnTimKiemKT;
     private javax.swing.JButton jBtnXoaKT;
     private javax.swing.JButton jButtonThongKe;
     private com.toedter.calendar.JDateChooser jDateNgayBDTK;
@@ -635,6 +615,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelKhoaThi;
     private javax.swing.JPanel jPanelTKKT;
@@ -645,6 +626,6 @@ public class KhoaThiForm extends javax.swing.JPanel {
     private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextMaKT;
     private javax.swing.JTextField jTextTenKT;
-    private javax.swing.JTextField jTextTimKiemKT;
+    private javax.swing.JTextField jTextTimKiem;
     // End of variables declaration//GEN-END:variables
 }

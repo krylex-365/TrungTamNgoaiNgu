@@ -318,7 +318,9 @@ public class BangGiaoVien extends javax.swing.JFrame
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
-
+        phongThiForm.clearPhongThiGV();
+        phongThiForm.getjBtnThemGVPT().setEnabled(true);
+        phongThiForm.getjBtnHuyGVPT().setEnabled(true);
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 

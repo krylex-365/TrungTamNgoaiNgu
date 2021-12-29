@@ -49,17 +49,21 @@ public class PhongThiBUS {
         return utl.initMaPhongThi();
     }
 
-    public boolean them(PhongThiDTO phongThiDTO, ArrayList<PhongThiDTO> phongThiDTOs, ArrayList<TrinhDoDTO> trinhDoDTOs) {
+    public boolean them(PhongThiDTO phongThiDTO, ArrayList<PhongThiDTO> phongThiDTOs, 
+            int SLPG, ArrayList<TrinhDoDTO> trinhDoDTOs) {
 //        for (PhongThiDTO k : phongThiDTOs) {
 //            if (k.getMaKhoaThi().equals(phongThiDTO.getMaKhoaThi())) {
 //                return false;
 //            }
 //        }
         if (phongThiDAO.insertPhongThi(phongThiDTO)) {
-            phongThiDTOs.add(phongThiDTO);
-            maLast.updateMaPhongThi(phongThiDTO.getMaPhongThi());
-            System.out.println("Thêm thành công PhongThiBUS");
-            return true;
+            TrinhDoBUS trinhDoBUS = new TrinhDoBUS();
+            if (trinhDoBUS.capNhatSLPG(phongThiDTO.getMaTrinhDo(), SLPG, trinhDoDTOs)) {
+                phongThiDTOs.add(phongThiDTO);
+                maLast.updateMaPhongThi(phongThiDTO.getMaPhongThi());
+                System.out.println("Thêm thành công PhongThiBUS");
+                return true;
+            }
         }
         System.out.println("Thêm thất bại PhongThiBUS");
         return false;
