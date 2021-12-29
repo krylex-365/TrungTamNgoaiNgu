@@ -32,7 +32,7 @@ public class PhanCongDAO {
                 dto.setNgayThi(conn.rs.getString(4));
                 dto.setNhiemVu(conn.rs.getString(5));
                 phanCongDTOs.add(dto);
-                System.out.println(dto);
+//                System.out.println(dto);
             }
             
         } catch (SQLException e) {

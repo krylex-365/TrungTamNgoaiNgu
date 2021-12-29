@@ -33,7 +33,7 @@ public class GiaoVienDAO {
                 dto.setSdt(conn.rs.getString(4));
                 dto.setMail(conn.rs.getString(5));
                 giaoVienDTOs.add(dto);
-                System.out.println(dto);
+//                System.out.println(dto);
             }
             
         } catch (SQLException e) {

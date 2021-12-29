@@ -27,16 +27,6 @@ public class PhanCongDTO {
         this.nhiemVu = nhiemVu;
     }
 
-   
-
-    public String getNgayThi() {
-        return ngayThi;
-    }
-
-    public void setNgayThi(String ngayThi) {
-        this.ngayThi = ngayThi;
-    }
-
     public String getMaPhongThi() {
         return maPhongThi;
     }
