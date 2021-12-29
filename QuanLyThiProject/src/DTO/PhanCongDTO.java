@@ -13,16 +13,28 @@ public class PhanCongDTO {
     private String maPhongThi;
     private String maCaThi;
     private String maGiaoVien;
+    private String ngayThi;
     private String nhiemVu;
 
     public PhanCongDTO() {
     }
 
-    public PhanCongDTO(String maPhongThi, String maCaThi, String maGiaoVien, String nhiemVu) {
+    public PhanCongDTO(String maPhongThi, String maCaThi, String maGiaoVien, String ngayThi, String nhiemVu) {
         this.maPhongThi = maPhongThi;
         this.maCaThi = maCaThi;
         this.maGiaoVien = maGiaoVien;
+        this.ngayThi = ngayThi;
         this.nhiemVu = nhiemVu;
+    }
+
+   
+
+    public String getNgayThi() {
+        return ngayThi;
+    }
+
+    public void setNgayThi(String ngayThi) {
+        this.ngayThi = ngayThi;
     }
 
     public String getMaPhongThi() {
@@ -59,6 +71,8 @@ public class PhanCongDTO {
 
     @Override
     public String toString() {
-        return "PhanCongDTO{" + "maPhongThi=" + maPhongThi + ", maCaThi=" + maCaThi + ", maGiaoVien=" + maGiaoVien + ", nhiemVu=" + nhiemVu + '}';
+        return "PhanCongDTO{" + "maPhongThi=" + maPhongThi + ", maCaThi=" + maCaThi + ", maGiaoVien=" + maGiaoVien + ", ngayThi=" + ngayThi + ", nhiemVu=" + nhiemVu + '}';
     }
+
+    
 }

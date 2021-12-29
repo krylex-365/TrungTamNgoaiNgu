@@ -965,6 +965,9 @@ public class DashBoard extends javax.swing.JFrame
     private void giaovienLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_giaovienLabelMouseClicked
     {//GEN-HEADEREND:event_giaovienLabelMouseClicked
 //        nhanvienForm.loadData();
+        giaoVienDTOs= giaoVienDAO.getList();
+        phanCongDTOs=phanCongDAO.getList();
+        giaoVienForm.initTableGV();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(true);
         jPanelKhoaThi.setVisible(false);
