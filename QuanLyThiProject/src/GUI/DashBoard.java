@@ -1048,6 +1048,9 @@ public class DashBoard extends javax.swing.JFrame
         jPanelKhoaThi.setVisible(false);
         jPanelPhongThi.setVisible(false);
         jPanelTrinhDo.setVisible(true);
+        phongThiDTOs = phongThiDAO.getList();
+        thiSinhDTOs = thiSinhDAO.getList();
+        trinhDoForm.reloadTable();
         jPanelCaThi.setVisible(false);
         jPanelKetQua.setVisible(false);
 //        jPanelLoaiHinh.setVisible(false);
