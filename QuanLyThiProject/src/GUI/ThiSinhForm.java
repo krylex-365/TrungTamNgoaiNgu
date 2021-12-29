@@ -13,7 +13,10 @@ package GUI;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
 //import DTO.PhongBanDTO;
+import BUS.KhoaThiBUS;
 import BUS.ThiSinhBUS;
+import BUS.TrinhDoBUS;
+import BUS.Utils;
 import DTO.KhoaThiDTO;
 import DTO.ThiSinhDTO;
 import DTO.TrinhDoDTO;
@@ -64,6 +67,9 @@ public class ThiSinhForm extends javax.swing.JPanel {
 //    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
     private ThiSinhBUS thiSinhBUS;
+    private KhoaThiBUS khoaThiBUS;
+    private TrinhDoBUS trinhDoBUS;
+    private Utils utl = new Utils();
 //    private Utils ult = new Utils();
 
     public void initTable() {
@@ -104,9 +110,39 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
         }
     }
+    
+    public void fillTheForm(ThiSinhDTO thiSinh){
+        jCbKhoaThi.setSelectedItem(khoaThiBUS.findKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs));
+        jTextMaThiSinh.setText(thiSinh.getMaThiSinh());
+        jTextTenThiSinh.setText(thiSinh.getHoTen());
+        if(thiSinh.getGioiTinh().equals("1")){
+            jCbGioiTinh.setSelectedIndex(1);
+        }else{
+            jCbGioiTinh.setSelectedIndex(0);
+        }
+        
+        jDateNgaySinh.setDate(utl.stringToDate(thiSinh.getNgaySinh()));
+        jCbTrinhDo.setSelectedItem(trinhDoBUS.findByMaTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
+        jTextSDT.setText(thiSinh.getSdt());
+        jTextDiaChi.setText(thiSinh.getDiaChi());
+        jTextEmail.setText(thiSinh.getMail());
+        jTextCMND.setText(thiSinh.getCmnd());
+        jDateNgayCap.setDate(utl.stringToDate(thiSinh.getNgayCap()));
+        jTextNoiCap.setText(thiSinh.getNoiCap());
+        for(int i = 0; i < jCbTinhTrang.getItemCount();i++){
+            TinhTrang tt = (TinhTrang) jCbTinhTrang.getItemAt(0);
+            if(tt.num == thiSinh.getTinhTrang()){
+                 jCbTinhTrang.setSelectedIndex(i);
+                 break;
+            }
+        }
+        
+    }
 
     public ThiSinhForm() {
         thiSinhBUS = new ThiSinhBUS();
+        khoaThiBUS = new KhoaThiBUS();
+        trinhDoBUS = new TrinhDoBUS();
 
         initComponents();
 
@@ -895,7 +931,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
         } else // Ch?c nang cho Sửa
         {
-
+            System.out.println("Sửa thông tin");
             JOptionPane.showMessageDialog(this, "Sửa Thông tin thành Công!!");
             clear();
         }
@@ -989,6 +1025,9 @@ public class ThiSinhForm extends javax.swing.JPanel {
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
             selectedRow = tempJTable.getSelectedRow();
+            
+            modelthisinh.getValueAt(selectedRow, 0);
+            
             if (row != -1) {
 
                 System.out.println("Rơ ch?n : " + row);

@@ -7,6 +7,7 @@ package BUS;
 import DAO.MaDuLieuCuoiDAO;
 import DAO.ThiSinhDAO;
 import DTO.ThiSinhDTO;
+import GUI.DashBoard;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +30,16 @@ public class ThiSinhBUS {
         System.out.println("ThiSinhBUS.Add fail");
         return false;
     }
+    
+    public ThiSinhDTO findByMaThiSinh(String maThiSinh){    
+        for(ThiSinhDTO thisinh: DashBoard.thiSinhDTOs){
+            if(thisinh.getMaThiSinh().equals(maThiSinh)){
+                return thisinh;
+            }
+        }
+        return null;
+    }
+    
     
     public String capPhat (){
         return utl.initMaThiSinh();

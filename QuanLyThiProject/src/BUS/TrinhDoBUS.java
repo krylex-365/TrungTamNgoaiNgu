@@ -4,10 +4,20 @@
  */
 package BUS;
 
+import DTO.TrinhDoDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class TrinhDoBUS {
-    
+    public TrinhDoDTO findByMaTrinhDo(String maTrinhDo,ArrayList<TrinhDoDTO> maTrinhDoDTOs){
+        for(TrinhDoDTO trinhdo: maTrinhDoDTOs){
+            if(trinhdo.getMaTrinhDo().equals(maTrinhDo)){
+                return trinhdo;
+            }
+        }
+        return null;
+    }
 }
