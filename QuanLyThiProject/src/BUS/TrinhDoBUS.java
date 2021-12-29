@@ -38,6 +38,15 @@ public class TrinhDoBUS {
         }
         return trinhDoDTO;
     }
+    
+    public String findTenTrinhDo(String maTrinhDo,ArrayList<TrinhDoDTO> maTrinhDoDTOs){
+        for(TrinhDoDTO trinhdo: maTrinhDoDTOs){
+            if(trinhdo.getMaTrinhDo().equals(maTrinhDo)){
+                return trinhdo.getTenTrinhDo();
+            }
+        }
+        return null;
+    }
 
     public int indexTrinhDo (String maTrinhDo, ArrayList<TrinhDoDTO> trinhDoDTOs) {
         int i = -1, j = 0;
