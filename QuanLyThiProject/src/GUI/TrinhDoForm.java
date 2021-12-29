@@ -5,7 +5,11 @@
  */
 package GUI;
 
+import BUS.PhongThiBUS;
+import BUS.ThiSinhBUS;
 import BUS.TrinhDoBUS;
+import DTO.PhongThiDTO;
+import DTO.ThiSinhDTO;
 import DTO.TrinhDoDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -458,7 +462,7 @@ public class TrinhDoForm extends javax.swing.JPanel
         String maTrinhDo = jTextMaTD.getText();
         String tenTrinhDo = jTextTenTD.getText();
         String  lePhi = jTextLePhi.getText();
-        if(trinhDoBUS.them(maTrinhDo, tenTrinhDo, lePhi)){
+        if(trinhDoBUS.them(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs)){
             addRow(maTrinhDo, tenTrinhDo, lePhi);
         }else {
             JOptionPane.showMessageDialog(this, "Lỗi thêm trình độ!");
@@ -488,7 +492,7 @@ public class TrinhDoForm extends javax.swing.JPanel
         String maTrinhDo = jTextMaTD.getText();
         String tenTrinhDo = jTextTenTD.getText();
         String  lePhi = jTextLePhi.getText();
-        if(trinhDoBUS.sua(maTrinhDo, tenTrinhDo, lePhi)){
+        if(trinhDoBUS.sua(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs)){
             updateRow(tenTrinhDo, lePhi);
         }else {
             JOptionPane.showMessageDialog(this, "Lỗi sửa trình độ!");
@@ -512,24 +516,43 @@ public class TrinhDoForm extends javax.swing.JPanel
     private void jBtnXoaTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaTDActionPerformed
         // TODO add your handling code here:
         String maTrinhDo = jTextMaTD.getText();
-        if(trinhDoBUS.xoa(maTrinhDo)){
-            deleteRow();
+        String check = checkXoaTrinhDo(maTrinhDo);
+        if(check.equals("")){
+            if(trinhDoBUS.xoa(maTrinhDo, DashBoard.trinhDoDTOs)){
+                deleteRow();
+                jBtnCapPhatMaTD.setEnabled(true);
+                jBtnThemTD.setEnabled(false);
+                jBtnSuaTD.setEnabled(false);
+                jBtnXoaTD.setEnabled(false);
+                jBtnHuy.setEnabled(false);
+                jTextMaTD.setText("");
+                jTextTenTD.setText("");
+                jTextLePhi.setText("");
+                jTableTrinhDo.clearSelection();
+            }else {
+                JOptionPane.showMessageDialog(this, "Lỗi xóa trình độ!!!");
+            }
         }else {
-            JOptionPane.showMessageDialog(this, "Lỗi xóa trình độ!");
+            JOptionPane.showMessageDialog(this, check);
         }
-        jBtnCapPhatMaTD.setEnabled(true);
-        jBtnThemTD.setEnabled(false);
-        jBtnSuaTD.setEnabled(false);
-        jBtnXoaTD.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaTD.setText("");
-        jTextTenTD.setText("");
-        jTextLePhi.setText("");
-        jTableTrinhDo.clearSelection();
     }//GEN-LAST:event_jBtnXoaTDActionPerformed
 
     private void deleteRow() {
         tbModelTrinhDo.removeRow(rowTrinhDo);
+    }
+
+    private String checkXoaTrinhDo(String maTrinhDo){
+        for (PhongThiDTO phongThiDTO: DashBoard.phongThiDTOs){
+            if(maTrinhDo.equals(phongThiDTO.getMaTrinhDo())){
+                return "Còn phòng thi thuộc trình độ này";
+            }
+        }
+        for (ThiSinhDTO thiSinhDTO: DashBoard.thiSinhDTOs){
+            if (maTrinhDo.equals(thiSinhDTO.getMaTrinhDo())){
+                return "Còn thí sinh thuộc trình độ này";
+            }
+        }
+        return "";
     }
 
     private boolean isNullOrEmpty(String text)
