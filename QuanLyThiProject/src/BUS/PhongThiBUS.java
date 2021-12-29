@@ -4,10 +4,22 @@
  */
 package BUS;
 
+import DAO.PhongThiDAO;
+import DTO.PhongThiDTO;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class PhongThiBUS {
-    
+    PhongThiDAO phongThiDAO;
+    public PhongThiBUS(){
+        phongThiDAO = new PhongThiDAO();
+    }
+
+    public ArrayList<PhongThiDTO> getList(){
+        return phongThiDAO.getList();
+    }
 }
