@@ -31,6 +31,16 @@ public class ThiSinhBUS {
         System.out.println("ThiSinhBUS.Add fail");
         return false;
     }
+
+    public boolean Add(ThiSinhDTO thiSinh){
+        if(thiSinhDAO.insertThiSinh(thiSinh)){
+            maLast.updateMaThiSinh(thiSinh.getMaThiSinh());
+            System.out.println("ThiSinhBUS.Add success");
+            return true;
+        }
+        System.out.println("ThiSinhBUS.Add fail");
+        return false;
+    }
     
     
     public boolean Update(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){

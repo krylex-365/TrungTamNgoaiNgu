@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <!--<div id="main-wrapper">-->
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a th:href="@{/index}">
+                    <b class="logo-abbr"><img src="../../static/images/logo.png" th:src="@{/images/logo.png}" alt="">
+                    </b>
+                    <span class="logo-compact"><img src="../../static/images/logo-compact.png"
+                                                    th:src="@{/images/logo-compact.png}" alt=""></span>
+                    <span class="brand-title">
+                        <img src="../../static/images/logo-text.png" th:src="@{/images/logo-text.png}" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+        <!--**********************************
+            Header start
+        ***********************************-->
+    <div class="header">
+        <div class="header-content clearfix">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="toggle-icon"><i class="icon-menu"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label">Apps</li>
+                <li>
+                    <a th:href="@{/dangky}">
+                        <i class="icon-grid menu-icon"></i> <span class="nav-text">Đăng ký dự thi</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/timkiemTS}">
+                        <i class="icon-location-pin"></i> <span class="nav-text">Tìm kiếm thí sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="icon-people menu-icon"></i> <span class="nav-text">Tìm kiếm thí sinh dự thi</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/chungnhan}">
+                        <i class="icon-pie-chart menu-icon"></i> <span class="nav-text">Chứng nhận kết quả thi</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="icon-screen-tablet menu-icon"></i> <span class="nav-text">Thống kê số lượng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+</body>
+</html>
