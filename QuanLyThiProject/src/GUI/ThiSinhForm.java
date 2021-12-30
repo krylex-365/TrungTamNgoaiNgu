@@ -148,7 +148,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
                 break;
             }
         }
-
     }
 
     public void loadComboBox() {
