@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.MaDuLieuCuoiDAO;
 import DAO.ThiSinhDAO;
+import DTO.DataThiSinh;
 import DTO.PhieuBaoDuThiDTO;
 import DTO.ThiSinhDTO;
 import GUI.DashBoard;
@@ -92,5 +93,9 @@ public class ThiSinhBUS {
     
     public String capPhat (){
         return utl.initMaThiSinh();
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinh(String hoTen, String sdt){
+        return thiSinhDAO.timKiemThiSinh(hoTen, sdt);
     }
 }
