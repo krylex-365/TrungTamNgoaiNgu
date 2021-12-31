@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tìm kiếm</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+
+    <link rel="stylesheet" href="./plugins/jqueryui/css/jquery-ui-1-12-1.css">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-custom.css" rel="stylesheet">
+    <style>
+        .box {
+            padding: 0;
+        }
+
+            .box select {
+                background-color: #7571f9;
+                color: white;
+                padding: 12px;
+                width: 100%;
+                font-size: 0.875rem;
+                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+                -webkit-appearance: button;
+                appearance: button;
+                outline: none;
+            }
+
+            .box:hover::before {
+                color: rgba(255, 255, 255, 0.6);
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .box select option {
+                padding: 30px;
+            }
+
+        input[type="checkbox"]:after {
+            border: 1px solid #7571f9 !important;
+            margin: auto !important;
+        }
+
+        #DataTable_filter .form-control {
+            border: 1px solid #7571f9;
+            border-radius: 0.5rem;
+        }
+
+        #DataTable_length .form-control {
+            border: 1px solid #7571f9;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+        Nav header start
+    ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="./index.html">
+                    <b class="logo-abbr"><img src="./images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="./images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+        Nav header end
+    ***********************************-->
+        <!--**********************************
+        Header start
+    ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+        <!--**********************************
+        Sidebar start
+    ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Apps</li>
+                    <li>
+                        <a href="./dangky.html">
+                            <i class="icon-grid menu-icon"></i> <span class="nav-text">Đăng ký dự thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./timkiemTS.html">
+                            <i class="icon-location-pin"></i> <span class="nav-text">Tìm kiếm thí sinh</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./timkiem.html">
+                            <i class="icon-people menu-icon"></i> <span class="nav-text">Tìm kiếm thí sinh dự thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./chungnhan.html">
+                            <i class="icon-pie-chart menu-icon"></i> <span class="nav-text">Chứng nhận kết quả thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="icon-screen-tablet menu-icon"></i> <span class="nav-text">Thống kê số lượng</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+        Sidebar end
+    ***********************************-->
+        <!--**********************************
+        Content body start
+    ***********************************-->
+
+        <div class="content-body">
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title row">
+                                    <div class="col-md-12 mb-4">
+                                        <h3 class="td-center">TÌM KIẾM THÍ SINH DỰ THI</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="makhoathi">Khóa thi <span class="text-danger">*</span></label>
+                                                        <select id="khoaThi" class="form-control" name="makhoathi" onchange="setPhongThi()" required>
+                                                            <option value="">Chọn khóa thi</option>
+                                                            <!-- for option list khóa thi -->
+                                                            <option value="KH000001">KH000001 - tên</option>
+                                                            <option value="KH000002">KH000002 - tên</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="maphongthi">Phòng thi <span class="text-danger">*</span></label>
+                                                        <select id="phongThi" class="form-control" name="maphongthi" required disabled>
+                                                            <option value="">Chọn phòng thi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 td-center">
+                                                    <input type="submit" value="Tìm kiếm" name="timkiem" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="DataTable" class="table table-bordered table-hover zero-configuration">
+                                        <thead class="text-primary">
+                                            <tr>
+                                                <th style="width:5%;" class="th-center-bold">#</th>
+                                                <th style="width:20%;" class="th-center-bold">Tên phòng thi</th>
+                                                <th style="width:20%;" class="th-center-bold">Ca thi</th>
+                                                <th style="width:20%;" class="th-center-bold">Họ tên</th>
+                                                <th style="width:15%;" class="th-center-bold">SBD</th>
+                                                <th style="width:10%;" class="th-center-bold">Chi tiết</th>
+                                                <th style="width:10%;" class="th-center-bold">Chứng nhận</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="td-center" style="width:5%;">1</td>
+                                                <td style="width:16%;">B1P001</td>
+                                                <td class="td-center" style="width:16%;">10:00 - 13:00</td>
+                                                <td style="width:18%;">Ten thi sinh</td>
+                                                <td class="td-center" style="width:15%;">B1001</td>
+                                                <td class="td-center" style="width:10%;">
+                                                    <a href="#">
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ChiTietId"><i class="fa fa-info"></i></button>
+                                                    </a>
+                                                </td>
+                                                <td class="td-center" style="width:10%;">
+                                                    <a href="#">
+                                                        <button type="button" class="btn btn-primary"><i class="fa fa-address-card"></i></button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <!-- đưa model vào đây -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--@foreach (QuanLyNhanVien quanLyNhanVien1 in Model)
+            {-->
+                <div class="modal fade bd-example-modal-lg" id="ChiTietId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle" style="color:#7571f9;">Chi tiết thông tin</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Mã thí sinh:</h6>
+                                                <p> TS000001 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Họ tên:</h6>
+                                                <p> Ten Thí Sinh </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">SĐT:</h6>
+                                                <p> 0909090909 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">SBD:</h6>
+                                                <p> B1001 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Khóa thi:</h6>
+                                                <p> khóa thi lần 1 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Trình độ:</h6>
+                                                <p> B1 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Phòng thi:</h6>
+                                                <p> B1P001 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Ca thi:</h6>
+                                                <p> 9:00 - 12:00 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Ngày thi:</h6>
+                                                <p> 12/31/2021 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Tình trạng:</h6>
+                                                <p> Chưa thi / Đã thi </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Điểm nghe:</h6>
+                                                <p> 8 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Điểm nói:</h6>
+                                                <p> 7 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Điểm đọc:</h6>
+                                                <p> 7 </p>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                <h6 style="color:#ea5774;font-weight:500;">Điểm viết:</h6>
+                                                <p> 6 </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+
+        <script>
+            function setPhongThi() {
+                var option = $('#khoaThi').find(':selected').text();
+                var text = option.split("-")
+                var khoa = text[0].trim();
+                console.log(khoa)
+                $("#phongThi").empty();
+                $("#phongThi").append('<option value="">Chọn phòng thi</option>');
+                if (khoa === 'Chọn khóa thi') {
+                    document.getElementById('phongThi').setAttribute("disabled", "disabled");
+                } else {
+                    document.getElementById('phongThi').removeAttribute("disabled");
+                    /*var x = document.getElementById('phongThi');
+                    for (var j = 0; j <= x.length; j++) {
+                        x.remove(j);
+                    }*/
+                    var list = [
+                        { maPhongThi: 'PG000001', tenPhongThi: 'A2P001', maKhoaThi: 'KH000001' },
+                        { maPhongThi: 'PG000002', tenPhongThi: 'A1P001', maKhoaThi: 'KH000002' },
+                        { maPhongThi: 'PG000003', tenPhongThi: 'B1P001', maKhoaThi: 'KH000001' }
+                    ];
+                    for (var i = 0; i < list.length; i++) {
+                        if (list[i].maKhoaThi === khoa) {
+                            $("#phongThi").append('<option value="' + list[i].maPhongThi + '">' + list[i].maPhongThi + ' - ' + list[i].tenPhongThi + '</option>');
+                        }
+                    }
+                }
+            }
+        </script>
+
+        <!--**********************************
+        Content body end
+    ***********************************-->
+        <!--**********************************
+        Footer start
+    ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+        Footer end
+    ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+
+    <script src="./plugins/common/common.min.js"></script>
+    <script src="./js/custom.min.js"></script>
+    <script src="./js/settings.js"></script>
+    <script src="./js/gleek.js"></script>
+    <script src="./js/styleSwitcher.js"></script>
+
+    <script src="./plugins/jquery/jquery.min.js"></script>
+    <script src="./js/js-custom.js"></script>
+
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Form Picker Init JavaScript -->
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <!-- jQuery UI library -->
+    <script src="./plugins/jqueryui/js/jquery-ui-1-12-1.js"></script>
+</body>
+
+</html>

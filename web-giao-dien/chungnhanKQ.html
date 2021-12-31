@@ -176,66 +176,85 @@
                                         <a href="./chungnhan.html" style="float:left;"><button class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Quay lại</button></a>
                                     </div>
                                 </div>
+                                <div class="col-md-12 mb-4">
+                                    <h3 class="td-center">CHỨNG NHẬN KẾT QUẢ THI</h3>
+                                </div>
                                 <div class="row">
-                                    <div class="col-lg-12 mb-3"><h3>CHỨNG NHẬN KẾT QUẢ THI</h3></div>
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="manv">Mã nhân viên <span class="text-danger">*</span></label>
-                                                    <div class="input-group">
-                                                        <input value="NhanVienId" id="manv" class="form-control" type="text" placeholder="Dữ liệu cấp phát…" name="NhanVienId" readonly="readonly">
-                                                    </div>
+                                                    <label for="manv">Mã thí sinh <span class="text-danger">*</span></label>
+                                                    <input value="TS00001" type="text" name="mathisinh" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="hoten">Họ tên nhân viên <span class="text-danger">*</span></label>
-                                                    <input value="NhanVienId" type="text" name="HoTenNhanVien" class="form-control" placeholder="Nhập họ tên..." required>
+                                                    <label for="hoten">Họ tên thí sinh <span class="text-danger">*</span></label>
+                                                    <input value="Ten thi sinh" type="text" name="hoten" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="gioitinh">Giới tính <span class="text-danger">*</span></label>
-                                                    <select class="form-control" name="GioiTinh" required>
-                                                        <option value="Nam">Nam</option>
-                                                        <!--@if (Model.quanLyNhanVien.GioiTinh == "Nam")
-                            {
-                                <option value="Nữ">Nữ</option>
-                            }
-                            else
-                            {
-                                <option value="Nam">Nam</option>
-                            }-->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="ngaysinh">Ngày sinh <span class="text-danger">*</span></label>
-                                                    <div class="input-group">
-                                                        <input value="09/09/2000" type="text" class="form-control mydatepicker" name="NgaySinh" placeholder="mm/dd/yyyy" required> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
-                                                    </div>
+                                                    <input value="Nam/ Nữ" type="text" name="gioitinh" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="sdt">Số điện thoại <span class="text-danger">*</span></label>
-                                                    <input value="0909090708" type="text" name="SDT" class="form-control" placeholder="Nhập số điện thoại..." required>
+                                                    <input value="0909090708" type="text" name="sdt" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="diachi">Địa chỉ <span class="text-danger">*</span></label>
-                                                    <input value="NhanVienId" type="text" name="DiaChi" class="form-control" placeholder="Nhập địa chỉ..." required>
+                                                    <label for="khoathi">Khóa thi <span class="text-danger">*</span></label>
+                                                    <input value="Khóa thi 8/2021" type="text" name="khoathi" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="trinhdo">Trình độ <span class="text-danger">*</span></label>
+                                                    <input value="B1" type="text" name="trinhdo" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="ngaythi">Ngày thi <span class="text-danger">*</span></label>
+                                                    <input value="08/30/2021" type="text" name="ngaythi" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="sbd">Số báo danh <span class="text-danger">*</span></label>
+                                                    <input value="B1001" type="text" name="sbd" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nghe">Điểm nghe <span class="text-danger">*</span></label>
+                                                    <input value="8" type="number" name="nghe" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="noi">Điểm nói <span class="text-danger">*</span></label>
+                                                    <input value="8" type="number" name="viet" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="doc">Điểm đọc <span class="text-danger">*</span></label>
+                                                    <input value="8" type="number" name="doc" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="viet">Điểm viết <span class="text-danger">*</span></label>
+                                                    <input value="8" type="number" name="viet" class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-12 td-center">
-                                        <button type="submit" class="btn btn-primary">Sửa nhân viên</button>
                                     </div>
                                 </div>
                             </div>
