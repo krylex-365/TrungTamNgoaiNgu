@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="inc/header">
+    <title>Thống kê</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+
+</head>
+<body>
+<div id="main-wrapper">
+    <div th:insert="inc/form-layout"></div>
+
+    <div class="content-body">
+        <!-- row -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title row">
+                                <div class="col-md-12 mb-4">
+                                    <h3 class="td-center">THỐNG KÊ</h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <form th:action="@{/thongke/result}" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="matrinhdo">Trình độ <span
+                                                            class="text-danger">*</span></label>
+                                                    <select id="matrinhDo" class="form-control" name="matrinhdo"
+                                                            required>
+                                                        <option value="">Chọn trình độ</option>
+                                                        <!-- for option list khóa thi -->
+                                                        <div th:if="listTrinhDo">
+                                                            <div th:each="trinhdo : ${listTrinhDo}" th:remove="tag">
+                                                                <option th:value="${trinhdo.getMaTrinhDo()}"
+                                                                        th:text="${trinhdo.getMaTrinhDo() + ' - ' + trinhdo.getTenTrinhDo()}"></option>
+                                                            </div>
+
+                                                        </div>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 td-center">
+                                                <input type="submit" value="Thống kê" name="thongke"
+                                                       class="btn btn-primary">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div th:if="${listThisinhTK}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="slkhoathi">Số lượng khóa thi <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <!--                                                <div th:if="soluongKhoa">-->
+                                                <!--                                                        <input id="slkhoathi" class="form-control" type="text"  th:value="${soluongKhoa}"  name="slkhoathi" readonly="readonly">-->
+
+                                                <!--                                                        <div class="input-group-append">-->
+                                                <!--                                                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ChiTietKHId"><i class="fa fa-info"></i></button>-->
+                                                <!--                                                        </div>-->
+                                                <!--                                                </div>-->
+                                                <input id="slkhoathi" class="form-control" type="text" name="slkhoathi"
+                                                       th:value="${soluongKhoa}" readonly="readonly">
+
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                                            data-target="#ChiTietKHId"><i class="fa fa-info"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="slphongthi">Số lượng phòng thi <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="slphongthi" class="form-control" type="text"
+                                                       th:value="${soluongPhong}" name="slphongthi" readonly="readonly">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                                            data-target="#ChiTietPGId"><i class="fa fa-info"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+
+                                            <label for="slthisinh">Số lượng thí sinh <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="slthisinh" class="form-control" type="text"
+                                                       th:value="${soluongthisinh}" name="slthisinh"
+                                                       readonly="readonly">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                                            data-target="#ChiTietTSId"><i class="fa fa-info"></i>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--@foreach (QuanLyNhanVien quanLyNhanVien1 in Model)
+{-->
+            <div th:if="${listKhoaTK}">
+                <div class="modal fade bd-example-modal-lg" id="ChiTietKHId" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle3" style="color:#7571f9;">Thông tin
+                                    khóa thi</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                    <tr>
+                                                        <th style="width:14%;" class="th-center-bold">#</th>
+                                                        <th style="width:28%;" class="th-center-bold">Mã khóa thi</th>
+                                                        <th style="width:30%;" class="th-center-bold">Tên khóa thi</th>
+                                                        <th style="width:28%;" class="th-center-bold">Ngày thi</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody th:each="khoa: ${listKhoaTK}">
+                                                    <tr>
+                                                        <td class="td-center" style="width:14%;"
+                                                            th:text="${listKhoaTK.indexOf(khoa)}+1"></td>
+                                                        <td class="td-center" style="width:28%;"
+                                                            th:text="${khoa.getMaKhoaThi()}"></td>
+                                                        <td style="width:30%;" th:text="${khoa.getTenKhoaThi()}"></td>
+                                                        <td class="td-center" style="width:28%;"
+                                                            th:text="${khoa.getNgayThi()}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${listPhongTK}">
+                <div class="modal fade bd-example-modal-lg" id="ChiTietPGId" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle2" style="color:#7571f9;">Thông tin
+                                    phòng thi</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                    <tr>
+                                                        <th style="width:14%;" class="th-center-bold">#</th>
+                                                        <th style="width:18%;" class="th-center-bold">Mã phòng thi</th>
+                                                        <th style="width:23%;" class="th-center-bold">Tên phòng thi</th>
+                                                        <th style="width:27%;" class="th-center-bold">Khóa thi</th>
+                                                        <th style="width:18%;" class="th-center-bold">Ngày thi</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody th:each="phong: ${listPhongTK}">
+                                                    <tr>
+                                                        <td class="td-center" style="width:14%;"
+                                                            th:text="${listPhongTK.indexOf(phong)}+1"></td>
+                                                        <td class="td-center" style="width:18%;"
+                                                            th:text="${phong.getMaphong()}"></td>
+                                                        <td style="width:23%;" th:text="${phong.getTenphong()}"></td>
+                                                        <td style="width:27%;" th:text="${phong.getTenkhoathi()}"></td>
+                                                        <td class="td-center" style="width:18%;"
+                                                            th:text="${phong.getNgaythi()}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${listThisinhTK}">
+                <div class="modal fade bd-example-modal-lg" id="ChiTietTSId" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle1" style="color:#7571f9;">Thông tin thí
+                                    sinh</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                    <tr>
+                                                        <th style="width:10%;" class="th-center-bold">#</th>
+                                                        <th style="width:16%;" class="th-center-bold">Mã thí sinh</th>
+                                                        <th style="width:28%;" class="th-center-bold">Tên thí sinh</th>
+                                                        <th style="width:23%;" class="th-center-bold">Khóa thi</th>
+                                                        <th style="width:23%;" class="th-center-bold">Trạng thái</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="thisinh: ${listThisinhTK}">
+                                                        <td class="td-center" style="width:10%;" th:text="${listThisinhTK.indexOf(thisinh)}+1"></td>
+                                                        <td class="td-center" style="width:16%;"
+                                                            th:text="${thisinh.getMathisinh()}"></td>
+                                                        <td style="width:28%;"
+                                                            th:text="${thisinh.getTenthisinh()}"></td>
+                                                        <td style="width:23%;"
+                                                            th:text="${thisinh.getTenkhoathi()}"></td>
+                                                        <td style="width:23%;"
+                                                            th:text="${thisinh.getTrangthai()}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+
+    <!--**********************************
+    Content body end
+***********************************-->
+    <div th:insert="inc/footer"></div>
+</div>
+</body>
+
+</html>

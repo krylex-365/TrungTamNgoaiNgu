@@ -6,6 +6,8 @@ package DAO;
 
 import DTO.DataThiSinh;
 import DTO.ThiSinhDTO;
+import DTO.ThiSinhThongKe;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -54,6 +56,48 @@ public class ThiSinhDAO {
             System.out.println("ThiSinhDAO.getList.close error.");
         }
         return thiSinhDTOs;
+    }
+
+    public ArrayList<ThiSinhThongKe> getListThongKe(String matrinhdo){
+        ArrayList<ThiSinhThongKe> thiSinhThongKes = new ArrayList<ThiSinhThongKe>();
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select ts.MaThiSinh, ts.HoTen, k.TenKhoaThi, ts.Status\n" +
+                "from ThiSinh ts, TrinhDo td, KhoaThi k\n" +
+                "where ts.MaTrinhDo=td.MaTrinhDo and ts.MaTrinhDo='"+matrinhdo+"' \n" +
+                "\tand ts.MaKhoaThi=k.MaKhoaThi and ts.Status<>0";
+        try {
+            conn.executeQuery(query);
+            String trangThai;
+            while (conn.rs.next()) {
+                ThiSinhThongKe ts = new ThiSinhThongKe();
+                ts.setMathisinh(conn.rs.getString(1));
+                ts.setTenthisinh(conn.rs.getString(2));
+                ts.setTenkhoathi(conn.rs.getString(3));
+                trangThai = conn.rs.getString(4);
+                if (trangThai.equals("1")) {
+                    ts.setTrangthai("Chưa đóng tiền");
+                } else if (trangThai.equals("2")) {
+                    ts.setTrangthai("Đã đóng tiền");
+                } else if (trangThai.equals("3")) {
+                    ts.setTrangthai("Chưa thi");
+                } else if (trangThai.equals("4")) {
+                    ts.setTrangthai("Đã thi");
+                } else {
+                    ts.setTrangthai("Error");
+                }
+                thiSinhThongKes.add(ts);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("ThiSinhDAO.getList.close error.");
+        }
+        return thiSinhThongKes;
     }
     
     public boolean insertThiSinh(ThiSinhDTO thiSinhDTO) {
