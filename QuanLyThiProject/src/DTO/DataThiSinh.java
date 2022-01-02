@@ -12,4 +12,5 @@ public class DataThiSinh{
     public float noi;
     public float doc;
     public float viet;
+    public String ngayThi;
 }

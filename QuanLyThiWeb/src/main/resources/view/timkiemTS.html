@@ -131,7 +131,19 @@
                                                                         </div>
                                                                         <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.gioBatDau != null and ts.gioKetThuc != null}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Ca thi:</h6>
-                                                                            <p th:text="${ts.gioBatDau + ' - ' + ts.gioKetThuc}"> 9:00 - 12:00 </p>
+                                                                            <p th:text="${ts.gioBatDau + ' - ' + ts.gioKetThuc}"></p>
+                                                                        </div>
+                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.gioBatDau != null and ts.gioKetThuc != null}" class="col-md-6" style="margin-bottom: 10px">
+                                                                            <h6 style="color:#ea5774;font-weight:500;">Ngày thi:</h6>
+                                                                            <p th:text="${ts.ngayThi}"> 9:00 - 12:00 </p>
+                                                                        </div>
+                                                                        <div class="col-md-6" style="margin-bottom: 10px">
+                                                                            <h6 style="color:#ea5774;font-weight:500;">Tình trạng:</h6>
+                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 1}">Chưa đóng tiền</p>
+                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 2}">Đã đóng tiền</p>
+                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 3}">Chưa thi</p>
+                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 4}">Đã thi</p>
+                                                                            <!--<p> Chưa đóng tiền / Đã đóng tiền / Chưa thi / Đã thi </p>-->
                                                                         </div>
                                                                         <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm nghe:</h6>
@@ -149,14 +161,7 @@
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm viết:</h6>
                                                                             <p th:text="${ts.viet}"></p>
                                                                         </div>
-                                                                        <div class="col-md-6" style="margin-bottom: 10px">
-                                                                            <h6 style="color:#ea5774;font-weight:500;">Tình trạng:</h6>
-                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 1}">Chưa đóng tiền</p>
-                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 2}">Đã đóng tiền</p>
-                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 3}">Chưa thi</p>
-                                                                            <p th:if="${ts.thiSinhDTO.tinhTrang == 4}">Đã thi</p>
-                                                                            <!--<p> Chưa đóng tiền / Đã đóng tiền / Chưa thi / Đã thi </p>-->
-                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>

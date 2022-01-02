@@ -98,4 +98,12 @@ public class ThiSinhBUS {
     public ArrayList<DataThiSinh> timKiemThiSinh(String hoTen, String sdt){
         return thiSinhDAO.timKiemThiSinh(hoTen, sdt);
     }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhDuThi(String maKhoaThi, String maPhongThi){
+        return thiSinhDAO.timKiemThiSinhDuThi(maKhoaThi, maPhongThi);
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhSoBaoDanh(String SDB){
+        return thiSinhDAO.timKiemThiSinhSoBaoDanh(SDB);
+    }
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PhongThiBUS {
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
-    PhongThiDAO phongThiDAO = new PhongThiDAO();
+    public PhongThiDAO phongThiDAO = new PhongThiDAO();
 
     public PhongThiBUS() {
     }

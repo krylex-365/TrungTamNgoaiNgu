@@ -158,7 +158,8 @@ public class ThiSinhDAO {
                 "    kq.Nghe, " +
                 "    kq.Noi, " +
                 "    kq.Doc, " +
-                "    kq.Viet " +
+                "    kq.Viet, " +
+                "    pbdt.NgayThi " +
                 "from ThiSinh ts " +
                 "left join KhoaThi kt on kt.MaKhoaThi = ts.MaKhoaThi and kt.Status = 1 " +
                 "left join TrinhDo td on ts.MaTrinhDo = td.MaTrinhDo and td.Status = 1 " +
@@ -200,6 +201,146 @@ public class ThiSinhDAO {
                 dataThiSinh.noi = conn.rs.getFloat(21);
                 dataThiSinh.doc = conn.rs.getFloat(22);
                 dataThiSinh.viet = conn.rs.getFloat(23);
+                dataThiSinh.ngayThi = conn.rs.getString(24);
+
+                dataThiSinhs.add(dataThiSinh);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("ThiSinhDAO.getList.close error.");
+        }
+        return dataThiSinhs;
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhDuThi(String maKhoaThi, String maPhongThi){
+        ArrayList<DataThiSinh> dataThiSinhs = new ArrayList<DataThiSinh>();
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select " +
+                "    ts.*, " +
+                "    kt.TenKhoaThi, " +
+                "    td.TenTrinhDo, " +
+                "    pbdt.SoBaoDanh, " +
+                "    pt.TenPhongThi, " +
+                "    ct.GioBatDau, " +
+                "    ct.GioKetThuc, " +
+                "    kq.Nghe, " +
+                "    kq.Noi, " +
+                "    kq.Doc, " +
+                "    kq.Viet, " +
+                "    pbdt.NgayThi " +
+                "from ThiSinh ts " +
+                "left join KhoaThi kt on kt.MaKhoaThi = ts.MaKhoaThi and kt.Status = 1 " +
+                "left join TrinhDo td on ts.MaTrinhDo = td.MaTrinhDo and td.Status = 1 " +
+                "left join PhieuBaoDuThi pbdt on pbdt.MaThiSinh = ts.MaThiSinh and pbdt.Status = 1 " +
+                "left join PhongThi pt on pt.MaPhongThi = pbdt.MaPhongThi and pt.Status = 1 " +
+                "left join CaThi ct on ct.MaCaThi = pbdt.MaCaThi and ct.Status = 1 " +
+                "left join KetQuaThi kq on kq.SoBaoDanh = pbdt.SoBaoDanh and kq.Status = 1 " +
+                "where " +
+                "    pt.MaKhoaThi = '" + maKhoaThi + "' " +
+                "    and pt.MaPhongThi = '" + maPhongThi + "' " +
+                "    and ts.Status >= 3";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                DataThiSinh dataThiSinh = new DataThiSinh();
+                ThiSinhDTO cp = new ThiSinhDTO();
+                cp.setMaThiSinh(conn.rs.getString(1));
+                cp.setHoTen(conn.rs.getString(2));
+                cp.setGioiTinh(conn.rs.getString(3));
+                cp.setNgaySinh(conn.rs.getString(4));
+                cp.setCmnd(conn.rs.getString(5));
+                cp.setNgayCap(conn.rs.getString(6));
+                cp.setNoiCap(conn.rs.getString(7));
+                cp.setSdt(conn.rs.getString(8));
+                cp.setMail(conn.rs.getString(9));
+                cp.setDiaChi(conn.rs.getString(10));
+                cp.setMaKhoaThi(conn.rs.getString(11));
+                cp.setMaTrinhDo(conn.rs.getString(12));
+                cp.setTinhTrang(conn.rs.getInt(13));
+                dataThiSinh.thiSinhDTO = cp;
+
+                dataThiSinh.khoaThi = conn.rs.getString(14);
+                dataThiSinh.tenTrinhDo = conn.rs.getString(15);
+                dataThiSinh.soBaoDanh = conn.rs.getString(16);
+                dataThiSinh.tenPhongThi = conn.rs.getString(17);
+                dataThiSinh.gioBatDau = conn.rs.getString(18);
+                dataThiSinh.gioKetThuc = conn.rs.getString(19);
+                dataThiSinh.nghe = conn.rs.getFloat(20);
+                dataThiSinh.noi = conn.rs.getFloat(21);
+                dataThiSinh.doc = conn.rs.getFloat(22);
+                dataThiSinh.viet = conn.rs.getFloat(23);
+                dataThiSinh.ngayThi = conn.rs.getString(24);
+
+                dataThiSinhs.add(dataThiSinh);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("ThiSinhDAO.getList.close error.");
+        }
+        return dataThiSinhs;
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhSoBaoDanh(String SDB){
+        ArrayList<DataThiSinh> dataThiSinhs = new ArrayList<DataThiSinh>();
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select " +
+                "    ts.*, " +
+                "    kt.TenKhoaThi, " +
+                "    td.TenTrinhDo, " +
+                "    pbdt.SoBaoDanh, " +
+                "    kq.Nghe, " +
+                "    kq.Noi, " +
+                "    kq.Doc, " +
+                "    kq.Viet, " +
+                "    pbdt.NgayThi " +
+                "from ThiSinh ts " +
+                "left join KhoaThi kt on kt.MaKhoaThi = ts.MaKhoaThi and kt.Status = 1 " +
+                "left join TrinhDo td on ts.MaTrinhDo = td.MaTrinhDo and td.Status = 1 " +
+                "left join PhieuBaoDuThi pbdt on pbdt.MaThiSinh = ts.MaThiSinh and pbdt.Status = 1 " +
+                "left join KetQuaThi kq on kq.SoBaoDanh = pbdt.SoBaoDanh and kq.Status = 1 " +
+                "where " +
+                "    pbdt.SoBaoDanh = '" + SDB + "' " +
+                "    and ts.Status >= 3";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                DataThiSinh dataThiSinh = new DataThiSinh();
+                ThiSinhDTO cp = new ThiSinhDTO();
+                cp.setMaThiSinh(conn.rs.getString(1));
+                cp.setHoTen(conn.rs.getString(2));
+                cp.setGioiTinh(conn.rs.getString(3));
+                cp.setNgaySinh(conn.rs.getString(4));
+                cp.setCmnd(conn.rs.getString(5));
+                cp.setNgayCap(conn.rs.getString(6));
+                cp.setNoiCap(conn.rs.getString(7));
+                cp.setSdt(conn.rs.getString(8));
+                cp.setMail(conn.rs.getString(9));
+                cp.setDiaChi(conn.rs.getString(10));
+                cp.setMaKhoaThi(conn.rs.getString(11));
+                cp.setMaTrinhDo(conn.rs.getString(12));
+                cp.setTinhTrang(conn.rs.getInt(13));
+                dataThiSinh.thiSinhDTO = cp;
+
+                dataThiSinh.khoaThi = conn.rs.getString(14);
+                dataThiSinh.tenTrinhDo = conn.rs.getString(15);
+                dataThiSinh.soBaoDanh = conn.rs.getString(16);
+                dataThiSinh.nghe = conn.rs.getFloat(17);
+                dataThiSinh.noi = conn.rs.getFloat(18);
+                dataThiSinh.doc = conn.rs.getFloat(19);
+                dataThiSinh.viet = conn.rs.getFloat(20);
+                dataThiSinh.ngayThi = conn.rs.getString(21);
 
                 dataThiSinhs.add(dataThiSinh);
             }
