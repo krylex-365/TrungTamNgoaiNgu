@@ -55,20 +55,20 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table id="DataTable" class="table table-bordered table-hover zero-configuration">
-                                    <thead class="text-primary">
-                                    <tr>
-                                        <th style="width:5%;" class="th-center-bold">#</th>
-                                        <th style="width:12%;" class="th-center-bold">Mã thí sinh</th>
-                                        <th style="width:22%;" class="th-center-bold">Họ tên</th>
-                                        <th style="width:18%;" class="th-center-bold">SĐT</th>
-                                        <th style="width:18%;" class="th-center-bold">SBD</th>
-                                        <th style="width:15%;" class="th-center-bold">Phòng thi</th>
-                                        <th style="width:10%;" class="th-center-bold">Chi tiết</th>
-                                    </tr>
-                                    </thead>
-                                    <div th:if="${dataThiSinhs}">
+                            <div th:if="${dataThiSinhs}">
+                                <div class="table-responsive">
+                                    <table id="DataTable" class="table table-bordered table-hover zero-configuration">
+                                        <thead class="text-primary">
+                                        <tr>
+                                            <th style="width:5%;" class="th-center-bold">#</th>
+                                            <th style="width:12%;" class="th-center-bold">Mã thí sinh</th>
+                                            <th style="width:22%;" class="th-center-bold">Họ tên</th>
+                                            <th style="width:18%;" class="th-center-bold">SĐT</th>
+                                            <th style="width:18%;" class="th-center-bold">SBD</th>
+                                            <th style="width:15%;" class="th-center-bold">Phòng thi</th>
+                                            <th style="width:10%;" class="th-center-bold">Chi tiết</th>
+                                        </tr>
+                                        </thead>
                                         <tbody th:each="ts: ${dataThiSinhs}">
                                         <tr>
                                             <td th:text="${dataThiSinhs.indexOf(ts) + 1}" class="td-center" style="width:5%;"></td>
@@ -175,8 +175,8 @@
                                         </tr>
                                         <!-- đưa model vào đây -->
                                         </tbody>
-                                    </div>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

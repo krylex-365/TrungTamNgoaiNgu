@@ -62,9 +62,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table id="DataTable" class="table table-bordered table-hover zero-configuration">
-                                        <thead class="text-primary">
+                                <div th:if="${dataThiSinhs}">
+                                    <div class="table-responsive">
+                                        <table id="DataTable" class="table table-bordered table-hover zero-configuration">
+                                            <thead class="text-primary">
                                             <tr>
                                                 <th style="width:5%;" class="th-center-bold">#</th>
                                                 <th style="width:20%;" class="th-center-bold">Tên phòng thi</th>
@@ -74,9 +75,8 @@
                                                 <th style="width:10%;" class="th-center-bold">Chi tiết</th>
                                                 <th style="width:10%;" class="th-center-bold">Chứng nhận</th>
                                             </tr>
-                                        </thead>
-                                        <div th:if="${dataThiSinhs}">
-                                        <tbody th:each="ts: ${dataThiSinhs}">
+                                            </thead>
+                                            <tbody th:each="ts: ${dataThiSinhs}">
                                             <tr>
                                                 <td th:text="${dataThiSinhs.indexOf(ts)} + 1" class="td-center" style="width:5%;"></td>
                                                 <td th:text="${ts.tenPhongThi}" style="width:16%;"></td>
@@ -177,9 +177,9 @@
                                                 </div>
                                             </tr>
                                             <!-- đưa model vào đây -->
-                                        </tbody>
-                                        </div>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
