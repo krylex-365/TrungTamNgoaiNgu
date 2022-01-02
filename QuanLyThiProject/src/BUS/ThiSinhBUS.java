@@ -6,9 +6,7 @@ package BUS;
 
 import DAO.MaDuLieuCuoiDAO;
 import DAO.ThiSinhDAO;
-import DTO.DataThiSinh;
-import DTO.PhieuBaoDuThiDTO;
-import DTO.ThiSinhDTO;
+import DTO.*;
 import GUI.DashBoard;
 import java.util.ArrayList;
 
@@ -20,8 +18,14 @@ public class ThiSinhBUS {
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
     ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
-    
-    
+
+    public ArrayList<ThiSinhDTO> getList(){
+        return  thiSinhDAO.getList();
+    }
+    public ArrayList<ThiSinhThongKe> getThongke(String matrinhdo){
+        return thiSinhDAO.getListThongKe(matrinhdo);
+    }
+
     public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.insertThiSinh(thiSinh)){
             thiSinhDTOS.add(thiSinh);

@@ -7,6 +7,8 @@ package BUS;
 import DAO.KhoaThiDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DTO.KhoaThiDTO;
+import DTO.ThiSinhDTO;
+
 import java.util.ArrayList;
 
 /**
@@ -20,7 +22,11 @@ public class KhoaThiBUS {
 
     public KhoaThiBUS() {
     }
-    
+
+    public ArrayList<KhoaThiDTO> getList(){
+        return  khoaThiDAO.getList();
+    }
+
     public KhoaThiDTO findKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs){
         KhoaThiDTO khoaThiDTO = new KhoaThiDTO();
         for (KhoaThiDTO khoaThi : khoaThiDTOs) {

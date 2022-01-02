@@ -6,6 +6,8 @@ package DAO;
 
 import DTO.DataThiSinh;
 import DTO.ThiSinhDTO;
+import DTO.ThiSinhThongKe;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -54,6 +56,36 @@ public class ThiSinhDAO {
             System.out.println("ThiSinhDAO.getList.close error.");
         }
         return thiSinhDTOs;
+    }
+
+    public ArrayList<ThiSinhThongKe> getListThongKe(String matrinhdo){
+        ArrayList<ThiSinhThongKe> thiSinhThongKes = new ArrayList<ThiSinhThongKe>();
+        conn = new Connect();
+        conn.getConnection();
+        String query = "  select ts.MaThiSinh, ts.HoTen, k.TenKhoaThi, td.TenTrinhDo\n" +
+                "from ThiSinh ts, TrinhDo td, KhoaThi k\n" +
+                "where ts.MaTrinhDo=td.MaTrinhDo and ts.MaTrinhDo='"+matrinhdo+"' \n" +
+                "\tand ts.MaKhoaThi=k.MaKhoaThi and ts.Status=1";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                ThiSinhThongKe ts = new ThiSinhThongKe();
+                ts.setMathisinh(conn.rs.getString(1));
+                ts.setTenthisinh(conn.rs.getString(2));
+                ts.setTentrinhdo(conn.rs.getString(3));
+                ts.setTenkhoathi(conn.rs.getString(4));
+                thiSinhThongKes.add(ts);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("ThiSinhDAO.getList.close error.");
+        }
+        return thiSinhThongKes;
     }
     
     public boolean insertThiSinh(ThiSinhDTO thiSinhDTO) {

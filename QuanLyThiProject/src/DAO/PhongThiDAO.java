@@ -5,6 +5,8 @@
 package DAO;
 
 import DTO.PhongThiDTO;
+import DTO.PhongThongKe;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -45,7 +47,36 @@ public class PhongThiDAO {
         }
         return phongThiDTOs;
     }
-    
+    public ArrayList<PhongThongKe> getThonkephong(String matrinhdo){
+        ArrayList<PhongThongKe> phongThongKes = new ArrayList<PhongThongKe>();
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select pt.MaPhongThi, pt.TenPhongThi, k.TenKhoaThi, k.NgayThi\n" +
+                "from PhongThi pt, KhoaThi k\n" +
+                "where pt.MaKhoaThi=k.MaKhoaThi and pt.MaTrinhDo='"+matrinhdo+"' and pt.Status=1";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                PhongThongKe dto = new PhongThongKe();
+                dto.setMaphong(conn.rs.getString(1));
+                dto.setTenphong(conn.rs.getString(2));
+                dto.setTenkhoathi(conn.rs.getString(3));
+                dto.setNgaythi(conn.rs.getString(4));
+                phongThongKes.add(dto);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("PhongThiDAO.getList.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("PhongThiDAO.getList.close error.");
+        }
+        return phongThongKes;
+    }
+
     public boolean insertPhongThi(PhongThiDTO phongThiDTO) {
         conn = new Connect();
         conn.getConnection();
@@ -104,4 +135,5 @@ public class PhongThiDAO {
         System.out.println("PhongThiDAO delete fail.");
         return false;
     }
+
 }
