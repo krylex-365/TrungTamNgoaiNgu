@@ -51,8 +51,8 @@ public class PhongThiDAO {
         ArrayList<PhongThongKe> phongThongKes = new ArrayList<PhongThongKe>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select pt.MaPhongThi, pt.TenPhongThi, k.TenKhoaThi, k.NgayThi\n" +
-                "from PhongThi pt, KhoaThi k\n" +
+        String query = "select pt.MaPhongThi, pt.TenPhongThi, k.TenKhoaThi, k.NgayThi " +
+                "from PhongThi pt, KhoaThi k " +
                 "where pt.MaKhoaThi=k.MaKhoaThi and pt.MaTrinhDo='"+matrinhdo+"' and pt.Status=1";
         try {
             conn.executeQuery(query);

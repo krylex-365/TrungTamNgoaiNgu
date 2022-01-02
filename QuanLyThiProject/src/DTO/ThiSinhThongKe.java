@@ -3,8 +3,8 @@ package DTO;
 public class ThiSinhThongKe {
     private String mathisinh;
     private String tenthisinh;
-    private String tentrinhdo;
     private String tenkhoathi;
+    private String trangthai;
 
     public String getMathisinh() {
         return mathisinh;
@@ -22,12 +22,12 @@ public class ThiSinhThongKe {
         this.tenthisinh = tenthisinh;
     }
 
-    public String getTentrinhdo() {
-        return tentrinhdo;
+    public String getTrangthai() {
+        return trangthai;
     }
 
-    public void setTentrinhdo(String tentrinhdo) {
-        this.tentrinhdo = tentrinhdo;
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
     }
 
     public String getTenkhoathi() {
@@ -43,7 +43,7 @@ public class ThiSinhThongKe {
         return "ThiSinhThongKe{" +
                 "mathisinh='" + mathisinh + '\'' +
                 ", tenthisinh='" + tenthisinh + '\'' +
-                ", tentrinhdo='" + tentrinhdo + '\'' +
+                ", tentrinhdo='" + trangthai + '\'' +
                 ", tenkhoathi='" + tenkhoathi + '\'' +
                 '}';
     }

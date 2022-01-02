@@ -14,11 +14,11 @@ public class PhongThongKe {
         return tenphong;
     }
 
-    public String getNgaythi() {
+    public String getTenkhoathi() {
         return tenkhoathi;
     }
 
-    public String getTentringdo() {
+    public String getNgaythi() {
         return ngaythi;
     }
 
@@ -34,8 +34,8 @@ public class PhongThongKe {
         this.tenkhoathi = tenkhoathi;
     }
 
-    public void setNgaythi(String tentringdo) {
-        this.ngaythi = tentringdo;
+    public void setNgaythi(String ngaythi) {
+        this.ngaythi = ngaythi;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class ThongKeController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/thongke/result")
     public String thongketheotrinhdo(@RequestParam String matrinhdo, Model model){
+//        String matrinhdo = trinhdo.substring(0, 8).trim();
         TrinhDoBUS trinhDoBUS= new TrinhDoBUS();
 
         ArrayList<TrinhDoDTO> listTrinhDo= trinhDoBUS.getList();
@@ -40,8 +41,7 @@ public class ThongKeController {
         KhoaThiBUS khoaThiBUS= new KhoaThiBUS();
         ArrayList<KhoaThiDTO> khoaThiDTOs= khoaThiBUS.getList();
 
-       ArrayList<KhoaThiDTO> listKhoaTK= new ArrayList<>();
-
+        ArrayList<KhoaThiDTO> listKhoaTK= new ArrayList<>();
 
         for (KhoaThiDTO khoathi: khoaThiDTOs){
             for (PhongThiDTO phongThi: phongThiDTOs){
@@ -67,5 +67,10 @@ public class ThongKeController {
 
     }
 
+    public class phongThi {
+        PhongThiDTO phongThiDTO;
+        String tenKhoa;
+        String ngayThi;
+    }
 
 }
