@@ -6,8 +6,7 @@ package BUS;
 
 import DAO.MaDuLieuCuoiDAO;
 import DAO.ThiSinhDAO;
-import DTO.PhieuBaoDuThiDTO;
-import DTO.ThiSinhDTO;
+import DTO.*;
 import GUI.DashBoard;
 import java.util.ArrayList;
 
@@ -19,11 +18,27 @@ public class ThiSinhBUS {
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
     ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
-    
-    
+
+    public ArrayList<ThiSinhDTO> getList(){
+        return  thiSinhDAO.getList();
+    }
+    public ArrayList<ThiSinhThongKe> getThongke(String matrinhdo){
+        return thiSinhDAO.getListThongKe(matrinhdo);
+    }
+
     public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.insertThiSinh(thiSinh)){
             thiSinhDTOS.add(thiSinh);
+            maLast.updateMaThiSinh(thiSinh.getMaThiSinh());
+            System.out.println("ThiSinhBUS.Add success");
+            return true;
+        }
+        System.out.println("ThiSinhBUS.Add fail");
+        return false;
+    }
+
+    public boolean Add(ThiSinhDTO thiSinh){
+        if(thiSinhDAO.insertThiSinh(thiSinh)){
             maLast.updateMaThiSinh(thiSinh.getMaThiSinh());
             System.out.println("ThiSinhBUS.Add success");
             return true;
@@ -82,5 +97,17 @@ public class ThiSinhBUS {
     
     public String capPhat (){
         return utl.initMaThiSinh();
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinh(String hoTen, String sdt){
+        return thiSinhDAO.timKiemThiSinh(hoTen, sdt);
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhDuThi(String maKhoaThi, String maPhongThi){
+        return thiSinhDAO.timKiemThiSinhDuThi(maKhoaThi, maPhongThi);
+    }
+
+    public ArrayList<DataThiSinh> timKiemThiSinhSoBaoDanh(String SDB){
+        return thiSinhDAO.timKiemThiSinhSoBaoDanh(SDB);
     }
 }

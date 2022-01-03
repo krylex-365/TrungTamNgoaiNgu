@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thống kê</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+
+    <link rel="stylesheet" href="./plugins/jqueryui/css/jquery-ui-1-12-1.css">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-custom.css" rel="stylesheet">
+    <style>
+        .box {
+            padding: 0;
+        }
+
+            .box select {
+                background-color: #7571f9;
+                color: white;
+                padding: 12px;
+                width: 100%;
+                font-size: 0.875rem;
+                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+                -webkit-appearance: button;
+                appearance: button;
+                outline: none;
+            }
+
+            .box:hover::before {
+                color: rgba(255, 255, 255, 0.6);
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .box select option {
+                padding: 30px;
+            }
+
+        input[type="checkbox"]:after {
+            border: 1px solid #7571f9 !important;
+            margin: auto !important;
+        }
+
+        #DataTable_filter .form-control {
+            border: 1px solid #7571f9;
+            border-radius: 0.5rem;
+        }
+
+        #DataTable_length .form-control {
+            border: 1px solid #7571f9;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+        Nav header start
+    ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="./index.html">
+                    <b class="logo-abbr"><img src="./images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="./images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+        Nav header end
+    ***********************************-->
+        <!--**********************************
+        Header start
+    ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+        <!--**********************************
+        Sidebar start
+    ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Apps</li>
+                    <li>
+                        <a href="./dangky.html">
+                            <i class="icon-grid menu-icon"></i> <span class="nav-text">Đăng ký dự thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./timkiemTS.html">
+                            <i class="icon-location-pin"></i> <span class="nav-text">Tìm kiếm thí sinh</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./timkiem.html">
+                            <i class="icon-people menu-icon"></i> <span class="nav-text">Tìm kiếm thí sinh dự thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./chungnhan.html">
+                            <i class="icon-pie-chart menu-icon"></i> <span class="nav-text">Chứng nhận kết quả thi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="icon-screen-tablet menu-icon"></i> <span class="nav-text">Thống kê số lượng</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+        Sidebar end
+    ***********************************-->
+        <!--**********************************
+        Content body start
+    ***********************************-->
+
+        <div class="content-body">
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title row">
+                                    <div class="col-md-12 mb-4">
+                                        <h3 class="td-center">THỐNG KÊ</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="matrinhdo">Trình độ <span class="text-danger">*</span></label>
+                                                        <select id="trinhDo" class="form-control" name="matrinhdo" required>
+                                                            <option value="">Chọn trình độ</option>
+                                                            <!-- for option list khóa thi -->
+                                                            <option value="TD000001">TD000001 - A2</option>
+                                                            <option value="TD000002">TD000002 - B1</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 td-center">
+                                                    <input type="submit" value="Thống kê" name="thongke" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="slkhoathi">Số lượng khóa thi <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="slkhoathi" class="form-control" type="text" value="3" name="slkhoathi" readonly="readonly">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ChiTietKHId"><i class="fa fa-info"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="slphongthi">Số lượng phòng thi <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="slphongthi" class="form-control" type="text" value="5" name="slphongthi" readonly="readonly">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ChiTietPGId"><i class="fa fa-info"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="slthisinh">Số lượng thí sinh <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="slthisinh" class="form-control" type="text" value="12" name="slthisinh" readonly="readonly">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ChiTietTSId"><i class="fa fa-info"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--@foreach (QuanLyNhanVien quanLyNhanVien1 in Model)
+    {-->
+                <div class="modal fade bd-example-modal-lg" id="ChiTietKHId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle" style="color:#7571f9;">Thông tin khóa thi</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                        <tr>
+                                                            <th style="width:14%;" class="th-center-bold">#</th>
+                                                            <th style="width:28%;" class="th-center-bold">Mã khóa thi</th>
+                                                            <th style="width:30%;" class="th-center-bold">Tên khóa thi</th>
+                                                            <th style="width:28%;" class="th-center-bold">Ngày thi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="td-center" style="width:14%;">1</td>
+                                                            <td class="td-center" style="width:28%;">KH000001</td>
+                                                            <td style="width:30%;">Ten khoa thi</td>
+                                                            <td class="td-center" style="width:28%;">01/24/2022</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade bd-example-modal-lg" id="ChiTietPGId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle" style="color:#7571f9;">Thông tin khóa thi</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                        <tr>
+                                                            <th style="width:14%;" class="th-center-bold">#</th>
+                                                            <th style="width:18%;" class="th-center-bold">Mã phòng thi</th>
+                                                            <th style="width:23%;" class="th-center-bold">Tên phòng thi</th>
+                                                            <th style="width:27%;" class="th-center-bold">Khóa thi</th>
+                                                            <th style="width:18%;" class="th-center-bold">Ngày thi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="td-center" style="width:14%;">1</td>
+                                                            <td class="td-center" style="width:18%;">PG000001</td>
+                                                            <td style="width:23%;">Ten phong thi</td>
+                                                            <td style="width:27%;">Ten khoa thi</td>
+                                                            <td class="td-center" style="width:18%;">01/24/2022</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade bd-example-modal-lg" id="ChiTietTSId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle" style="color:#7571f9;">Thông tin khóa thi</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="text-primary">
+                                                        <tr>
+                                                            <th style="width:10%;" class="th-center-bold">#</th>
+                                                            <th style="width:16%;" class="th-center-bold">Mã thí sinh</th>
+                                                            <th style="width:28%;" class="th-center-bold">Tên thí sinh</th>
+                                                            <th style="width:23%;" class="th-center-bold">Khóa thi</th>
+                                                            <th style="width:23%;" class="th-center-bold">Tình trạng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="td-center" style="width:10%;">1</td>
+                                                            <td class="td-center" style="width:16%;">KH000001</td>
+                                                            <td style="width:28%;">Ten thi sinh</td>
+                                                            <td style="width:23%;">Ten khoa thi</td>
+                                                            <td style="width:23%;">Đã thi</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+
+        <!--**********************************
+        Content body end
+    ***********************************-->
+        <!--**********************************
+        Footer start
+    ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+        Footer end
+    ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+
+    <script src="./plugins/common/common.min.js"></script>
+    <script src="./js/custom.min.js"></script>
+    <script src="./js/settings.js"></script>
+    <script src="./js/gleek.js"></script>
+    <script src="./js/styleSwitcher.js"></script>
+
+    <script src="./plugins/jquery/jquery.min.js"></script>
+    <script src="./js/js-custom.js"></script>
+
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Form Picker Init JavaScript -->
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <!-- jQuery UI library -->
+    <script src="./plugins/jqueryui/js/jquery-ui-1-12-1.js"></script>
+</body>
+
+</html>

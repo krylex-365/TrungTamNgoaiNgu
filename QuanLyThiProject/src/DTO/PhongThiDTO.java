@@ -71,4 +71,5 @@ public class PhongThiDTO {
     public String toString() {
         return "PhongThiDTO{" + "maPhongThi=" + maPhongThi + ", tenPhongThi=" + tenPhongThi + ", soLuong=" + soLuong + ", maKhoaThi=" + maKhoaThi + ", maTrinhDo=" + maTrinhDo + '}';
     }
+
 }

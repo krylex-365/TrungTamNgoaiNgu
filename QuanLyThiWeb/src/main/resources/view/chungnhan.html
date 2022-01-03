@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="inc/header">
+    <title>Chứng nhận kết quả thi</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+
+</head>
+
+<body>
+<div id="main-wrapper">
+    <div th:insert="inc/form-layout"></div>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+
+        <div class="content-body">
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title row">
+                                    <div class="col-md-12 mb-4">
+                                        <h3 class="td-center">CHỨNG NHẬN KẾT QUẢ THI</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form th:action="@{/chungnhanKQ}" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label >Số báo danh <span class="text-danger">*</span></label>
+                                                        <input type="text" name="SBD" class="form-control" placeholder="Nhập SBD..." required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 td-center">
+                                                    <input type="submit" value="Tìm kiếm" name="timkiem" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+
+        <!--**********************************
+            Content body end
+        ***********************************-->
+    <div th:insert="inc/footer"></div>
+</div>
+</body>
+
+</html>

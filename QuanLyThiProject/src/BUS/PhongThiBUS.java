@@ -7,6 +7,7 @@ package BUS;
 import DAO.MaDuLieuCuoiDAO;
 import DAO.PhongThiDAO;
 import DTO.PhongThiDTO;
+import DTO.PhongThongKe;
 import DTO.TrinhDoDTO;
 import java.util.ArrayList;
 
@@ -17,11 +18,16 @@ import java.util.ArrayList;
 public class PhongThiBUS {
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
-    PhongThiDAO phongThiDAO = new PhongThiDAO();
+    public PhongThiDAO phongThiDAO = new PhongThiDAO();
 
     public PhongThiBUS() {
     }
-    
+    public ArrayList<PhongThongKe> getListTK(String matrinhdo){
+        return phongThiDAO.getThonkephong(matrinhdo);
+    }
+    public ArrayList<PhongThiDTO> getList(){
+        return  phongThiDAO.getList();
+    }
     public PhongThiDTO findPhongThi (String maKhoaThi, ArrayList<PhongThiDTO> phongThiDTOs){
         PhongThiDTO phongThiDTO = new PhongThiDTO();
         for (PhongThiDTO phongThi : phongThiDTOs) {

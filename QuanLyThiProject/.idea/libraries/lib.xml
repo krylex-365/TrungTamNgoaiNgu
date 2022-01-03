@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/example.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/itextpdf-5.5.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/groovy-all-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/costello.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/KGradientPanel.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mssql-jdbc-9.4.0.jre16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/abbot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.23-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jdom-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mockito-core-3.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/LGoodDatePicker-11.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mssql-jdbc-9.4.0.jre8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/LGoodDatePicker-10.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections4-4.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gnu-regexp-1.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junit-4.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mssql-jdbc-9.4.0.jre11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.19.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="inc/header">
+    <title>Chứng nhận kết quả thi</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+
+</head>
+
+<body>
+<div id="main-wrapper">
+    <div th:insert="inc/form-layout"></div>
+    <!--**********************************
+        Content body start
+    ***********************************-->
+
+    <div class="content-body">
+        <!-- row -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <a th:href="@{/chungnhan}" style="float:left;">
+                                        <button class="btn btn-primary"><i class="fa fa-arrow-left"
+                                                                           aria-hidden="true"></i> Quay lại
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-4">
+                                <h3 class="td-center">CHỨNG NHẬN KẾT QUẢ THI</h3>
+                                <div class="alert alert-danger" role="alert"
+                                     th:if="${dataThiSinh == null || dataThiSinh.thiSinhDTO.tinhTrang == 3}">Chưa có kết
+                                    quả
+                                </div>
+                            </div>
+                            <div th:if="${dataThiSinh != null && dataThiSinh.thiSinhDTO.tinhTrang == 4}">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Mã thí sinh <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.thiSinhDTO.maThiSinh}" type="text" name="mathisinh"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Họ tên thí sinh <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.thiSinhDTO.hoTen}" type="text" name="hoten"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Giới tính <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.thiSinhDTO.gioiTinh}" type="text" name="gioitinh"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Số điện thoại <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.thiSinhDTO.sdt}" type="text" name="sdt"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Khóa thi <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:if="${dataThiSinh.khoaThi != null}" th:value="${dataThiSinh.khoaThi}" type="text" name="khoathi"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Trình độ <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:if="${dataThiSinh.tenTrinhDo != null}" th:value="${dataThiSinh.tenTrinhDo}" type="text" name="trinhdo" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Ngày thi <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:if="${dataThiSinh.ngayThi != null}" th:value="${dataThiSinh.ngayThi}" type="text" name="ngaythi"
+                                                           class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Số báo danh <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:if="${dataThiSinh.soBaoDanh != null}" th:value="${dataThiSinh.soBaoDanh}" type="text" name="sbd" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Điểm nghe <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.nghe}" type="number" name="nghe" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Điểm nói <span class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.noi}" type="number" name="viet" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Điểm đọc <span class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.doc}" type="number" name="doc" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Điểm viết <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.viet}" type="number" name="viet" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <div th:insert="inc/footer"></div>
+</div>
+</body>
+
+</html>

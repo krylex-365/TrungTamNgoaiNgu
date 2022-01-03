@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="inc/header">
+    <title>Tìm kiếm</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+
+</head>
+
+<body>
+
+<div id="main-wrapper">
+    <div th:insert="inc/form-layout"></div>
+        <!--**********************************
+        Content body start
+    ***********************************-->
+
+        <div class="content-body">
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title row">
+                                    <div class="col-md-12 mb-4">
+                                        <h3 class="td-center">TÌM KIẾM THÍ SINH DỰ THI</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div th:if="${khoaThis} and ${phongThis}">
+                                        <form th:action="@{/timkiemTSDT}" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Khóa thi <span class="text-danger">*</span></label>
+                                                        <select id="khoaThi" class="form-control" name="makhoathi" onchange="setPhongThi()" required>
+                                                            <option value="">Chọn khóa thi</option>
+                                                            <!-- for option list khóa thi -->
+                                                            <option th:each="kt : ${khoaThis}"
+                                                                    th:value="${kt.maKhoaThi}"
+                                                                    th:text="${kt.maKhoaThi + ' - ' + kt.tenKhoaThi}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Phòng thi <span class="text-danger">*</span></label>
+                                                        <select id="phongThi" class="form-control" name="maphongthi" required disabled>
+                                                            <option value="">Chọn phòng thi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 td-center">
+                                                    <input type="submit" value="Tìm kiếm" name="timkiem" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${dataThiSinhs}">
+                                    <div class="table-responsive">
+                                        <table id="DataTable" class="table table-bordered table-hover zero-configuration">
+                                            <thead class="text-primary">
+                                            <tr>
+                                                <th style="width:5%;" class="th-center-bold">#</th>
+                                                <th style="width:20%;" class="th-center-bold">Tên phòng thi</th>
+                                                <th style="width:20%;" class="th-center-bold">Ca thi</th>
+                                                <th style="width:20%;" class="th-center-bold">Họ tên</th>
+                                                <th style="width:15%;" class="th-center-bold">SBD</th>
+                                                <th style="width:10%;" class="th-center-bold">Chi tiết</th>
+                                                <th style="width:10%;" class="th-center-bold">Chứng nhận</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody th:each="ts: ${dataThiSinhs}">
+                                            <tr>
+                                                <td th:text="${dataThiSinhs.indexOf(ts)} + 1" class="td-center" style="width:5%;"></td>
+                                                <td th:text="${ts.tenPhongThi}" style="width:16%;"></td>
+                                                <td th:text="${ts.gioBatDau + ' - ' + ts.gioKetThuc}" class="td-center" style="width:16%;"></td>
+                                                <td th:text="${ts.thiSinhDTO.hoTen}" style="width:18%;"></td>
+                                                <td th:text="${ts.soBaoDanh}" class="td-center" style="width:15%;"></td>
+                                                <td class="td-center" style="width:10%;">
+                                                    <a>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="'#ChiTietId' + ${ts.thiSinhDTO.maThiSinh}"><i class="fa fa-info"></i></button>
+                                                    </a>
+                                                </td>
+                                                <td class="td-center" style="width:10%;">
+                                                    <form th:action="@{/chungnhanKQ}" method="post">
+                                                        <input name="SBD" th:value="${ts.soBaoDanh}" type="hidden">
+                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-address-card"></i></button>
+                                                    </form>
+                                                </td>
+                                                <div class="modal fade bd-example-modal-lg" th:id="'ChiTietId' + ${ts.thiSinhDTO.maThiSinh}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="exampleModalLongTitle" style="color:#7571f9;">Chi tiết thông tin</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Mã thí sinh:</h6>
+                                                                                <p th:text="${ts.thiSinhDTO.maThiSinh}"></p>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Họ tên:</h6>
+                                                                                <p th:text="${ts.thiSinhDTO.hoTen}"></p>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">SĐT:</h6>
+                                                                                <p th:text="${ts.thiSinhDTO.sdt}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.soBaoDanh != null}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">SBD:</h6>
+                                                                                <p th:text="${ts.soBaoDanh}"></p>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Khóa thi:</h6>
+                                                                                <p th:text="${ts.khoaThi}"></p>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Trình độ:</h6>
+                                                                                <p th:text="${ts.tenTrinhDo}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.tenPhongThi != null}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Phòng thi:</h6>
+                                                                                <p th:text="${ts.tenPhongThi}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.gioBatDau != null and ts.gioKetThuc != null}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Ca thi:</h6>
+                                                                                <p th:text="${ts.gioBatDau + ' - ' + ts.gioKetThuc}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.gioBatDau != null and ts.gioKetThuc != null}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Ngày thi:</h6>
+                                                                                <p th:text="${ts.ngayThi}"> 9:00 - 12:00 </p>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Tình trạng:</h6>
+                                                                                <p th:if="${ts.thiSinhDTO.tinhTrang == 1}">Chưa đóng tiền</p>
+                                                                                <p th:if="${ts.thiSinhDTO.tinhTrang == 2}">Đã đóng tiền</p>
+                                                                                <p th:if="${ts.thiSinhDTO.tinhTrang == 3}">Chưa thi</p>
+                                                                                <p th:if="${ts.thiSinhDTO.tinhTrang == 4}">Đã thi</p>
+                                                                                <!--<p> Chưa đóng tiền / Đã đóng tiền / Chưa thi / Đã thi </p>-->
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Điểm nghe:</h6>
+                                                                                <p th:text="${ts.nghe}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Điểm nói:</h6>
+                                                                                <p th:text="${ts.noi}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Điểm đọc:</h6>
+                                                                                <p th:text="${ts.doc}"></p>
+                                                                            </div>
+                                                                            <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Điểm viết:</h6>
+                                                                                <p th:text="${ts.viet}"></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                            <!-- đưa model vào đây -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--@foreach (QuanLyNhanVien quanLyNhanVien1 in Model)
+            {-->
+
+
+            </div>
+            <!-- #/ container -->
+        </div>
+
+        <script th:inline="javascript">
+            function setPhongThi() {
+                var option = $('#khoaThi').find(':selected').text();
+                var text = option.split("-")
+                var khoa = text[0].trim();
+                console.log(khoa)
+                $("#phongThi").empty();
+                $("#phongThi").append('<option value="">Chọn phòng thi</option>');
+                if (khoa === 'Chọn khóa thi') {
+                    document.getElementById('phongThi').setAttribute("disabled", "disabled");
+                } else {
+                    document.getElementById('phongThi').removeAttribute("disabled");
+                    /*var x = document.getElementById('phongThi');
+                    for (var j = 0; j <= x.length; j++) {
+                        x.remove(j);
+                    }*/
+                    var list = [[${phongThis}]]
+                       /* [
+                        { maPhongThi: 'PG000001', tenPhongThi: 'A2P001', maKhoaThi: 'KH000001' },
+                        { maPhongThi: 'PG000002', tenPhongThi: 'A1P001', maKhoaThi: 'KH000002' },
+                        { maPhongThi: 'PG000003', tenPhongThi: 'B1P001', maKhoaThi: 'KH000001' }
+                    ];*/
+                    for (var i = 0; i < list.length; i++) {
+                        if (list[i].maKhoaThi === khoa) {
+                            $("#phongThi").append('<option value="' + list[i].maPhongThi + '">' + list[i].maPhongThi + ' - ' + list[i].tenPhongThi + '</option>');
+                        }
+                    }
+                }
+            }
+        </script>
+
+        <!--**********************************
+        Content body end
+    ***********************************-->
+    <div th:insert="inc/footer"></div>
+</div>
+</body>
+
+</html>
