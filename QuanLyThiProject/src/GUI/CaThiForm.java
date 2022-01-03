@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.CaThiBUS;
+import BUS.Utils;
 import DTO.CaThiDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,7 +37,8 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class CaThiForm extends javax.swing.JPanel {
+public class CaThiForm extends javax.swing.JPanel
+{
 
     DefaultTableModel tbModelCaThi, tbModelTKTD;
     private int rowCaThi;
@@ -45,7 +48,8 @@ public class CaThiForm extends javax.swing.JPanel {
     /**
      * Creates new form jPanel2
      */
-    public CaThiForm() {
+    public CaThiForm()
+    {
         initComponents();
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
@@ -55,7 +59,8 @@ public class CaThiForm extends javax.swing.JPanel {
         tbModelTKTD.setRowCount(0);
     }
 
-    public void initTable() {
+    public void initTable()
+    {
         tbModelCaThi.setRowCount(0);
         tableModel(tbModelCaThi);
         jTableCaThi.setRowSorter(null);
@@ -64,8 +69,10 @@ public class CaThiForm extends javax.swing.JPanel {
         clear();
     }
 
-    public void tableModel(DefaultTableModel model) {
-        for (CaThiDTO khoaThi : DashBoard.caThiDTOs) {
+    public void tableModel(DefaultTableModel model)
+    {
+        for (CaThiDTO khoaThi : DashBoard.caThiDTOs)
+        {
             Vector row = new Vector();
             row.add(khoaThi.getMaCaThi());
             row.add(khoaThi.getGioBatDau());
@@ -74,7 +81,8 @@ public class CaThiForm extends javax.swing.JPanel {
         }
     }
 
-    public void themVector(DefaultTableModel model, CaThiDTO caThiDTO) {
+    public void themVector(DefaultTableModel model, CaThiDTO caThiDTO)
+    {
         Vector newrow = new Vector();
         newrow.add(caThiDTO.getMaCaThi());
         newrow.add(caThiDTO.getGioBatDau());
@@ -82,16 +90,19 @@ public class CaThiForm extends javax.swing.JPanel {
         model.addRow(newrow);
     }
 
-    public void suaVector(DefaultTableModel model, int row, CaThiDTO caThiDTO) {
+    public void suaVector(DefaultTableModel model, int row, CaThiDTO caThiDTO)
+    {
         model.setValueAt(caThiDTO.getGioBatDau(), row, 1);
         model.setValueAt(caThiDTO.getGioKetThuc(), row, 2);
     }
 
-    public void xoaVector(DefaultTableModel model, int row) {
+    public void xoaVector(DefaultTableModel model, int row)
+    {
         model.removeRow(row);
     }
-    
-    public void clear(){
+
+    public void clear()
+    {
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemCT.setEnabled(false);
         jBtnSuaCT.setEnabled(false);
@@ -101,12 +112,13 @@ public class CaThiForm extends javax.swing.JPanel {
         jTableCaThi.clearSelection();
     }
 
-    private void filter(String query) {
+    private void filter(String query)
+    {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelCaThi);
         jTableCaThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -478,76 +490,106 @@ public class CaThiForm extends javax.swing.JPanel {
 
     private void jBtnThemCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemCTActionPerformed
         // TODO add your handling code here:
-        String maCaThi = (String) jTextMaCT.getText(),
-                gioBD = jComboGio1.getSelectedItem().toString(),
-                phutBD = jComboPhut1.getSelectedItem().toString(),
-                gioKT = jComboGio2.getSelectedItem().toString(),
-                phutKT = jComboPhut2.getSelectedItem().toString();
-        if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT)) {
-            JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
-            return;
-        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
-                && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT)) {
-            JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
-            return;
-        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
-                && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30) {
-            JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
-            return;
+        String valString = validation();
+        if (valString.equals(""))
+        {
+            String maCaThi = (String) jTextMaCT.getText(),
+                    gioBD = jComboGio1.getSelectedItem().toString(),
+                    phutBD = jComboPhut1.getSelectedItem().toString(),
+                    gioKT = jComboGio2.getSelectedItem().toString(),
+                    phutKT = jComboPhut2.getSelectedItem().toString();
+            if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT))
+            {
+                JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
+                return;
+            } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT)
+                    && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT))
+            {
+                JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
+                return;
+            } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT)
+                    && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30)
+            {
+                JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
+                return;
+            }
+            CaThiDTO caThiDTO = new CaThiDTO(maCaThi, gioBD + ":" + phutBD, gioKT + ":" + phutKT);
+            if (caThiBUS.them(caThiDTO, DashBoard.caThiDTOs))
+            {
+                themVector(tbModelCaThi, caThiDTO);
+                JOptionPane.showMessageDialog(this, "Thêm ca thi thành công!");
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Thêm ca thi thất bại!");
+            }
+            clear();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, valString);
         }
-        CaThiDTO caThiDTO = new CaThiDTO(maCaThi, gioBD + ":" + phutBD, gioKT + ":" + phutKT);
-        if (caThiBUS.them(caThiDTO, DashBoard.caThiDTOs)) {
-            themVector(tbModelCaThi, caThiDTO);
-            JOptionPane.showMessageDialog(this, "Thêm ca thi thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm ca thi thất bại!");
-        }
-        clear();
+
     }//GEN-LAST:event_jBtnThemCTActionPerformed
 
 
     private void jBtnSuaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaCTActionPerformed
         // TODO add your handling code here:
-        String gioBD = jComboGio1.getSelectedItem().toString(),
-                phutBD = jComboPhut1.getSelectedItem().toString(),
-                gioKT = jComboGio2.getSelectedItem().toString(),
-                phutKT = jComboPhut2.getSelectedItem().toString();
-        if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT)) {
-            JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
-            return;
-        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
-                && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT)) {
-            JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
-            return;
-        } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT) 
-                && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30) {
-            JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
-            return;
+        String valString = validation();
+        if (valString.equals(""))
+        {
+            String gioBD = jComboGio1.getSelectedItem().toString(),
+                    phutBD = jComboPhut1.getSelectedItem().toString(),
+                    gioKT = jComboGio2.getSelectedItem().toString(),
+                    phutKT = jComboPhut2.getSelectedItem().toString();
+            if (Integer.valueOf(gioBD) > Integer.valueOf(gioKT))
+            {
+                JOptionPane.showMessageDialog(this, "Giờ kết thúc phải sau giờ bắt đầu!");
+                return;
+            } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT)
+                    && Integer.valueOf(phutBD) >= Integer.valueOf(phutKT))
+            {
+                JOptionPane.showMessageDialog(this, "Phút kết thúc phải sau phút bắt đầu!");
+                return;
+            } else if (Integer.valueOf(gioBD) == Integer.valueOf(gioKT)
+                    && Integer.valueOf(phutKT) - Integer.valueOf(phutBD) < 30)
+            {
+                JOptionPane.showMessageDialog(this, "Mỗi ca thi ít nhất 30 phút!");
+                return;
+            }
+            CaThiDTO caThiDTO = new CaThiDTO(caThiSelected.getMaCaThi(), gioBD + ":" + phutBD, gioKT + ":" + phutKT);
+            if (caThiBUS.sua(caThiDTO, DashBoard.caThiDTOs))
+            {
+                suaVector(tbModelCaThi, rowCaThi, caThiDTO);
+                JOptionPane.showMessageDialog(this, "Sửa ca thi thành công!");
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Sửa ca thi thất bại!");
+            }
+            clear();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, valString);
         }
-        CaThiDTO caThiDTO = new CaThiDTO(caThiSelected.getMaCaThi(), gioBD + ":" + phutBD, gioKT + ":" + phutKT);
-        if (caThiBUS.sua(caThiDTO, DashBoard.caThiDTOs)) {
-            suaVector(tbModelCaThi, rowCaThi, caThiDTO);
-            JOptionPane.showMessageDialog(this, "Sửa ca thi thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Sửa ca thi thất bại!");
-        }
-        clear();
+
     }//GEN-LAST:event_jBtnSuaCTActionPerformed
 
     private void jBtnXoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaCTActionPerformed
         // TODO add your handling code here:
         CaThiDTO caThiDTO = new CaThiDTO(caThiSelected.getMaCaThi(), caThiSelected.getGioBatDau(), caThiSelected.getGioKetThuc());
-        if (caThiBUS.xoa(caThiDTO, DashBoard.caThiDTOs)) {
+        if (caThiBUS.xoa(caThiDTO, DashBoard.caThiDTOs))
+        {
             xoaVector(tbModelCaThi, rowCaThi);
             JOptionPane.showMessageDialog(this, "Xóa ca thi thành công!");
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Xóa ca thi thất bại!");
         }
         clear();
     }//GEN-LAST:event_jBtnXoaCTActionPerformed
 
-    private boolean isNullOrEmpty(String text) {
-        if (text == null || text.equals("")) {
+    private boolean isNullOrEmpty(String text)
+    {
+        if (text == null || text.equals(""))
+        {
             return true;
         }
         return false;
@@ -573,7 +615,8 @@ public class CaThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableCaThiMouseClicked
         // TODO add your handling code here:
         rowCaThi = jTableCaThi.getSelectedRow();
-        if (rowCaThi != -1) {
+        if (rowCaThi != -1)
+        {
             caThiSelected.setMaCaThi((String) jTableCaThi.getModel().getValueAt(rowCaThi, 0));
             caThiSelected.setGioBatDau((String) jTableCaThi.getModel().getValueAt(rowCaThi, 1));
             caThiSelected.setGioKetThuc((String) jTableCaThi.getModel().getValueAt(rowCaThi, 2));
@@ -604,13 +647,34 @@ public class CaThiForm extends javax.swing.JPanel {
         initTable();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
-    public void xoaLoaiChiPhi(DefaultTableModel model, int row) {
+    public void xoaLoaiChiPhi(DefaultTableModel model, int row)
+    {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value) {
+    public void timKiem(DefaultTableModel model, JTable jTable, String value)
+    {
         model.setRowCount(0);
 
+    }
+
+    public String validation()
+    {
+        String validate = "";
+        if (Integer.parseInt(jComboGio1.getSelectedItem().toString()) >= 7 && Integer.parseInt(jComboGio1.getSelectedItem().toString()) <= 21)
+        {
+            if (Integer.parseInt(jComboGio2.getSelectedItem().toString()) > Integer.parseInt(jComboGio1.getSelectedItem().toString()) && Integer.parseInt(jComboGio2.getSelectedItem().toString()) <= 22)
+            {
+                validate += "Giờ thi hợp lệ!\\n";
+            } else
+            {
+                validate += "Giờ kết thúc không hợp lệ!\\n";
+            }
+        } else
+        {
+            validate += "Giờ bắt đầu không hợp lệ!\\n";
+        }
+        return validate;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,6 +8,7 @@ package GUI;
 import BUS.PhongThiBUS;
 import BUS.ThiSinhBUS;
 import BUS.TrinhDoBUS;
+import BUS.Utils;
 import DTO.PhongThiDTO;
 import DTO.ThiSinhDTO;
 import DTO.TrinhDoDTO;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,7 +41,8 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class TrinhDoForm extends javax.swing.JPanel {
+public class TrinhDoForm extends javax.swing.JPanel
+{
 
     DefaultTableModel tbModelTrinhDo, tbModelTKTD;
     int rowTbl;
@@ -50,8 +53,8 @@ public class TrinhDoForm extends javax.swing.JPanel {
     /**
      * Creates new form jPanel2
      */
-    
-    public TrinhDoForm() {
+    public TrinhDoForm()
+    {
         initComponents();
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemTD.setEnabled(false);
@@ -61,10 +64,12 @@ public class TrinhDoForm extends javax.swing.JPanel {
         tbModelTKTD.setRowCount(0);
     }
 
-    public void initTable() {
+    public void initTable()
+    {
         trinhDoBUS = new TrinhDoBUS();
         tbModelTrinhDo.setRowCount(0);
-        for (TrinhDoDTO trinhDoDTO : DashBoard.trinhDoDTOs) {
+        for (TrinhDoDTO trinhDoDTO : DashBoard.trinhDoDTOs)
+        {
             Vector<String> vector = new Vector<>();
             vector.add(trinhDoDTO.getMaTrinhDo());
             vector.add(trinhDoDTO.getTenTrinhDo());
@@ -76,8 +81,9 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jTableTrinhDo.setModel(tbModelTrinhDo);
         clear();
     }
-    
-    public void clear() {
+
+    public void clear()
+    {
         jBtnCapPhatMaTD.setEnabled(true);
         jBtnThemTD.setEnabled(false);
         jBtnSuaTD.setEnabled(false);
@@ -88,12 +94,14 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jTextLePhi.setText("");
         jTableTrinhDo.clearSelection();
     }
-    
-    private void filter(String query) {
+
+    private void filter(String query)
+    {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelTrinhDo);
         jTableTrinhDo.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -455,19 +463,30 @@ public class TrinhDoForm extends javax.swing.JPanel {
 
     private void jBtnThemTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemTDActionPerformed
         // TODO add your handling code here:
-        String maTrinhDo = jTextMaTD.getText();
-        String tenTrinhDo = jTextTenTD.getText();
-        String lePhi = jTextLePhi.getText();
-        if (trinhDoBUS.them(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs)) {
-            addRow(maTrinhDo, tenTrinhDo, lePhi);
-            JOptionPane.showMessageDialog(this, "Thêm trình độ thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm trình độ thất bại!");
+        String valString = validation();
+        if (valString.equals(""))
+        {
+            String maTrinhDo = jTextMaTD.getText();
+            String tenTrinhDo = jTextTenTD.getText();
+            String lePhi = jTextLePhi.getText();
+            if (trinhDoBUS.them(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs))
+            {
+                addRow(maTrinhDo, tenTrinhDo, lePhi);
+                JOptionPane.showMessageDialog(this, "Thêm trình độ thành công!");
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Thêm trình độ thất bại!");
+            }
+            clear();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, valString);
         }
-        clear();
+
     }//GEN-LAST:event_jBtnThemTDActionPerformed
 
-    private void addRow(String maTrinhDo, String tenTrinhDo, String lePhi) {
+    private void addRow(String maTrinhDo, String tenTrinhDo, String lePhi)
+    {
         Vector<String> vector = new Vector<>();
         vector.add(maTrinhDo);
         vector.add(tenTrinhDo);
@@ -477,19 +496,30 @@ public class TrinhDoForm extends javax.swing.JPanel {
 
     private void jBtnSuaTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaTDActionPerformed
         // TODO add your handling code here:
-        String maTrinhDo = jTextMaTD.getText();
-        String tenTrinhDo = jTextTenTD.getText();
-        String lePhi = jTextLePhi.getText();
-        if (trinhDoBUS.sua(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs)) {
-            updateRow(tenTrinhDo, lePhi);
-            JOptionPane.showMessageDialog(this, "Sửa trình độ thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Sửa trình độ thất bại!");
+        String valString = validation();
+        if (valString.equals(""))
+        {
+            String maTrinhDo = jTextMaTD.getText();
+            String tenTrinhDo = jTextTenTD.getText();
+            String lePhi = jTextLePhi.getText();
+            if (trinhDoBUS.sua(maTrinhDo, tenTrinhDo, lePhi, DashBoard.trinhDoDTOs))
+            {
+                updateRow(tenTrinhDo, lePhi);
+                JOptionPane.showMessageDialog(this, "Sửa trình độ thành công!");
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Sửa trình độ thất bại!");
+            }
+            clear();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, valString);
         }
-        clear();
+
     }//GEN-LAST:event_jBtnSuaTDActionPerformed
 
-    private void updateRow(String tenTrinhDo, String lePhi) {
+    private void updateRow(String tenTrinhDo, String lePhi)
+    {
         tbModelTrinhDo.setValueAt(tenTrinhDo, rowTrinhDo, 1);
         tbModelTrinhDo.setValueAt(lePhi, rowTrinhDo, 2);
     }
@@ -498,40 +528,52 @@ public class TrinhDoForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         String maTrinhDo = jTextMaTD.getText();
         String check = checkXoaTrinhDo(maTrinhDo);
-        if (check.equals("")) {
-            if (trinhDoBUS.xoa(maTrinhDo, DashBoard.trinhDoDTOs)) {
+        if (check.equals(""))
+        {
+            if (trinhDoBUS.xoa(maTrinhDo, DashBoard.trinhDoDTOs))
+            {
                 deleteRow();
                 JOptionPane.showMessageDialog(this, "Xóa trình độ thành công!");
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "Xóa trình độ thất bại!");
             }
             clear();
-        } else {
+        } else
+        {
             check = "Không thể xóa\n" + check;
             JOptionPane.showMessageDialog(this, check);
         }
     }//GEN-LAST:event_jBtnXoaTDActionPerformed
 
-    private void deleteRow() {
+    private void deleteRow()
+    {
         tbModelTrinhDo.removeRow(rowTrinhDo);
     }
 
-    private String checkXoaTrinhDo(String maTrinhDo) {
-        for (PhongThiDTO phongThiDTO : DashBoard.phongThiDTOs) {
-            if (maTrinhDo.equals(phongThiDTO.getMaTrinhDo())) {
+    private String checkXoaTrinhDo(String maTrinhDo)
+    {
+        for (PhongThiDTO phongThiDTO : DashBoard.phongThiDTOs)
+        {
+            if (maTrinhDo.equals(phongThiDTO.getMaTrinhDo()))
+            {
                 return "Còn phòng thi thuộc trình độ này";
             }
         }
-        for (ThiSinhDTO thiSinhDTO : DashBoard.thiSinhDTOs) {
-            if (maTrinhDo.equals(thiSinhDTO.getMaTrinhDo())) {
+        for (ThiSinhDTO thiSinhDTO : DashBoard.thiSinhDTOs)
+        {
+            if (maTrinhDo.equals(thiSinhDTO.getMaTrinhDo()))
+            {
                 return "Còn thí sinh thuộc trình độ này";
             }
         }
         return "";
     }
 
-    private boolean isNullOrEmpty(String text) {
-        if (text == null || text.equals("")) {
+    private boolean isNullOrEmpty(String text)
+    {
+        if (text == null || text.equals(""))
+        {
             return true;
         }
         return false;
@@ -557,7 +599,8 @@ public class TrinhDoForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableTrinhDoMouseClicked
         // TODO add your handling code here:
         rowTrinhDo = jTableTrinhDo.getSelectedRow();
-        if (rowTrinhDo != -1) {
+        if (rowTrinhDo != -1)
+        {
             jTextMaTD.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 0));
             jTextTenTD.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 1));
             jTextLePhi.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 2));
@@ -582,13 +625,48 @@ public class TrinhDoForm extends javax.swing.JPanel {
         initTable();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
-    public void xoaLoaiChiPhi(DefaultTableModel model, int row) {
+    public void xoaLoaiChiPhi(DefaultTableModel model, int row)
+    {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value) {
+    public void timKiem(DefaultTableModel model, JTable jTable, String value)
+    {
         model.setRowCount(0);
 
+    }
+
+    public String validation()
+    {
+        String validate = "";
+
+        StringBuilder message = new StringBuilder();
+
+        if (jTextTenTD.getText().equals("") || jTextLePhi.getText().equals(""))
+        {
+            validate += "Các trường thông tin không được bỏ trống!\n";
+            return validate;
+        } else
+        {
+
+            String tenPattern = "^[^-\\s][a-zA-Z0-9 ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+
+            boolean flag1 = Pattern.matches(tenPattern, jTextTenTD.getText());
+            if (!flag1)
+            {
+                validate += "Tên trình độ không hợp lệ!\n";
+            }
+
+            try
+            {
+                double value = Double.parseDouble(jTextLePhi.getText());
+
+            } catch (NumberFormatException e)
+            {
+                validate += "Lệ phí thi không hợp lệ!\n";
+            }
+        }
+        return validate;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
