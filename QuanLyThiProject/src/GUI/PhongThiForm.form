@@ -177,10 +177,7 @@
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jBtnCapPhatMaPT" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jCheckBox1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jBtnCapPhatMaPT" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace pref="38" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -210,7 +207,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTextTenPhongThi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jCheckBox1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -420,11 +416,6 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
