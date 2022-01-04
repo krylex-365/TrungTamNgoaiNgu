@@ -1053,11 +1053,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
     private void jTableTSMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableTSMouseClicked
     {//GEN-HEADEREND:event_jTableTSMouseClicked
         // TODO add your handling code here:
+        selectedRow = jTableTS.getSelectedRow();
         if (evt.getClickCount() >= 2) {
             loadComboBox();
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
-            selectedRow = tempJTable.getSelectedRow();
+            
             
             String maThiSinh = (String) modelthisinh.getValueAt(selectedRow, 1);
             
@@ -1193,8 +1194,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
     private void jBtnXoaTS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaTS1ActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dong dc chon: "+selectedRow+"   Gia tri dc chon:  "+(String) modelthisinh.getValueAt(selectedRow, 1));
         String maThiSinh =(String) modelthisinh.getValueAt(selectedRow, 1);
-        thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs);
+        if(thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs)){
+            modelthisinh.removeRow(selectedRow);
+        }
+        
     }//GEN-LAST:event_jBtnXoaTS1ActionPerformed
 
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.

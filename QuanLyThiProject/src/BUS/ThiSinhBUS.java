@@ -76,11 +76,15 @@ public class ThiSinhBUS {
     
     public boolean Delete(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
         for(PhieuBaoDuThiDTO pbdt: phieuBaoDuThiDTOs){
+            System.out.println("PBDT: "+pbdt.getMaThiSinh());
+            System.out.println("ThiSinh: "+ maThiSinh);
             if(pbdt.getMaThiSinh().equals(maThiSinh)){
                 if(utl.stringToDate(pbdt.getNgayThi()).before(utl.getDateWithoutTimeUsingFormat())){
+//                    System.out.println("NgayThi:  "+pbdt.getNgayThi());
+//                    System.out.println("NgayHienTai:  "+utl.getDateWithoutTimeUsingFormat());
+//                    System.out.println("Thi roi khong xoa dc");
                     return false;
                 }
-                break;
             }
         }
         if(thiSinhDAO.deleteThiSinh(maThiSinh)){
