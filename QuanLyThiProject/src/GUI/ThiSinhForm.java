@@ -104,6 +104,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
             // bỏ tên trình độ vào đây
             row.add(thisinh.getMaTrinhDo());
+            
+            
             switch (thisinh.getTinhTrang()){
                 case 1:
                     row.add("Chưa đóng tiền");
@@ -129,7 +131,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         }
         
         jDateNgaySinh.setDate(utl.stringToDate(thiSinh.getNgaySinh()));
-        jCbTrinhDo.setSelectedItem(trinhDoBUS.findByMaTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
+        jCbTrinhDo.setSelectedItem(trinhDoBUS.findTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         jTextSDT.setText(thiSinh.getSdt());
         jTextDiaChi.setText(thiSinh.getDiaChi());
         jTextEmail.setText(thiSinh.getMail());

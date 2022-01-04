@@ -47,8 +47,13 @@ public class CaThiDTO {
         this.gioKetThuc = gioKetThuc;
     }
 
+//    @Override
+//    public String toString() {
+//        return "CaThiDTO{" + "maCaThi=" + maCaThi + ", gioBatDau=" + gioBatDau + ", gioKetThuc=" + gioKetThuc + '}';
+//    }
+    
     @Override
     public String toString() {
-        return "CaThiDTO{" + "maCaThi=" + maCaThi + ", gioBatDau=" + gioBatDau + ", gioKetThuc=" + gioKetThuc + '}';
+        return maCaThi + ". " + gioBatDau + " - " + gioKetThuc ;
     }
 }

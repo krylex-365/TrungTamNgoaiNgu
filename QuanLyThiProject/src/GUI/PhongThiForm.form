@@ -834,16 +834,8 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jCbNhiemVu">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="2">
-                        <StringItem index="0" value="Coi Thi"/>
-                        <StringItem index="1" value="Ch&#x1ea5;m Thi"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;NhiemVu&gt;"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -1187,15 +1179,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="jCbCaThi">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Ca 1 - 7:00am - 11:00am"/>
-                    <StringItem index="1" value="Ca 2 - 11:00am - 1:00pm"/>
-                    <StringItem index="2" value="Ca 3 - 1:00pm - 3:00pm"/>
-                  </StringArray>
-                </Property>
-              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

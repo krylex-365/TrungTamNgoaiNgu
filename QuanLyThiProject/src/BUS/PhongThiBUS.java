@@ -38,6 +38,15 @@ public class PhongThiBUS {
         }
         return phongThiDTO;
     }
+    
+    public PhongThiDTO findPhongThiByMaPhongThi(String maPhongThi,ArrayList<PhongThiDTO> phongThiDTOs){
+        for (PhongThiDTO phongThi : phongThiDTOs) {
+            if (phongThi.getMaPhongThi().equals(maPhongThi)) {
+                return phongThi;
+            }
+        }
+        return null;
+    }
 
     public int indexPhongThi (String maKhoaThi, ArrayList<PhongThiDTO> phongThiDTOs) {
         int i = -1, j = 0;

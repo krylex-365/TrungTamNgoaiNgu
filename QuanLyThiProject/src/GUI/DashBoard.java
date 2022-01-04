@@ -913,6 +913,11 @@ public class DashBoard extends javax.swing.JFrame
         trinhDoDTOs = trinhDoDAO.getList();
         phongThiDTOs = phongThiDAO.getList();
         caThiDTOs = caThiDAO.getList();
+        phieuBaoDuThiDTOs = phieuBaoDuThiDAO.getList();
+        thiSinhDTOs = thiSinhDAO.getList();
+        phanCongDTOs = phanCongDAO.getList();
+        giaoVienDTOs = giaoVienDAO.getList();
+        
         phongThiForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);

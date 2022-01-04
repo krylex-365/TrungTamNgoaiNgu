@@ -6,6 +6,8 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import DTO.PhieuBaoDuThiDTO;
+import DTO.ThiSinhDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -21,6 +23,7 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -49,6 +52,35 @@ public class BangThiSinh extends javax.swing.JFrame {
         jBtnXacNhan.setEnabled(true);
         jBtnQuayLai.setEnabled(true);
     }
+    
+    public void tableModel(ArrayList<ThiSinhDTO> thiSinhDTOs) {
+        tbModel.setRowCount(0);
+        Vector row = null;
+        for (ThiSinhDTO thisinh : thiSinhDTOs) {
+            row = new Vector();
+            row.add(thisinh.getMaKhoaThi());
+            row.add(thisinh.getMaThiSinh());
+            row.add(thisinh.getHoTen());
+            
+
+            // bỏ tên trình độ vào đây
+            row.add(thisinh.getMaTrinhDo());
+            
+            
+            switch (thisinh.getTinhTrang()){
+                case 1:
+                    row.add("Chưa đóng tiền");
+                    break;
+                case 2:
+                    row.add("Đã đóng tiền");
+                    break;    
+            }
+            
+            tbModel.addRow(row);
+
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -352,13 +384,24 @@ public class BangThiSinh extends javax.swing.JFrame {
         } else {
 
             System.out.println(jTableThiSinh.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
+            //ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableThiSinh.getRowCount(); i++) {
                 if (jTableThiSinh.getSelectionModel().isSelectedIndex(i)) {
-                    a.add((String) jTableThiSinh.getModel().getValueAt(i, 1));
+                    //a.add((String) jTableThiSinh.getModel().getValueAt(i, 1));
+                    ThiSinhDTO thiSinh = phongThiForm.thiSinhBUS.findByMaThiSinh((String) jTableThiSinh.getModel().getValueAt(i, 1));
+                    PhieuBaoDuThiDTO pbdt;
+                    if((pbdt = phongThiForm.phieuBaoDuThiBUS.Add(phongThiForm.phongThi, thiSinh, phongThiForm.caThi.getMaCaThi(), DashBoard.phieuBaoDuThiDTOs, DashBoard.trinhDoDTOs, DashBoard.khoaThiDTOs))!= null){
+                        Vector row = new Vector();
+                        row.add(thiSinh.getMaThiSinh());
+                        row.add(thiSinh.getHoTen());
+                        row.add(pbdt.getSoBaoDanh());
+                        phongThiForm.tbModelPTTS.addRow(row);
+                    }
+                    
+                    
                 }
             }
-            System.out.println("List dc chon!!" + a);
+            //System.out.println("List dc chon!!" + a);
         }
         if (true) { // ĐƯA CHỨC NĂNG VÀO ĐÂY
             dispose();
@@ -374,9 +417,11 @@ public class BangThiSinh extends javax.swing.JFrame {
         if (evt.getSource() == jTableThiSinh) {
             rowTbl = jTableThiSinh.getSelectedRow();
             if (rowTbl != -1) {
-                jTextMaTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 0));
-                jTextTenTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 1));
-                jTextTrinhDo.setText((String) jTableThiSinh.getValueAt(rowTbl, 2));
+                jTextMaKhoaThi.setText((String) jTableThiSinh.getValueAt(rowTbl, 0));
+                jTextMaTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 1));
+                jTextTenTS.setText((String) jTableThiSinh.getValueAt(rowTbl, 2));
+                jTextTrinhDo.setText((String) jTableThiSinh.getValueAt(rowTbl, 3));
+                jTextTinhTrang.setText((String) jTableThiSinh.getValueAt(rowTbl, 4));
                 jBtnXacNhan.setEnabled(true);
                 jBtnQuayLai.setEnabled(true);
             }

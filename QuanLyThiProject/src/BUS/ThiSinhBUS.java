@@ -25,6 +25,18 @@ public class ThiSinhBUS {
     public ArrayList<ThiSinhThongKe> getThongke(String matrinhdo){
         return thiSinhDAO.getListThongKe(matrinhdo);
     }
+    public ArrayList<ThiSinhDTO> getByMaTrinhDo(String matrinhdo){
+        return thiSinhDAO.getByMaTrinhDo(matrinhdo);
+    }
+    
+    public String getHoTenByMaThiSinh(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                return a.getHoTen();
+            }
+        }
+        return null;
+    }
 
     public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.insertThiSinh(thiSinh)){

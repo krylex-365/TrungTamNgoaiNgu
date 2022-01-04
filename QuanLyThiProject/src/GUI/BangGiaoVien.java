@@ -6,6 +6,7 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import DTO.GiaoVienDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -46,6 +47,18 @@ public class BangGiaoVien extends javax.swing.JFrame
         setLocationRelativeTo(null);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(true);
+    }
+    
+    public void tableModelGiaoVien(ArrayList<GiaoVienDTO> giaoVienDTOs){
+        tbModel.setRowCount(0);
+        Vector row;
+        for(GiaoVienDTO a : giaoVienDTOs){
+            row = new Vector();
+            row.add(a.getMaGiaoVien());
+            row.add(a.getHoTen());
+            row.add(a.getSdt());
+            tbModel.addRow(row);
+        } 
     }
 
     /**
@@ -321,6 +334,8 @@ public class BangGiaoVien extends javax.swing.JFrame
         phongThiForm.clearPhongThiGV();
         phongThiForm.getjBtnThemGVPT().setEnabled(true);
         phongThiForm.getjBtnHuyGVPT().setEnabled(true);
+        phongThiForm.getjTextMaGVPT().setText(jTextMaNV.getText());
+        phongThiForm.GetjTextTenGVPT().setText(phongThiForm.giaoVienBUS.findHoTenByMaGiaoVien(jTextMaNV.getText(), DashBoard.giaoVienDTOs));
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 

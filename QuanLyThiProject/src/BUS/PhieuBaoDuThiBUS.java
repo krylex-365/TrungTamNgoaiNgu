@@ -4,10 +4,102 @@
  */
 package BUS;
 
+import DAO.MaDuLieuCuoiDAO;
+import DAO.PhieuBaoDuThiDAO;
+import DAO.ThiSinhDAO;
+import DTO.KhoaThiDTO;
+import DTO.PhieuBaoDuThiDTO;
+import DTO.PhongThiDTO;
+import DTO.ThiSinhDTO;
+import DTO.TrinhDoDTO;
+import GUI.DashBoard;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author User
  */
 public class PhieuBaoDuThiBUS {
+    private Utils utl = new Utils();
+    private ThiSinhBUS thiSinhBUS = new ThiSinhBUS();
+    private KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
+    private PhieuBaoDuThiDAO phieuBaoDuThiDAO= new PhieuBaoDuThiDAO();
+    private MaDuLieuCuoiDAO maDuLieuCuoiDAO = new MaDuLieuCuoiDAO();
+    private TrinhDoBUS trinhDoBUS = new TrinhDoBUS();
+    
+    
+    public ArrayList<PhieuBaoDuThiDTO> getThiSinhs(String maPhong,String maCa,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+        ArrayList<PhieuBaoDuThiDTO> list = new ArrayList<>();
+        for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
+            if(a.getMaPhongThi().equals(maPhong)&&a.getMaCaThi().equals(maCa)){
+                list.add(a);
+            }
+        }
+        return list;
+    }
+    
+    public boolean CheckOwned(String maThiSinh,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+        for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)&&a.getMaCaThi().equals(maCaThi)&&a.getMaPhongThi().equals(maPhongThi))return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<ThiSinhDTO> getThiSinhsBy(String maTrinhDo,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+        ArrayList<ThiSinhDTO> list = new ArrayList<>();
+        for(ThiSinhDTO a : thiSinhBUS.getByMaTrinhDo(maTrinhDo)){
+            if(a.getTinhTrang() == 2 && CheckOwned(a.getMaThiSinh(), maPhongThi, maCaThi, phieuBaoDuThiDTOs)){
+                list.add(a);
+            }
+        }
+        return list;
+    }
+    
+    
+
+    public PhieuBaoDuThiDTO Add(PhongThiDTO phongThiDTO,ThiSinhDTO thiSinhDTO,String maCaThi, ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs, ArrayList<TrinhDoDTO> trinhDoDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs) {
+//        for (PhongThiDTO k : phongThiDTOs) {
+//            if (k.getMaKhoaThi().equals(phongThiDTO.getMaKhoaThi())) {
+//                return false;
+//            }
+//        }
+        TrinhDoDTO trinhDoDTO = trinhDoBUS.findTrinhDo(thiSinhDTO.getMaTrinhDo(), trinhDoDTOs);
+        int num = trinhDoDTO.getSoLuongTS()+1;
+        PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO(trinhDoDTO.getMaTrinhDo()+num, thiSinhDTO.getMaThiSinh(), phongThiDTO.getMaPhongThi(), maCaThi, khoaThiBUS.findKhoaThi(thiSinhDTO.getMaKhoaThi()).getNgayThi());
+        System.out.println(trinhDoDTO.getMaTrinhDo()+"-"+num);
+        if (phieuBaoDuThiDAO.insertPhieuBaoDuThi(pbdt)) {
+            
+            if (trinhDoBUS.capNhatSLTS(thiSinhDTO.getMaTrinhDo(), num, trinhDoDTOs)) {
+                phieuBaoDuThiDTOs.add(pbdt);
+                System.out.println("Thêm thành công PhieuBaoDuThiBUS");
+                return pbdt;
+            }
+        }
+        System.out.println("Thêm thất bại PhieuBaoDuThiBUS");
+        return null;
+    }
+    
+    public boolean Delete(String SBD,String maKhoaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs){
+        if (khoaThiBUS.checkFinished(maKhoaThi, khoaThiDTOs)&&phieuBaoDuThiDAO.deleteThiSinh(SBD)) {
+//            for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
+//                if(a.getSoBaoDanh().equals(SBD)){
+//                    phieuBaoDuThiDTOs.remove(a);
+//                }
+//            }
+            Iterator<PhieuBaoDuThiDTO> iterator = phieuBaoDuThiDTOs.iterator();
+            while (iterator.hasNext()) {
+                PhieuBaoDuThiDTO a = iterator.next();
+                if(a.getSoBaoDanh().equals(SBD)){
+                    iterator.remove();
+                }
+            }
+            System.out.println("Xóa thành công GiaoVienBUS");
+            return true;
+        }
+        System.out.println("Xóa thất bại GiaoVienBUS");
+        return false;
+    }
+    
     
 }

@@ -45,6 +45,31 @@ public class KhoaThiDAO {
         return khoaThiDTOs;
     }
     
+    public KhoaThiDTO findKhaoThi(String maKhoaThi){
+        //ArrayList<KhoaThiDTO> khoaThiDTOs = new ArrayList<KhoaThiDTO>();
+        conn = new Connect();
+        conn.getConnection();
+        KhoaThiDTO dto = new KhoaThiDTO();
+        String query = "select * from KhoaThi where Status=1 and MaKhoaThi='"+maKhoaThi+"'";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {     
+                dto.setMaKhoaThi(conn.rs.getString(1));
+                dto.setTenKhoaThi(conn.rs.getString(2));
+                dto.setNgayThi(conn.rs.getString(3));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("KhoaThiDAO.getList.executeQuery error.");
+        }
+        try{
+        conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("KhoaThiDAO.getList.close error.");
+        }
+        return dto;
+    }
+    
     public boolean insertKhoaThi(KhoaThiDTO khoaThiDTO) {
         conn = new Connect();
         conn.getConnection();
