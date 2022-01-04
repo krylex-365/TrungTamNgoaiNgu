@@ -917,6 +917,7 @@ public class DashBoard extends javax.swing.JFrame
         thiSinhDTOs = thiSinhDAO.getList();
         phanCongDTOs = phanCongDAO.getList();
         giaoVienDTOs = giaoVienDAO.getList();
+        ketQuaThiDTOs = ketQuaThiDAO.getList();
         
         phongThiForm.initTable();
         jPanelThiSinh.setVisible(false);
@@ -1028,6 +1029,8 @@ public class DashBoard extends javax.swing.JFrame
 
     private void ketquaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ketquaLabelMouseClicked
 //        chiPhiForm.initTableLoaiChiPhi();
+        ketQuaThiDTOs = ketQuaThiDAO.getList();
+        ketQuaForm.tableModelKetQua();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(false);

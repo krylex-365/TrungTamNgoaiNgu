@@ -11,12 +11,14 @@ package GUI;
 //import DAO.WritePDF;
 //import DAO.XuatExcel;
 import BUS.GiaoVienBUS;
+import BUS.KetQuaThiBUS;
 import BUS.PhanCongBUS;
 import BUS.PhieuBaoDuThiBUS;
 import BUS.PhongThiBUS;
 import BUS.ThiSinhBUS;
 import DTO.CaThiDTO;
 import DTO.GiaoVienDTO;
+import DTO.KetQuaThiDTO;
 import DTO.KhoaThiDTO;
 import DTO.PhanCongDTO;
 import DTO.PhieuBaoDuThiDTO;
@@ -62,6 +64,7 @@ public class PhongThiForm extends javax.swing.JPanel {
     ThiSinhBUS thiSinhBUS = new ThiSinhBUS();
     GiaoVienBUS giaoVienBUS = new GiaoVienBUS();
     PhanCongBUS phanCongBUS = new PhanCongBUS();
+    KetQuaThiBUS ketQuaBUS = new KetQuaThiBUS();
     boolean flagSua = false;
 
     /**
@@ -1316,13 +1319,15 @@ public class PhongThiForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
+            //ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
-                    a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                    //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                    if(ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs))
+                    thiSinhBUS.UpdataStatus((String) jTablePTTS.getModel().getValueAt(i, 0), 3);
                 }
             }
-            System.out.println("List dc chon!!" + a);
+            //System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemChuaThiActionPerformed
 
@@ -1332,13 +1337,17 @@ public class PhongThiForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
+            //ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
-                    a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                    //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
+                    if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs)) {
+                        thiSinhBUS.UpdataStatus((String) jTablePTTS.getModel().getValueAt(i, 0), 4);
+                    }
+                    
                 }
             }
-            System.out.println("List dc chon!!" + a);
+            //System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemDaThiActionPerformed
 

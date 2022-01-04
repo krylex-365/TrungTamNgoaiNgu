@@ -51,14 +51,6 @@ public class PhanCongDAO {
     public boolean insertPhieuBaoDuThi(PhanCongDTO phanCongDTO) {
         conn = new Connect();
         conn.getConnection();
-        System.out.println(phanCongDTO.getNgayThi());
-//        String query = "INSERT INTO PhanCong"
-//                + " VALUES ('" + phanCongDTO.getMaPhongThi()
-//                + "','" + phanCongDTO.getMaCaThi()
-//                + "','" + phanCongDTO.getMaGiaoVien()
-//                + "','" + phanCongDTO.getNhiemVu()
-//                + "', 1);";
-        
         System.out.println("MaPhongThi : "+phanCongDTO.getMaPhongThi()+"  MaCaThi: "+phanCongDTO.getMaCaThi()+"  MaGiaoVien: "+phanCongDTO.getMaGiaoVien());
         
         String query = " IF EXISTS (SELECT * FROM PhanCong WHERE MaPhongThi='" + phanCongDTO.getMaPhongThi() + "' AND MaCaThi='"+phanCongDTO.getMaCaThi()+"' AND MaGiaoVien='"+phanCongDTO.getMaGiaoVien()+"' ) "+

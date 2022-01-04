@@ -8,6 +8,7 @@ public class DataThiSinh{
     public String tenPhongThi;
     public String gioBatDau;
     public String gioKetThuc;
+    public String maCaThi;
     public float nghe;
     public float noi;
     public float doc;

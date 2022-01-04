@@ -112,7 +112,13 @@ public class ThiSinhForm extends javax.swing.JPanel {
                     break;
                 case 2:
                     row.add("Đã đóng tiền");
-                    break;    
+                    break;
+                case 3:
+                    row.add("Chưa thi");
+                    break;
+                case 4:
+                    row.add("Đã thi");
+                    break;
             }
             
             modelthisinh.addRow(row);

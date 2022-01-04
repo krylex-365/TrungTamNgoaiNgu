@@ -13,6 +13,9 @@ package GUI;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
 //import DTO.PhongBanDTO;
+import BUS.KetQuaThiBUS;
+import DTO.DataThiSinh;
+import DTO.KetQuaThiDTO;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -61,11 +64,13 @@ public class KetQuaForm extends javax.swing.JPanel
 //    private NhanVienBUS nhanVienBUS;
 //    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
+    public KetQuaThiBUS ketQuaThiBUS = new KetQuaThiBUS();
 //    private Utils ult = new Utils();
 
     public KetQuaForm()
     {
         initComponents();
+        //tableModelKetQua();
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
@@ -74,6 +79,44 @@ public class KetQuaForm extends javax.swing.JPanel
         jTextDiemNoi.setText("");
         //loadData();
 //        tk.setVisible(false);
+    }
+    
+    public void tableModelKetQua(){
+        tbModelKQThi.setRowCount(0);
+        Vector row;
+        for(DataThiSinh a: ketQuaThiBUS.getMixedList()){
+            row = new Vector();
+            row.add(a.thiSinhDTO.getMaThiSinh());
+            row.add(a.soBaoDanh);
+            row.add(a.thiSinhDTO.getHoTen());
+            row.add(a.thiSinhDTO.getSdt());
+            row.add(a.tenPhongThi);
+            row.add(a.tenPhongThi);
+            row.add(a.maCaThi);
+            if(a.nghe==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.nghe));
+            }   
+            if(a.noi==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.noi));
+            }
+            if(a.doc==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.doc));
+            }
+            if(a.viet==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.viet));
+            }
+           
+
+            tbModelKQThi.addRow(row);
+        }
     }
     
     private void filter(String query) {
@@ -514,13 +557,63 @@ public class KetQuaForm extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSuaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaDiemActionPerformed
-
+        KetQuaThiDTO ketQua = new KetQuaThiDTO();
+        ketQua.setSoBaoDanh(jTextSBDTS.getText());
+        String nghe = jTextDiemNghe.getText();
+        String noi = jTextDiemNoi.getText();
+        String doc = jTextDiemDoc.getText();
+        String viet = jTextDiemViet.getText();
+        
+        if(nghe.equals("")){
+            ketQua.setNghe(-1);
+            nghe = "NaN";
+        }else{
+            ketQua.setNghe(Float.parseFloat(jTextDiemNghe.getText()));
+        }
+        
+        if(noi.equals("")){
+            ketQua.setNoi(-1);
+            noi = "NaN";
+        }else{
+            ketQua.setNoi(Float.parseFloat(jTextDiemNoi.getText()));
+        }
+        
+        if(doc.equals("")){
+            ketQua.setDoc(-1);
+            doc = "NaN";
+        }else{
+            ketQua.setDoc(Float.parseFloat(jTextDiemDoc.getText()));
+        }
+        
+        if(viet.equals("")){
+            ketQua.setViet(-1);
+            viet = "NaN";
+        }else{
+            ketQua.setViet(Float.parseFloat(jTextDiemViet.getText()));
+        }
+        if(ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)){
+            System.out.println(ketQua.getNghe());
+            System.out.println(ketQua.getNoi());
+            System.out.println(ketQua.getDoc());
+            System.out.println(ketQua.getViet());
+            tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+            tbModelKQThi.setValueAt(noi, selectedRow, 8);
+            tbModelKQThi.setValueAt(doc, selectedRow, 9);
+            tbModelKQThi.setValueAt(viet, selectedRow, 10);
+        }
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
+        jTextSBDTS.setText("");
         jTextTenThiSinh.setText("");
+        jTextSDT.setText("");
+        jTextTrinhDo.setText("");
+        jTextPhongThi.setText("");
+        jTextCaThi.setText("");
         jTextDiemNghe.setText("");
         jTextDiemNoi.setText("");
+        jTextDiemDoc.setText("");
+        jTextDiemViet.setText("");
         jTableKQThi.clearSelection();
     }//GEN-LAST:event_jBtnSuaDiemActionPerformed
 
@@ -530,9 +623,16 @@ public class KetQuaForm extends javax.swing.JPanel
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
+        jTextSBDTS.setText("");
         jTextTenThiSinh.setText("");
+        jTextSDT.setText("");
+        jTextTrinhDo.setText("");
+        jTextPhongThi.setText("");
+        jTextCaThi.setText("");
         jTextDiemNghe.setText("");
         jTextDiemNoi.setText("");
+        jTextDiemDoc.setText("");
+        jTextDiemViet.setText("");
 
         jTableKQThi.clearSelection();
     }//GEN-LAST:event_jBtnHuyDiemActionPerformed
@@ -567,7 +667,48 @@ public class KetQuaForm extends javax.swing.JPanel
     private void jTableKQThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKQThiMouseClicked
     {//GEN-HEADEREND:event_jTableKQThiMouseClicked
         // TODO add your handling code here:
-
+        selectedRow = jTableKQThi.getSelectedRow();
+        String nghe = (String) tbModelKQThi.getValueAt(selectedRow, 7);
+        String noi = (String) tbModelKQThi.getValueAt(selectedRow, 8);
+        String doc = (String) tbModelKQThi.getValueAt(selectedRow, 9);
+        String viet = (String) tbModelKQThi.getValueAt(selectedRow, 10);
+        if(selectedRow != -1){
+            jBtnSuaDiem.setEnabled(true);
+            jTextMaThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 0));
+            jTextSBDTS.setText((String) tbModelKQThi.getValueAt(selectedRow, 1));
+            jTextTenThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 2));
+            jTextSDT.setText((String) tbModelKQThi.getValueAt(selectedRow, 3));
+            jTextTrinhDo.setText((String) tbModelKQThi.getValueAt(selectedRow, 4));
+            jTextPhongThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 5));
+            jTextCaThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 6));
+            if(nghe.equals("NaN")){
+                jTextDiemNghe.setText("");
+            }else{
+                jTextDiemNghe.setText((String) tbModelKQThi.getValueAt(selectedRow, 7));
+            }
+            
+            if(noi.equals("NaN")){
+                jTextDiemNghe.setText("");
+            }else{
+                jTextDiemNoi.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+            }
+            
+            if(doc.equals("NaN")){
+                jTextDiemNghe.setText("");
+            }else{
+                jTextDiemDoc.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+            }
+            
+            if(viet.equals("NaN")){
+                jTextDiemNghe.setText("");
+            }else{
+                jTextDiemViet.setText((String) tbModelKQThi.getValueAt(selectedRow, 10));
+            }
+            
+            
+            
+        }
+        
     }//GEN-LAST:event_jTableKQThiMouseClicked
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
