@@ -13,4 +13,6 @@ public class DataThiSinh{
     public float doc;
     public float viet;
     public String ngayThi;
+    public float diemTrungBinh;
+    public String ketQua;
 }

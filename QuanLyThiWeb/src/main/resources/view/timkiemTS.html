@@ -145,19 +145,19 @@
                                                                             <p th:if="${ts.thiSinhDTO.tinhTrang == 4}">Đã thi</p>
                                                                             <!--<p> Chưa đóng tiền / Đã đóng tiền / Chưa thi / Đã thi </p>-->
                                                                         </div>
-                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3 and ts.nghe != -1}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm nghe:</h6>
                                                                             <p th:text="${ts.nghe}"></p>
                                                                         </div>
-                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3 and ts.noi != -1}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm nói:</h6>
                                                                             <p th:text="${ts.noi}"></p>
                                                                         </div>
-                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3 and ts.doc != -1}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm đọc:</h6>
                                                                             <p th:text="${ts.doc}"></p>
                                                                         </div>
-                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3}" class="col-md-6" style="margin-bottom: 10px">
+                                                                        <div th:if="${ts.thiSinhDTO.tinhTrang != 1 and ts.thiSinhDTO.tinhTrang != 2 and ts.thiSinhDTO.tinhTrang != 3 and ts.viet != -1}" class="col-md-6" style="margin-bottom: 10px">
                                                                             <h6 style="color:#ea5774;font-weight:500;">Điểm viết:</h6>
                                                                             <p th:text="${ts.viet}"></p>
                                                                         </div>

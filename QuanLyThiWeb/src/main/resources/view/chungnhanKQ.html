@@ -37,11 +37,16 @@
                             <div class="col-md-12 mb-4">
                                 <h3 class="td-center">CHỨNG NHẬN KẾT QUẢ THI</h3>
                                 <div class="alert alert-danger" role="alert"
-                                     th:if="${dataThiSinh == null || dataThiSinh.thiSinhDTO.tinhTrang == 3}">Chưa có kết
-                                    quả
+                                     th:if="${dataThiSinh == null || dataThiSinh.thiSinhDTO.tinhTrang == 3}">Chưa có kết quả
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                     th:if="${dataThiSinh == null || dataThiSinh.thiSinhDTO.tinhTrang <= 2}">Chưa thi
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                     th:if="${dataThiSinh == null || (dataThiSinh.thiSinhDTO.tinhTrang == 4 and (dataThiSinh.nghe == -1 || dataThiSinh.noi == -1 || dataThiSinh.doc == -1 || dataThiSinh.viet == -1))}">Chưa có kết quả
                                 </div>
                             </div>
-                            <div th:if="${dataThiSinh != null && dataThiSinh.thiSinhDTO.tinhTrang == 4}">
+                            <div th:if="${dataThiSinh != null && dataThiSinh.thiSinhDTO.tinhTrang == 4 && dataThiSinh.nghe != -1 && dataThiSinh.noi != -1 && dataThiSinh.doc != -1 && dataThiSinh.viet != -1}">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -136,6 +141,14 @@
                                                     <label >Điểm viết <span
                                                             class="text-danger">*</span></label>
                                                     <input th:value="${dataThiSinh.viet}" type="number" name="viet" class="form-control"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label >Kết quả <span
+                                                            class="text-danger">*</span></label>
+                                                    <input th:value="${dataThiSinh.ketQua}" type="text" name="ketqua" class="form-control"
                                                            readonly>
                                                 </div>
                                             </div>
