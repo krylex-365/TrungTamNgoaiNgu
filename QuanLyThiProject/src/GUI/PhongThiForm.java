@@ -1201,7 +1201,7 @@ public class PhongThiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         BangThiSinh bangThiSinh = new BangThiSinh();
         bangThiSinh.phongThiForm = this;
-        bangThiSinh.tableModel(phieuBaoDuThiBUS.getThiSinhsBy(phongThi.getMaTrinhDo(), phongThi.getMaPhongThi(), caThi.getMaCaThi(), DashBoard.phieuBaoDuThiDTOs));
+        bangThiSinh.tableModel(phieuBaoDuThiBUS.getThiSinhsBy(phongThi.getMaTrinhDo(),phongThi.getMaKhoaThi(), phongThi.getMaPhongThi(), caThi.getMaCaThi(), DashBoard.phieuBaoDuThiDTOs));
         
         
     }//GEN-LAST:event_jBtnThemTSPTActionPerformed

@@ -41,15 +41,16 @@ public class PhieuBaoDuThiBUS {
     
     public boolean CheckOwned(String maThiSinh,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
         for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
-            if(a.getMaThiSinh().equals(maThiSinh)&&a.getMaCaThi().equals(maCaThi)&&a.getMaPhongThi().equals(maPhongThi))return false;
+            if(a.getMaThiSinh().equals(maThiSinh)&&a.getMaCaThi().equals(maCaThi)&&a.getMaPhongThi().equals(maPhongThi))return true;
         }
-        return true;
+        return false; 
     }
     
-    public ArrayList<ThiSinhDTO> getThiSinhsBy(String maTrinhDo,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+    public ArrayList<ThiSinhDTO> getThiSinhsBy(String maTrinhDo,String maKhoaThi,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
         ArrayList<ThiSinhDTO> list = new ArrayList<>();
-        for(ThiSinhDTO a : thiSinhBUS.getByMaTrinhDo(maTrinhDo)){
-            if(a.getTinhTrang() == 2 && CheckOwned(a.getMaThiSinh(), maPhongThi, maCaThi, phieuBaoDuThiDTOs)){
+        for(ThiSinhDTO a : thiSinhBUS.getByMaTrinhDo(maTrinhDo,maKhoaThi)){
+            //System.out.println(a);
+            if(a.getTinhTrang() == 2 && !CheckOwned(a.getMaThiSinh(), maPhongThi, maCaThi, phieuBaoDuThiDTOs)){
                 list.add(a);
             }
         }

@@ -25,8 +25,8 @@ public class ThiSinhBUS {
     public ArrayList<ThiSinhThongKe> getThongke(String matrinhdo){
         return thiSinhDAO.getListThongKe(matrinhdo);
     }
-    public ArrayList<ThiSinhDTO> getByMaTrinhDo(String matrinhdo){
-        return thiSinhDAO.getByMaTrinhDo(matrinhdo);
+    public ArrayList<ThiSinhDTO> getByMaTrinhDo(String matrinhdo,String maKhoaThi){
+        return thiSinhDAO.getByMaTrinhDo(matrinhdo,maKhoaThi);
     }
     
     public String getHoTenByMaThiSinh(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){

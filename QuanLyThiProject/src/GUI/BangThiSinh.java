@@ -55,6 +55,7 @@ public class BangThiSinh extends javax.swing.JFrame {
     
     public void tableModel(ArrayList<ThiSinhDTO> thiSinhDTOs) {
         tbModel.setRowCount(0);
+        System.out.println("Row count : "+thiSinhDTOs.size());
         Vector row = null;
         for (ThiSinhDTO thisinh : thiSinhDTOs) {
             row = new Vector();
