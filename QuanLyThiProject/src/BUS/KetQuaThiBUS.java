@@ -46,9 +46,10 @@ public class KetQuaThiBUS {
                 KetQuaThiDTO a = iterator.next();
                 if (a.getSoBaoDanh().equals(ketQuaThiDTO)) {
                     iterator.remove();
-                    return true;
+                    
                 }
             }
+            return true;
             
         }
         return false;

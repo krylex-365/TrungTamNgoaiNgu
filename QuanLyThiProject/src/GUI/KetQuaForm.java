@@ -404,6 +404,7 @@ public class KetQuaForm extends javax.swing.JPanel
         tableCol.add ("Điểm Nói");
         tableCol.add ("Điểm Đọc");
         tableCol.add ("Điểm Viết");
+        tableCol.add ("Kết Quả");
 
         tbModelKQThi = new DefaultTableModel(tableCol, 20){
             @Override
@@ -435,6 +436,7 @@ public class KetQuaForm extends javax.swing.JPanel
         jTableKQThi.getColumn (tableCol.elementAt (8)).setPreferredWidth (110);
         jTableKQThi.getColumn (tableCol.elementAt (9)).setPreferredWidth (110);
         jTableKQThi.getColumn (tableCol.elementAt (10)).setPreferredWidth (110);
+        jTableKQThi.getColumn (tableCol.elementAt (11)).setPreferredWidth (110);
         jTableKQThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane4.setViewportView(jTableKQThi);
 

@@ -41,7 +41,7 @@ public class PhieuBaoDuThiBUS {
     
     public boolean CheckOwned(String maThiSinh,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
         for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
-            if(a.getMaThiSinh().equals(maThiSinh)&&a.getMaCaThi().equals(maCaThi)&&a.getMaPhongThi().equals(maPhongThi))return true;
+            if(a.getMaThiSinh().equals(maThiSinh)&&a.getMaPhongThi().equals(maPhongThi))return true;
         }
         return false; 
     }
