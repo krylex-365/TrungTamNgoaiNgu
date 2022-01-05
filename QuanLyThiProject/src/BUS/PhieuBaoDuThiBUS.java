@@ -14,6 +14,7 @@ import DTO.ThiSinhDTO;
 import DTO.TrinhDoDTO;
 import GUI.DashBoard;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -37,6 +38,22 @@ public class PhieuBaoDuThiBUS {
             }
         }
         return list;
+    }
+    
+    public Date getNgayThiBySBD(String SBD){
+        for(PhieuBaoDuThiDTO a : phieuBaoDuThiDAO.getList()){
+            if(a.getSoBaoDanh().equals(SBD)){
+                return utl.stringToDate(a.getNgayThi());
+            }
+        }
+        return null;
+    }
+    
+    public boolean CheckThiChua(String SBD){
+        if(getNgayThiBySBD(SBD).before(utl.getDateWithoutTimeUsingFormat())){
+            return true;
+        }
+        return false;
     }
     
     public boolean CheckOwned(String maThiSinh,String maPhongThi,String maCaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
@@ -81,8 +98,8 @@ public class PhieuBaoDuThiBUS {
         return null;
     }
     
-    public boolean Delete(String SBD,String maKhoaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs){
-        if (khoaThiBUS.checkFinished(maKhoaThi, khoaThiDTOs)&&phieuBaoDuThiDAO.deleteThiSinh(SBD)) {
+    public boolean Delete(String SBD,String maThiSinh,String maKhoaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs){
+        if (khoaThiBUS.checkFinished(maKhoaThi, khoaThiDTOs)&&phieuBaoDuThiDAO.delete(SBD,maThiSinh)) {
 //            for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
 //                if(a.getSoBaoDanh().equals(SBD)){
 //                    phieuBaoDuThiDTOs.remove(a);

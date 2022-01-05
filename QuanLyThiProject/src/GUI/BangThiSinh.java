@@ -397,6 +397,13 @@ public class BangThiSinh extends javax.swing.JFrame {
                         row.add(thiSinh.getHoTen());
                         row.add(pbdt.getSoBaoDanh());
                         phongThiForm.tbModelPTTS.addRow(row);
+                        if(phongThiForm.thiSinhBUS.UpdataStatus(thiSinh.getMaThiSinh(), 3)){
+                            Vector row = new Vector();
+                            row.add(thiSinh.getMaThiSinh());
+                            row.add(thiSinh.getHoTen());
+                            row.add(pbdt.getSoBaoDanh());
+                            phongThiForm.tbModelPTTS.addRow(row);
+                        }    
                     }
                     
                     

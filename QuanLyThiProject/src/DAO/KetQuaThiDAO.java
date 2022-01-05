@@ -146,6 +146,21 @@ public class KetQuaThiDAO {
         return false;
     }
     
+    public boolean delete(String SBD) {
+        String sql = "delete from KetQuaThi "
+                + " where SoBaoDanh='" + SBD+ "'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("KetQuaThiDAO delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("KetQuaThiDAO delete fail.");
+        return false;
+    }
+    
     public boolean updateKetQuaThi(KetQuaThiDTO ketQuaThiDTO) {
         conn = new Connect();
         conn.getConnection();

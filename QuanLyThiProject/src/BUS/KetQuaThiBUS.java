@@ -8,6 +8,7 @@ import DAO.KetQuaThiDAO;
 import DTO.DataThiSinh;
 import DTO.KetQuaThiDTO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -31,8 +32,8 @@ public class KetQuaThiBUS {
         return true;
     }
     
-    public boolean Add(KetQuaThiDTO ketQuaThiDTO,ArrayList<KetQuaThiDTO> ketQuaThiDTOs){
-        if(ketQuaThiDAO.insertKetQuaThi(ketQuaThiDTO)){
+    public boolean Add(KetQuaThiDTO ketQuaThiDTO,ArrayList<KetQuaThiDTO> ketQuaThiDTOs,Date ngayThi){
+        if(ngayThi.before(utl.getDateWithoutTimeUsingFormat())&&ketQuaThiDAO.insertKetQuaThi(ketQuaThiDTO)){
             ketQuaThiDTOs.add(ketQuaThiDTO);
             return true;
         }

@@ -123,4 +123,19 @@ public class PhieuBaoDuThiDAO {
         System.out.println("PhieuBaoDuThiDAO delete fail.");
         return false;
     }
+    
+    public boolean delete(String SBD,String maThiSinh) {
+        String sql = "DELETE FROM PhieuBaoDuThi"
+                + " WHERE SoBaoDanh='" + SBD + "' and MaThiSInh='"+maThiSinh+"'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("PhieuBaoDuThiDAO delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("PhieuBaoDuThiDAO delete fail.");
+        return false;
+    }
 }
