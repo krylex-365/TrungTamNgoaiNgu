@@ -1249,8 +1249,8 @@ public class PhongThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXoaTSPTActionPerformed
         // TODO add your handling code here:
         String SBD = (String) tbModelPTTS.getValueAt(rowThiSinh, 2);
-        if(!phieuBaoDuThiBUS.CheckThiChua(SBD)&&phieuBaoDuThiBUS.Delete(jTextSBD.getText(),SBD, phongThi.getMaKhoaThi(), DashBoard.phieuBaoDuThiDTOs, DashBoard.khoaThiDTOs)){     
-            ketQuaBUS.Delete(SBD,DashBoard.ketQuaThiDTOs);
+        if(!phieuBaoDuThiBUS.CheckThiChua(SBD)&&phieuBaoDuThiBUS.Delete(SBD, DashBoard.phieuBaoDuThiDTOs)&&ketQuaBUS.Delete(SBD,DashBoard.ketQuaThiDTOs)){     
+            thiSinhBUS.UpdataStatus(jTextMaTSPT.getText(), 2);
             tbModelPTTS.removeRow(rowThiSinh);   
         }
         clearPhongThiTS(); 

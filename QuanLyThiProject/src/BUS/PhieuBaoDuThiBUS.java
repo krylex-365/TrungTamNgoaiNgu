@@ -98,8 +98,8 @@ public class PhieuBaoDuThiBUS {
         return null;
     }
     
-    public boolean Delete(String SBD,String maThiSinh,String maKhoaThi,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs){
-        if (khoaThiBUS.checkFinished(maKhoaThi, khoaThiDTOs)&&phieuBaoDuThiDAO.delete(SBD,maThiSinh)) {
+    public boolean Delete(String SBD,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
+        if (phieuBaoDuThiDAO.delete(SBD)) {
 //            for(PhieuBaoDuThiDTO a : phieuBaoDuThiDTOs){
 //                if(a.getSoBaoDanh().equals(SBD)){
 //                    phieuBaoDuThiDTOs.remove(a);
@@ -112,10 +112,10 @@ public class PhieuBaoDuThiBUS {
                     iterator.remove();
                 }
             }
-            System.out.println("Xóa thành công GiaoVienBUS");
+            System.out.println("Xóa thành công PhieuBaoDuThiBUS");
             return true;
         }
-        System.out.println("Xóa thất bại GiaoVienBUS");
+        System.out.println("Xóa thành công PhieuBaoDuThiBUS");
         return false;
     }
     

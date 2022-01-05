@@ -124,9 +124,9 @@ public class PhieuBaoDuThiDAO {
         return false;
     }
     
-    public boolean delete(String SBD,String maThiSinh) {
+    public boolean delete(String SBD) {
         String sql = "DELETE FROM PhieuBaoDuThi"
-                + " WHERE SoBaoDanh='" + SBD + "' and MaThiSInh='"+maThiSinh+"'";
+                + " WHERE SoBaoDanh='" + SBD+"'";
         conn = new Connect();
         conn.getConnection();
         if (conn.executeUpdate(sql)) {
