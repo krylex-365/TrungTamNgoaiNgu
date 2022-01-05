@@ -81,6 +81,27 @@ public class KetQuaForm extends javax.swing.JPanel
 //        tk.setVisible(false);
     }
     
+    public String tinhDiem(String tenTrinhDo,float nghe,float noi,float doc,float viet){
+        float diem = 0;
+        float diemTrungBinh = 0;
+        diem += nghe + noi + doc + viet;
+        
+        diemTrungBinh = (float) Math.ceil(diem / 4 * 10) / 10;
+        if(tenTrinhDo.equals("A2")){
+            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 6.5){
+                return "Đạt";
+            }else {
+                return "Không đạt";
+            }
+        }else {
+            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 4){
+                return "Đạt";
+            }else {
+                return "Không đạt";
+            }
+        }
+    }
+    
     public void tableModelKetQua(){
         tbModelKQThi.setRowCount(0);
         Vector row;
@@ -90,7 +111,7 @@ public class KetQuaForm extends javax.swing.JPanel
             row.add(a.soBaoDanh);
             row.add(a.thiSinhDTO.getHoTen());
             row.add(a.thiSinhDTO.getSdt());
-            row.add(a.tenPhongThi);
+            row.add(a.tenTrinhDo);
             row.add(a.tenPhongThi);
             row.add(a.maCaThi);
             if(a.nghe==-1){
@@ -113,8 +134,12 @@ public class KetQuaForm extends javax.swing.JPanel
             }else{
                 row.add(Float.toString(a.viet));
             }
-           
-
+            if(a.nghe!=(-1)&&a.noi!=(-1)&&a.doc!=(-1)&&a.viet!=(-1)){
+                row.add(tinhDiem(a.tenTrinhDo, a.nghe, a.noi, a.doc, a.viet));
+            }else{
+                row.add("Chưa có kết quả");
+            }
+            
             tbModelKQThi.addRow(row);
         }
     }
