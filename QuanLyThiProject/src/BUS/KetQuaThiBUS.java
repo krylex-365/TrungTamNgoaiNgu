@@ -23,6 +23,15 @@ public class KetQuaThiBUS {
         return ketQuaThiDAO.getDataThiSinh();
     }
     
+    public String getTenTrinhDo(String SBD){
+        for(DataThiSinh a : ketQuaThiDAO.getDataThiSinh()){
+            if(a.soBaoDanh.equals(SBD)){
+                return a.tenTrinhDo;
+            }
+        }
+        return null;
+    }
+    
     public boolean checkExist(String sbd,ArrayList<KetQuaThiDTO> ketQuaThiDTOs){
         for(KetQuaThiDTO a : ketQuaThiDTOs){
             if(a.getSoBaoDanh().equals(sbd)){

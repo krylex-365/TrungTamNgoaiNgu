@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -80,6 +81,7 @@ public class KetQuaForm extends javax.swing.JPanel
         //loadData();
 //        tk.setVisible(false);
     }
+    
     
     public String tinhDiem(String tenTrinhDo,float nghe,float noi,float doc,float viet){
         float diem = 0;
@@ -590,44 +592,68 @@ public class KetQuaForm extends javax.swing.JPanel
         String noi = jTextDiemNoi.getText();
         String doc = jTextDiemDoc.getText();
         String viet = jTextDiemViet.getText();
+
         
-        if(nghe.equals("")){
-            ketQua.setNghe(-1);
-            nghe = "NaN";
-        }else{
-            ketQua.setNghe(Float.parseFloat(jTextDiemNghe.getText()));
+        String validate = "";
+        String soLuongPattern = "\\f+";
+        if (!Pattern.matches(soLuongPattern, jTextDiemNghe.getText())
+                && !Pattern.matches(soLuongPattern, jTextDiemNoi.getText())
+                && !Pattern.matches(soLuongPattern, jTextDiemDoc.getText())
+                && !Pattern.matches(soLuongPattern, jTextDiemViet.getText())) {
+            validate += "Số lượng phải là số nguyên dương!\n";
+            if ((Float.parseFloat(nghe) > 0) && (Float.parseFloat(noi) > 0) && (Float.parseFloat(doc) > 0) && (Float.parseFloat(viet) > 0)) {
+                ketQua.setNghe(Float.parseFloat(nghe));
+                ketQua.setNoi(Float.parseFloat(noi));
+                ketQua.setDoc(Float.parseFloat(doc));
+                ketQua.setViet(Float.parseFloat(viet));
+                if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+                    tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+                    tbModelKQThi.setValueAt(noi, selectedRow, 8);
+                    tbModelKQThi.setValueAt(doc, selectedRow, 9);
+                    tbModelKQThi.setValueAt(viet, selectedRow, 10);
+                    tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()),ketQua.getNghe(),ketQua.getNoi(),ketQua.getDoc(),ketQua.getViet()), selectedRow, 11);
+                }
+            }
+            System.out.println("Vo day");
+        } else {
+            if (nghe.equals("")) {
+                ketQua.setNghe(-1);
+                nghe = "NaN";
+            } else {
+                ketQua.setNghe(Float.parseFloat(jTextDiemNghe.getText()));
+            }
+
+            if (noi.equals("")) {
+                ketQua.setNoi(-1);
+                noi = "NaN";
+            } else {
+                ketQua.setNoi(Float.parseFloat(jTextDiemNoi.getText()));
+            }
+
+            if (doc.equals("")) {
+                ketQua.setDoc(-1);
+                doc = "NaN";
+            } else {
+                ketQua.setDoc(Float.parseFloat(jTextDiemDoc.getText()));
+            }
+
+            if (viet.equals("")) {
+                ketQua.setViet(-1);
+                viet = "NaN";
+            } else {
+                ketQua.setViet(Float.parseFloat(jTextDiemViet.getText()));
+            }
+            if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+                tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+                tbModelKQThi.setValueAt(noi, selectedRow, 8);
+                tbModelKQThi.setValueAt(doc, selectedRow, 9);
+                tbModelKQThi.setValueAt(viet, selectedRow, 10);
+            }
         }
         
-        if(noi.equals("")){
-            ketQua.setNoi(-1);
-            noi = "NaN";
-        }else{
-            ketQua.setNoi(Float.parseFloat(jTextDiemNoi.getText()));
-        }
         
-        if(doc.equals("")){
-            ketQua.setDoc(-1);
-            doc = "NaN";
-        }else{
-            ketQua.setDoc(Float.parseFloat(jTextDiemDoc.getText()));
-        }
         
-        if(viet.equals("")){
-            ketQua.setViet(-1);
-            viet = "NaN";
-        }else{
-            ketQua.setViet(Float.parseFloat(jTextDiemViet.getText()));
-        }
-        if(ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)){
-            System.out.println(ketQua.getNghe());
-            System.out.println(ketQua.getNoi());
-            System.out.println(ketQua.getDoc());
-            System.out.println(ketQua.getViet());
-            tbModelKQThi.setValueAt(nghe, selectedRow, 7);
-            tbModelKQThi.setValueAt(noi, selectedRow, 8);
-            tbModelKQThi.setValueAt(doc, selectedRow, 9);
-            tbModelKQThi.setValueAt(viet, selectedRow, 10);
-        }
+        
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
@@ -715,19 +741,19 @@ public class KetQuaForm extends javax.swing.JPanel
             }
             
             if(noi.equals("NaN")){
-                jTextDiemNghe.setText("");
+                jTextDiemNoi.setText("");
             }else{
                 jTextDiemNoi.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
             }
             
             if(doc.equals("NaN")){
-                jTextDiemNghe.setText("");
+                jTextDiemDoc.setText("");
             }else{
                 jTextDiemDoc.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
             }
             
             if(viet.equals("NaN")){
-                jTextDiemNghe.setText("");
+                jTextDiemViet.setText("");
             }else{
                 jTextDiemViet.setText((String) tbModelKQThi.getValueAt(selectedRow, 10));
             }
