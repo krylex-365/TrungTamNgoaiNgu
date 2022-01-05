@@ -908,6 +908,9 @@ public class PhongThiForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePTTSMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTablePTTSMouseEntered(evt);
+            }
         });
         //jTablePTTS.getColumn (tableCol1.elementAt (0)).setPreferredWidth (100);
         //        jTablePTTS.getColumn (tableCol1.elementAt (1)).setPreferredWidth (170);
@@ -1245,8 +1248,10 @@ public class PhongThiForm extends javax.swing.JPanel {
     private void jBtnXoaTSPTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaTSPTActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaTSPTActionPerformed
         // TODO add your handling code here:
-        if(phieuBaoDuThiBUS.Delete(jTextSBD.getText(), phongThi.getMaKhoaThi(), DashBoard.phieuBaoDuThiDTOs, DashBoard.khoaThiDTOs)){
-            tbModelPTTS.removeRow(rowThiSinh);
+        String SBD = (String) tbModelPTTS.getValueAt(rowThiSinh, 2);
+        if(!phieuBaoDuThiBUS.CheckThiChua(SBD)&&phieuBaoDuThiBUS.Delete(jTextSBD.getText(),SBD, phongThi.getMaKhoaThi(), DashBoard.phieuBaoDuThiDTOs, DashBoard.khoaThiDTOs)){     
+            ketQuaBUS.Delete(SBD,DashBoard.ketQuaThiDTOs);
+            tbModelPTTS.removeRow(rowThiSinh);   
         }
         clearPhongThiTS(); 
     }//GEN-LAST:event_jBtnXoaTSPTActionPerformed
@@ -1341,10 +1346,9 @@ public class PhongThiForm extends javax.swing.JPanel {
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
-                    if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs)) {
+                    if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs,phieuBaoDuThiBUS.getNgayThiBySBD((String)jTablePTTS.getModel().getValueAt(i, 2)))) {
                         thiSinhBUS.UpdataStatus((String) jTablePTTS.getModel().getValueAt(i, 0), 4);
-                    }
-                    
+                    }   
                 }
             }
             //System.out.println("List dc chon!!" + a);
@@ -1375,6 +1379,10 @@ public class PhongThiForm extends javax.swing.JPanel {
             jTextTenPhongThi.setText(initTenPhong());
         }
     }//GEN-LAST:event_jTextTenPhongThiMouseClicked
+
+    private void jTablePTTSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePTTSMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTablePTTSMouseEntered
 
     public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
