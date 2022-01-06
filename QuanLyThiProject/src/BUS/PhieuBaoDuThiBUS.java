@@ -74,7 +74,29 @@ public class PhieuBaoDuThiBUS {
         return list;
     }
     
-    
+    public String initSoBaoDanh(ThiSinhDTO thiSinhDTO,ArrayList<TrinhDoDTO> trinhDoDTOs) {
+        String soBaoDanh = "";
+        int num = 0;
+        for (TrinhDoDTO trinhDo : trinhDoDTOs) {
+            if (trinhDo.getMaTrinhDo().equals(thiSinhDTO.getMaTrinhDo())) {
+                num = trinhDo.getSoLuongPG() + 1;
+                if (num < 1000) {
+                    int totalzero = 4;
+                    String add = String.valueOf(num);
+                    int cpzero = totalzero - add.length();
+                    String init = "";
+                    for (int i = 0; i < cpzero; i++) {
+                        init += '0';
+                    }
+                    soBaoDanh = trinhDo.getTenTrinhDo() + init + add;
+                } else {
+                    soBaoDanh = trinhDo.getTenTrinhDo() + num;
+                }
+                break;
+            }
+        }
+        return soBaoDanh;
+    }
 
     public PhieuBaoDuThiDTO Add(PhongThiDTO phongThiDTO,ThiSinhDTO thiSinhDTO,String maCaThi, ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs, ArrayList<TrinhDoDTO> trinhDoDTOs,ArrayList<KhoaThiDTO> khoaThiDTOs) {
 //        for (PhongThiDTO k : phongThiDTOs) {
@@ -84,7 +106,7 @@ public class PhieuBaoDuThiBUS {
 //        }
         TrinhDoDTO trinhDoDTO = trinhDoBUS.findTrinhDo(thiSinhDTO.getMaTrinhDo(), trinhDoDTOs);
         int num = trinhDoDTO.getSoLuongTS()+1;
-        PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO(trinhDoDTO.getMaTrinhDo()+num, thiSinhDTO.getMaThiSinh(), phongThiDTO.getMaPhongThi(), maCaThi, khoaThiBUS.findKhoaThi(thiSinhDTO.getMaKhoaThi()).getNgayThi());
+        PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO(initSoBaoDanh(thiSinhDTO,trinhDoDTOs), thiSinhDTO.getMaThiSinh(), phongThiDTO.getMaPhongThi(), maCaThi, khoaThiBUS.findKhoaThi(thiSinhDTO.getMaKhoaThi()).getNgayThi());
         System.out.println(trinhDoDTO.getMaTrinhDo()+"-"+num);
         if (phieuBaoDuThiDAO.countThiSinhPhongThi(phongThiDTO.getMaPhongThi(), maCaThi)<=phongThiDTO.getSoLuong()&&phieuBaoDuThiDAO.insertPhieuBaoDuThi(pbdt)) {
             

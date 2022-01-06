@@ -1329,6 +1329,8 @@ public class PhongThiForm extends javax.swing.JPanel {
         return tenPhong;
     }
     
+    
+    
     private void jBtnRefresh2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh2ActionPerformed
     {//GEN-HEADEREND:event_jBtnRefresh2ActionPerformed
         // TODO add your handling code here:

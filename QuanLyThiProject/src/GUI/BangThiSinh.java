@@ -82,6 +82,7 @@ public class BangThiSinh extends javax.swing.JFrame {
         }
     }
     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
