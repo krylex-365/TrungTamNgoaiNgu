@@ -52,14 +52,13 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class KetQuaForm extends javax.swing.JPanel
-{
+public class KetQuaForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
      */
     static int flagtkmk = 0;
-    DefaultTableModel tbModelKQThi, modelThongKe;
+    DefaultTableModel tbModelKQThi;
     private int flagAcc;
     private String manv;
 //    private NhanVienBUS nhanVienBUS;
@@ -68,8 +67,7 @@ public class KetQuaForm extends javax.swing.JPanel
     public KetQuaThiBUS ketQuaThiBUS = new KetQuaThiBUS();
 //    private Utils ult = new Utils();
 
-    public KetQuaForm()
-    {
+    public KetQuaForm() {
         initComponents();
         //tableModelKetQua();
         jBtnSuaDiem.setEnabled(false);
@@ -81,33 +79,32 @@ public class KetQuaForm extends javax.swing.JPanel
         //loadData();
 //        tk.setVisible(false);
     }
-    
-    
-    public String tinhDiem(String tenTrinhDo,float nghe,float noi,float doc,float viet){
+
+    public String tinhDiem(String tenTrinhDo, float nghe, float noi, float doc, float viet) {
         float diem = 0;
         float diemTrungBinh = 0;
         diem += nghe + noi + doc + viet;
-        
+
         diemTrungBinh = (float) Math.ceil(diem / 4 * 10) / 10;
-        if(tenTrinhDo.equals("A2")){
-            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 6.5){
+        if (tenTrinhDo.equals("A2")) {
+            if (nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 6.5) {
                 return "Đạt";
-            }else {
+            } else {
                 return "Không đạt";
             }
-        }else {
-            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 4){
+        } else {
+            if (nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 4) {
                 return "Đạt";
-            }else {
+            } else {
                 return "Không đạt";
             }
         }
     }
-    
-    public void tableModelKetQua(){
+
+    public void tableModelKetQua() {
         tbModelKQThi.setRowCount(0);
         Vector row;
-        for(DataThiSinh a: ketQuaThiBUS.getMixedList()){
+        for (DataThiSinh a : ketQuaThiBUS.getMixedList()) {
             row = new Vector();
             row.add(a.thiSinhDTO.getMaThiSinh());
             row.add(a.soBaoDanh);
@@ -116,41 +113,42 @@ public class KetQuaForm extends javax.swing.JPanel
             row.add(a.tenTrinhDo);
             row.add(a.tenPhongThi);
             row.add(a.maCaThi);
-            if(a.nghe==-1){
+            if (a.nghe == -1) {
                 row.add("NaN");
-            }else{
+            } else {
                 row.add(Float.toString(a.nghe));
-            }   
-            if(a.noi==-1){
+            }
+            if (a.noi == -1) {
                 row.add("NaN");
-            }else{
+            } else {
                 row.add(Float.toString(a.noi));
             }
-            if(a.doc==-1){
+            if (a.doc == -1) {
                 row.add("NaN");
-            }else{
+            } else {
                 row.add(Float.toString(a.doc));
             }
-            if(a.viet==-1){
+            if (a.viet == -1) {
                 row.add("NaN");
-            }else{
+            } else {
                 row.add(Float.toString(a.viet));
             }
-            if(a.nghe!=(-1)&&a.noi!=(-1)&&a.doc!=(-1)&&a.viet!=(-1)){
+            if (a.nghe != (-1) && a.noi != (-1) && a.doc != (-1) && a.viet != (-1)) {
                 row.add(tinhDiem(a.tenTrinhDo, a.nghe, a.noi, a.doc, a.viet));
-            }else{
+            } else {
                 row.add("Chưa có kết quả");
             }
-            
+
             tbModelKQThi.addRow(row);
         }
     }
-    
+
     private void filter(String query) {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKQThi);
         jTableKQThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,14 +190,6 @@ public class KetQuaForm extends javax.swing.JPanel
         jBtnRefresh = new javax.swing.JButton();
         jTextTimKiem = new javax.swing.JTextField();
         jLbTimKiem = new javax.swing.JLabel();
-        jPanelThongkeTS = new javax.swing.JPanel();
-        jButtonThongKe = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableThongke = new javax.swing.JTable();
-        jLabel26 = new javax.swing.JLabel();
-        jDateNgayBDTK = new com.toedter.calendar.JDateChooser();
-        jLabel27 = new javax.swing.JLabel();
-        jDateNgayKTTK = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -492,86 +482,7 @@ public class KetQuaForm extends javax.swing.JPanel
         jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
         jPanelTS.add(jLbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, -1, 30));
 
-        jTabbedPane1.addTab("Quản Lý KQ", jPanelTS);
-
-        jPanelThongkeTS.setBackground(new java.awt.Color(233, 242, 249));
-        jPanelThongkeTS.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanelThongkeTS.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonThongKe.setText("Thống Kê");
-        jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonThongKeActionPerformed(evt);
-            }
-        });
-        jPanelThongkeTS.add(jButtonThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 120, -1));
-
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setAutoscrolls(true);
-
-        jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableThongkeMouseClicked(evt);
-            }
-        });
-        tableColThongKe.add ("Mã Nhân Viên");
-        tableColThongKe.add ("Tên Nhân Viên");
-        tableColThongKe.add ("Số Lần Đi Tour");
-        modelThongKe = new DefaultTableModel(tableColThongKe, 0){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex){
-                return false;
-            }
-        };
-        jTableThongke.setModel(modelThongKe);
-        TableRowSorter<TableModel> rowSorter = new TableRowSorter<TableModel>(modelThongKe);
-        jTableThongke.setRowSorter(rowSorter);
-        jTableThongke.setShowGrid(true);
-        jTableThongke.setFocusable(false);
-        jTableThongke.setIntercellSpacing(new Dimension(0,0));
-        jTableThongke.setRowHeight(25);
-        jTableThongke.getTableHeader().setOpaque(false);
-        jTableThongke.setFillsViewportHeight(true);
-        jTableThongke.getTableHeader().setBackground(new Color(232,57,99));
-        jTableThongke.getTableHeader().setForeground(new Color(141, 22, 22));
-        jTableThongke.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
-        jTableThongke.setSelectionBackground(new Color(52,152,219));
-        jTableThongke.setGridColor(new java.awt.Color(83, 86, 88));
-        jScrollPane3.setViewportView(jTableThongke);
-
-        jPanelThongkeTS.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 950, 520));
-
-        jLabel26.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel26.setText("<html> <body>Ngày Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
-        jPanelThongkeTS.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
-
-        jDateNgayBDTK.setBackground(new java.awt.Color(214, 217, 223));
-        jDateNgayBDTK.setDateFormatString("yyyy-MM-dd");
-        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) jDateNgayBDTK.getDateEditor();
-        editor2.setEditable(false);
-        jPanelThongkeTS.add(jDateNgayBDTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
-
-        jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel27.setText("<html> <body>Ngày Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
-        jPanelThongkeTS.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 30));
-
-        jDateNgayKTTK.setBackground(new java.awt.Color(214, 217, 223));
-        jDateNgayKTTK.setDateFormatString("yyyy-MM-dd");
-        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) jDateNgayKTTK.getDateEditor();
-        editor3.setEditable(false);
-        jPanelThongkeTS.add(jDateNgayKTTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 180, 30));
-
-        jTabbedPane1.addTab("Thống Kê", jPanelThongkeTS);
+        jTabbedPane1.addTab("Quản Lý Kết Quả", jPanelTS);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -593,7 +504,6 @@ public class KetQuaForm extends javax.swing.JPanel
         String doc = jTextDiemDoc.getText();
         String viet = jTextDiemViet.getText();
 
-        
         String validate = "";
         String soLuongPattern = "\\f+";
         if (!jTextDiemNghe.getText().equals("") && !jTextDiemNoi.getText().equals("") && !jTextDiemDoc.getText().equals("") && !jTextDiemViet.getText().equals("")) {
@@ -622,8 +532,8 @@ public class KetQuaForm extends javax.swing.JPanel
 //                System.out.println("Số");
 //            }
             try {
-                float fnghe=Float.parseFloat(nghe),fnoi=Float.parseFloat(noi),fdoc=Float.parseFloat(doc),fviet=Float.parseFloat(viet);
-                if ((fnghe >= 0&&fnghe<=10)&&(fnoi >= 0&&fnoi<=10)&&(fdoc >= 0&&fdoc<=10)&&(fviet >= 0&&fviet<=10)) {
+                float fnghe = Float.parseFloat(nghe), fnoi = Float.parseFloat(noi), fdoc = Float.parseFloat(doc), fviet = Float.parseFloat(viet);
+                if ((fnghe >= 0 && fnghe <= 10) && (fnoi >= 0 && fnoi <= 10) && (fdoc >= 0 && fdoc <= 10) && (fviet >= 0 && fviet <= 10)) {
                     ketQua.setNghe(Float.parseFloat(nghe));
                     ketQua.setNoi(Float.parseFloat(noi));
                     ketQua.setDoc(Float.parseFloat(doc));
@@ -634,42 +544,41 @@ public class KetQuaForm extends javax.swing.JPanel
                         tbModelKQThi.setValueAt(doc, selectedRow, 9);
                         tbModelKQThi.setValueAt(viet, selectedRow, 10);
                         tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
+                        JOptionPane.showMessageDialog(this, "Sửa điểm thành công!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa điểm thất bại!");
                     }
-                }else{
+                    jBtnSuaDiem.setEnabled(false);
+                    jBtnHuyDiem.setEnabled(false);
+                    jTextMaThiSinh.setText("");
+                    jTextSBDTS.setText("");
+                    jTextTenThiSinh.setText("");
+                    jTextSDT.setText("");
+                    jTextTrinhDo.setText("");
+                    jTextPhongThi.setText("");
+                    jTextCaThi.setText("");
+                    jTextDiemNghe.setText("");
+                    jTextDiemNoi.setText("");
+                    jTextDiemDoc.setText("");
+                    jTextDiemViet.setText("");
+                    jTableKQThi.clearSelection();
+                } else {
                     System.out.println("Vui lòng nhập điểm theo thang điểm 10");
                 }
             } catch (NumberFormatException e) {
                 System.out.println(e);
                 System.out.println("Vui lòng nhập số");
             }
-            
-        }else{
+
+        } else {
             System.out.println("Không được để trống");
         }
-        
-        
-        
-        
-        
-        jBtnSuaDiem.setEnabled(false);
-        jBtnHuyDiem.setEnabled(false);
-        jTextMaThiSinh.setText("");
-        jTextSBDTS.setText("");
-        jTextTenThiSinh.setText("");
-        jTextSDT.setText("");
-        jTextTrinhDo.setText("");
-        jTextPhongThi.setText("");
-        jTextCaThi.setText("");
-        jTextDiemNghe.setText("");
-        jTextDiemNoi.setText("");
-        jTextDiemDoc.setText("");
-        jTextDiemViet.setText("");
-        jTableKQThi.clearSelection();
+
+
     }//GEN-LAST:event_jBtnSuaDiemActionPerformed
 
     private void jBtnHuyDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyDiemActionPerformed
 
-   
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
@@ -687,43 +596,13 @@ public class KetQuaForm extends javax.swing.JPanel
         jTableKQThi.clearSelection();
     }//GEN-LAST:event_jBtnHuyDiemActionPerformed
 
-    private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
-    {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
-        // TODO add your handling code here:
-        modelThongKe.setRowCount(0);
-        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null)
-        {
-            JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu và Ngày Kết Thúc không được bỏ trống!");
-            return;
-        }
-        String ngayBD = (String) ((JTextField) jDateNgayBDTK.getDateEditor().getUiComponent()).getText(),
-                ngayKT = (String) ((JTextField) jDateNgayKTTK.getDateEditor().getUiComponent()).getText();
-        //Validation
-        StringBuilder message = new StringBuilder();
-//        Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
-//        if (!message.toString().equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, message.toString());
-//            return;
-//        }
-//        tbModelThongKeNhanVien(modelThongKe, jDateNgayBDTK.getDate(), jDateNgayKTTK.getDate());
-    }//GEN-LAST:event_jButtonThongKeActionPerformed
-
-    private void jTableThongkeMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThongkeMouseClicked
-    {//GEN-HEADEREND:event_jTableThongkeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableThongkeMouseClicked
-
     private void jTableKQThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKQThiMouseClicked
     {//GEN-HEADEREND:event_jTableKQThiMouseClicked
         // TODO add your handling code here:
         selectedRow = jTableKQThi.getSelectedRow();
-        String nghe = (String) tbModelKQThi.getValueAt(selectedRow, 7);
-        String noi = (String) tbModelKQThi.getValueAt(selectedRow, 8);
-        String doc = (String) tbModelKQThi.getValueAt(selectedRow, 9);
-        String viet = (String) tbModelKQThi.getValueAt(selectedRow, 10);
-        if(selectedRow != -1){
+        if (selectedRow != -1) {
             jBtnSuaDiem.setEnabled(true);
+            jBtnHuyDiem.setEnabled(true);
             jTextMaThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 0));
             jTextSBDTS.setText((String) tbModelKQThi.getValueAt(selectedRow, 1));
             jTextTenThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 2));
@@ -731,34 +610,36 @@ public class KetQuaForm extends javax.swing.JPanel
             jTextTrinhDo.setText((String) tbModelKQThi.getValueAt(selectedRow, 4));
             jTextPhongThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 5));
             jTextCaThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 6));
-            if(nghe.equals("NaN")){
+            String nghe = (String) tbModelKQThi.getValueAt(selectedRow, 7);
+            String noi = (String) tbModelKQThi.getValueAt(selectedRow, 8);
+            String doc = (String) tbModelKQThi.getValueAt(selectedRow, 9);
+            String viet = (String) tbModelKQThi.getValueAt(selectedRow, 10);
+            if (nghe.equals("NaN")) {
                 jTextDiemNghe.setText("");
-            }else{
+            } else {
                 jTextDiemNghe.setText((String) tbModelKQThi.getValueAt(selectedRow, 7));
             }
-            
-            if(noi.equals("NaN")){
+
+            if (noi.equals("NaN")) {
                 jTextDiemNoi.setText("");
-            }else{
+            } else {
                 jTextDiemNoi.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
             }
-            
-            if(doc.equals("NaN")){
+
+            if (doc.equals("NaN")) {
                 jTextDiemDoc.setText("");
-            }else{
+            } else {
                 jTextDiemDoc.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
             }
-            
-            if(viet.equals("NaN")){
+
+            if (viet.equals("NaN")) {
                 jTextDiemViet.setText("");
-            }else{
+            } else {
                 jTextDiemViet.setText((String) tbModelKQThi.getValueAt(selectedRow, 10));
             }
-            
-            
-            
+
         }
-        
+
     }//GEN-LAST:event_jTableKQThiMouseClicked
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
@@ -777,58 +658,47 @@ public class KetQuaForm extends javax.swing.JPanel
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
 
-    public JPanel getjPanel1()
-    {
+    public JPanel getjPanel1() {
         return jPanelTS;
     }
 
-    public JTextField getjTextManv()
-    {
+    public JTextField getjTextManv() {
         return jTextMaThiSinh;
     }
 
-    public DefaultTableModel getModelnv()
-    {
+    public DefaultTableModel getModelnv() {
         return tbModelKQThi;
     }
 
-    public int getFlagAcc()
-    {
+    public int getFlagAcc() {
         return flagAcc;
     }
 
-    public void setFlagAcc(int flagAcc)
-    {
+    public void setFlagAcc(int flagAcc) {
         this.flagAcc = flagAcc;
     }
 
-    public String getManv()
-    {
+    public String getManv() {
         return manv;
     }
 
-    public void setManv(String manv)
-    {
+    public void setManv(String manv) {
         this.manv = manv;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
@@ -836,9 +706,6 @@ public class KetQuaForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnHuyDiem;
     private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSuaDiem;
-    private javax.swing.JButton jButtonThongKe;
-    private com.toedter.calendar.JDateChooser jDateNgayBDTK;
-    private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -847,20 +714,15 @@ public class KetQuaForm extends javax.swing.JPanel
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelTS;
-    private javax.swing.JPanel jPanelThongkeTS;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableKQThi;
-    private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextCaThi;
     private javax.swing.JTextField jTextDiemDoc;
     private javax.swing.JTextField jTextDiemNghe;

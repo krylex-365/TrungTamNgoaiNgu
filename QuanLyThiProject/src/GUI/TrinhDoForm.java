@@ -43,7 +43,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class TrinhDoForm extends javax.swing.JPanel {
 
-    DefaultTableModel tbModelTrinhDo, tbModelTKTD;
+    DefaultTableModel tbModelTrinhDo;
     int rowTbl;
     private int rowTrinhDo;
     private String tenLoaiChiPhi;
@@ -59,7 +59,6 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jBtnSuaTD.setEnabled(false);
         jBtnXoaTD.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        tbModelTKTD.setRowCount(0);
         jBtnCapPhatMaTD.setVisible(false);
         jBtnThemTD.setVisible(false);
         jBtnXoaTD.setVisible(false);
@@ -128,14 +127,6 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jLbTimKiem = new javax.swing.JLabel();
         jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
-        jPanelTKKT = new javax.swing.JPanel();
-        jButtonThongKe = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableThongke = new javax.swing.JTable();
-        jLabel26 = new javax.swing.JLabel();
-        jDateNgayBDTK = new com.toedter.calendar.JDateChooser();
-        jLabel27 = new javax.swing.JLabel();
-        jDateNgayKTTK = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -351,91 +342,7 @@ public class TrinhDoForm extends javax.swing.JPanel {
         });
         jPanelKhoaThi.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 90, 40, 30));
 
-        jTabbedPane1.addTab("Quản Lý Khóa Thi", jPanelKhoaThi);
-
-        jPanelTKKT.setBackground(new java.awt.Color(233, 242, 249));
-        jPanelTKKT.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanelTKKT.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonThongKe.setText("Thống Kê");
-        jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
-        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonThongKeActionPerformed(evt);
-            }
-        });
-        jPanelTKKT.add(jButtonThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 120, -1));
-
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setAutoscrolls(true);
-
-        Vector tbColThongKe=new Vector();
-        jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableThongkeMouseClicked(evt);
-            }
-        });
-        tbColThongKe.add ("Mã Tour");
-        tbColThongKe.add ("Tên Tour");
-        tbColThongKe.add ("Mã Đoàn");
-        tbColThongKe.add ("Tên Đoàn");
-        tbColThongKe.add ("Ngày Đi");
-        tbColThongKe.add ("Ngày Về");
-        tbColThongKe.add ("Tổng Chi Phí");
-        tbModelTKTD = new DefaultTableModel(tbColThongKe, 0){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex){
-                return false;
-            }
-        };
-        jTableThongke.setModel(tbModelTKTD);
-        TableRowSorter<TableModel> rowSorter = new TableRowSorter<TableModel>(tbModelTKTD);
-        jTableThongke.setRowSorter(rowSorter);
-        jTableThongke.setShowGrid(true);
-        jTableThongke.setFocusable(false);
-        jTableThongke.setIntercellSpacing(new Dimension(0,0));
-        jTableThongke.setRowHeight(25);
-        jTableThongke.getTableHeader().setOpaque(false);
-        jTableThongke.setFillsViewportHeight(true);
-        jTableThongke.getTableHeader().setBackground(new Color(232,57,99));
-        jTableThongke.getTableHeader().setForeground(new Color(141, 22, 22));
-        jTableThongke.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
-        jTableThongke.setSelectionBackground(new Color(52,152,219));
-        jTableThongke.setGridColor(new java.awt.Color(83, 86, 88));
-        jScrollPane3.setViewportView(jTableThongke);
-
-        jPanelTKKT.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 950, 520));
-
-        jLabel26.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel26.setText("<html> <body>Ngày Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
-        jPanelTKKT.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
-
-        jDateNgayBDTK.setBackground(new java.awt.Color(214, 217, 223));
-        jDateNgayBDTK.setDateFormatString("yyyy-MM-dd");
-        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) jDateNgayBDTK.getDateEditor();
-        editor2.setEditable(false);
-        jPanelTKKT.add(jDateNgayBDTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
-
-        jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel27.setText("<html> <body>Ngày Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
-        jPanelTKKT.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 30));
-
-        jDateNgayKTTK.setBackground(new java.awt.Color(214, 217, 223));
-        jDateNgayKTTK.setDateFormatString("yyyy-MM-dd");
-        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) jDateNgayKTTK.getDateEditor();
-        editor3.setEditable(false);
-        jPanelTKKT.add(jDateNgayKTTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 180, 30));
-
-        jTabbedPane1.addTab("Thống Kê", jPanelTKKT);
+        jTabbedPane1.addTab("Quản Lý Trình Độ", jPanelKhoaThi);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -560,17 +467,6 @@ public class TrinhDoForm extends javax.swing.JPanel {
         clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
-    private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
-    {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jButtonThongKeActionPerformed
-
-    private void jTableThongkeMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThongkeMouseClicked
-    {//GEN-HEADEREND:event_jTableThongkeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableThongkeMouseClicked
-
     private void jTableTrinhDoMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableTrinhDoMouseClicked
     {//GEN-HEADEREND:event_jTableTrinhDoMouseClicked
         // TODO add your handling code here:
@@ -635,23 +531,15 @@ public class TrinhDoForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnSuaTD;
     private javax.swing.JButton jBtnThemTD;
     private javax.swing.JButton jBtnXoaTD;
-    private javax.swing.JButton jButtonThongKe;
-    private com.toedter.calendar.JDateChooser jDateNgayBDTK;
-    private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelKhoaThi;
-    private javax.swing.JPanel jPanelTKKT;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTableThongke;
     private javax.swing.JTable jTableTrinhDo;
     private javax.swing.JTextField jTextLePhi;
     private javax.swing.JTextField jTextMaTD;

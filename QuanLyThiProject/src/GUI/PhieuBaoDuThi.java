@@ -10,6 +10,7 @@ import BUS.CaThiBUS;
 import BUS.PhieuBaoDuThiBUS;
 import BUS.PhongThiBUS;
 import BUS.TrinhDoBUS;
+import DTO.CaThiDTO;
 import DTO.PhieuBaoDuThiDTO;
 import DTO.ThiSinhDTO;
 import java.awt.Color;
@@ -72,9 +73,12 @@ public class PhieuBaoDuThi extends javax.swing.JFrame
         if(phieuBaoDuThiDTO.getSoBaoDanh()!=null){
             jTextSBDTS.setText(phieuBaoDuThiDTO.getSoBaoDanh());
             jTextMaPhongTS.setText(phongThiBUS.findPhongThiByMaPhongThi(phieuBaoDuThiDTO.getMaPhongThi(), DashBoard.phongThiDTOs).getTenPhongThi());
-            jTextMaCaTS.setText(phieuBaoDuThiDTO.getMaCaThi());
-            jTextNgayThiTS.setText(phieuBaoDuThiDTO.getMaThiSinh());
-
+            for (CaThiDTO caThi : DashBoard.caThiDTOs) {
+                if (caThi.getMaCaThi().equals(phieuBaoDuThiDTO.getMaCaThi())) {
+                    jTextMaCaTS.setText(caThi.getGioBatDau() + " - " + caThi.getGioKetThuc());
+                }
+            }
+            jTextNgayThiTS.setText(phieuBaoDuThiDTO.getNgayThi());
             jTextTrinhDo.setText(trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         }
         
