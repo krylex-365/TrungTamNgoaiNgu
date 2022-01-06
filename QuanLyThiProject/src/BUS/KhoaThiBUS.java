@@ -26,6 +26,17 @@ public class KhoaThiBUS {
     public ArrayList<KhoaThiDTO> getList(){
         return  khoaThiDAO.getList();
     }
+    
+    public boolean checkFinished(String maKhoaThi,ArrayList<KhoaThiDTO> khoaThiDTOs){
+        for(KhoaThiDTO a : khoaThiDTOs){
+            if(a.getMaKhoaThi().equals(maKhoaThi)){
+                if(utl.stringToDate(a.getNgayThi()).before(utl.getDateWithoutTimeUsingFormat())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public KhoaThiDTO findKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs){
         KhoaThiDTO khoaThiDTO = new KhoaThiDTO();
@@ -36,6 +47,10 @@ public class KhoaThiBUS {
             }
         }
         return khoaThiDTO;
+    }
+    
+    public KhoaThiDTO findKhoaThi(String maKhoaThi){
+        return khoaThiDAO.findKhaoThi(maKhoaThi);
     }
     
     public String findTenKhoaKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs){
@@ -79,8 +94,8 @@ public class KhoaThiBUS {
         return false;
     }
 
-    public boolean sua(KhoaThiDTO khoaThiDTO, ArrayList<KhoaThiDTO> khoaThiDTOs) {
-        if (khoaThiDAO.updateKhoaThi(khoaThiDTO)) {
+    public boolean sua(KhoaThiDTO khoaThiDTO, ArrayList<KhoaThiDTO> khoaThiDTOs, boolean check) {
+        if (khoaThiDAO.updateKhoaThi(khoaThiDTO, check)) {
             khoaThiDTOs.set(indexKhoaThi(khoaThiDTO.getMaKhoaThi(), khoaThiDTOs), khoaThiDTO);
             System.out.println("Sửa thành công KhoaThiBUS");
             return true;

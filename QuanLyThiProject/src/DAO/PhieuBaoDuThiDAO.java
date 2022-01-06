@@ -23,27 +23,152 @@ public class PhieuBaoDuThiDAO {
         ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs = new ArrayList<PhieuBaoDuThiDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from PhieuBaoDuThi where Status=1";
+        String query = "select * from PhieuBaoDuThi where Status<>0";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                PhieuBaoDuThiDTO dto = new PhieuBaoDuThiDTO();
-                dto.setSoBaoDanh(conn.rs.getString(1));
-                dto.setMaThiSinh(conn.rs.getString(2));
-                dto.setMaPhongThi(conn.rs.getString(3));
-                dto.setMaCaThi(conn.rs.getString(4));
-                dto.setNgayThi(conn.rs.getString(5));
-                phieuBaoDuThiDTOs.add(dto);
+                PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO();
+                pbdt.setSoBaoDanh(conn.rs.getString(1));
+                pbdt.setMaThiSinh(conn.rs.getString(2));
+                pbdt.setMaPhongThi(conn.rs.getString(3));
+                pbdt.setMaCaThi(conn.rs.getString(4));
+                pbdt.setNgayThi(conn.rs.getString(5));
+                phieuBaoDuThiDTOs.add(pbdt);
             }
+            conn.getConn().close();
         } catch (SQLException e) {
             System.out.println(e);
-            System.out.println("PhieuBaoDuThiDAO.getList.executeQuery error.");
-        }
-        try{
-        conn.getConn().close();
-        }catch (SQLException e){
-            System.out.println("PhieuBaoDuThiDAO.getList.close error.");
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
         }
         return phieuBaoDuThiDTOs;
+    }
+    
+    public int countThiSinhPhongThi(String maPhongThi,String maCaThi){
+        int count = 0;
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select COUNT(*) from PhieuBaoDuThi where MaPhongThi='"+maPhongThi+"' and MaCaThi='"+maCaThi+"'";
+        //String temp = "select COUNT(*) as soluong from PhieuBaoDuThi where MaPhongThi='PG000001' and MaCaThi='CA000001'";
+        try {
+            conn.executeQuery(query);
+            conn.rs.next();
+            count = conn.rs.getInt(1);
+//            while (conn.rs.next()) {
+//                PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO();
+//                pbdt.setSoBaoDanh(conn.rs.getString(1));
+//                pbdt.setMaThiSinh(conn.rs.getString(2));
+//                pbdt.setMaPhongThi(conn.rs.getString(3));
+//                pbdt.setMaCaThi(conn.rs.getString(4));
+//                pbdt.setNgayThi(conn.rs.getString(5));
+//                phieuBaoDuThiDTOs.add(pbdt);
+//            }
+            conn.getConn().close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        System.out.println(count);
+        return count;
+    }
+//    
+//    public static void main(String[] args) {
+//        PhieuBaoDuThiDAO pbdt = new PhieuBaoDuThiDAO();
+//        System.out.println(pbdt.countThiSinhPhongThi("PG000001","CA000001"));
+//    }
+    
+    public boolean insertPhieuBaoDuThi(PhieuBaoDuThiDTO phieuBaoDuThiDTO) {
+        conn = new Connect();
+        conn.getConnection();
+        System.out.println(phieuBaoDuThiDTO.getNgayThi());
+        String query = "INSERT INTO PhieuBaoDuThi"
+                + " VALUES ('" + phieuBaoDuThiDTO.getSoBaoDanh()
+                + "','" + phieuBaoDuThiDTO.getMaThiSinh()
+                + "','" + phieuBaoDuThiDTO.getMaPhongThi()
+                + "','" + phieuBaoDuThiDTO.getMaCaThi()
+                + "','" + phieuBaoDuThiDTO.getNgayThi()
+                + "', 1);";
+        if (conn.executeUpdate(query)) {
+            conn.close();
+            System.out.println("PhieuBaoDuThiDAO insert success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("PhieuBaoDuThiDAO insert fail.");
+        return false;
+    }
+//
+//    public boolean updateThiSinh(ThiSinhDTO thiSinhDTO) {
+//        conn = new Connect();
+//        conn.getConnection();
+//        String sql = "UPDATE ThiSinh SET"
+//                + " HoTen=N'" + thiSinhDTO.getHoTen()+ "',"
+//                + " GioiTinh='" + thiSinhDTO.getGioiTinh()+ "',"
+//                + " NgaySinh='" + thiSinhDTO.getNgaySinh()+ "',"
+//                + " Cmnd='" + thiSinhDTO.getCmnd()+ "',"
+//                + " NgayCap='" + thiSinhDTO.getNgayCap()+ "',"
+//                + " NoiCap='" + thiSinhDTO.getNoiCap()+ "',"
+//                + " Sdt='" + thiSinhDTO.getSdt()+ "',"
+//                + " Mail='" + thiSinhDTO.getMail()+ "',"
+//                + " DiaChi='" + thiSinhDTO.getDiaChi()+ "',"
+//                + " MaKhoaThi='" + thiSinhDTO.getMaKhoaThi()+ "',"
+//                + " MaTrinhDo='" + thiSinhDTO.getMaTrinhDo()+ "',"
+//                + " Status='" + thiSinhDTO.getTinhTrang()+ "'"
+//                + " WHERE MaThiSinh='" + thiSinhDTO.getMaThiSinh()+ "';";
+//        if (conn.executeUpdate(sql)) {
+//            conn.close();
+//            System.out.println("ThiSinhDAO update success.");
+//            return true;
+//        }
+//        conn.close();
+//        System.out.println("ThiSinhDAO update fail.");
+//        return false;
+//    }
+//    
+//    public boolean updateStatusThiSinh(String maThiSinh,int Status) {
+//        conn = new Connect();
+//        conn.getConnection();
+//        String sql = "UPDATE ThiSinh SET"
+//                + " Status='" + Status+ "'"
+//                + " WHERE MaThiSinh='" + maThiSinh+ "';";
+//        if (conn.executeUpdate(sql)) {
+//            conn.close();
+//            System.out.println("ThiSinhDAO update status success.");
+//            return true;
+//        }
+//        conn.close();
+//        System.out.println("ThiSinhDAO update status fail.");
+//        return false;
+//    }
+//    
+//
+    public boolean deleteThiSinh(String SBD) {
+        String sql = "update PhieuBaoDuThi "
+                + "set Status=0 "
+                + "where SoBaoDanh='" + SBD + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("PhieuBaoDuThiDAO delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("PhieuBaoDuThiDAO delete fail.");
+        return false;
+    }
+    
+    public boolean delete(String SBD) {
+        String sql = "DELETE FROM PhieuBaoDuThi"
+                + " WHERE SoBaoDanh='" + SBD+"'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("PhieuBaoDuThiDAO delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("PhieuBaoDuThiDAO delete fail.");
+        return false;
     }
 }

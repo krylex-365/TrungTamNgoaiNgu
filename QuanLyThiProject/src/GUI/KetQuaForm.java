@@ -13,6 +13,9 @@ package GUI;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
 //import DTO.PhongBanDTO;
+import BUS.KetQuaThiBUS;
+import DTO.DataThiSinh;
+import DTO.KetQuaThiDTO;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -29,6 +32,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -61,11 +65,13 @@ public class KetQuaForm extends javax.swing.JPanel
 //    private NhanVienBUS nhanVienBUS;
 //    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
+    public KetQuaThiBUS ketQuaThiBUS = new KetQuaThiBUS();
 //    private Utils ult = new Utils();
 
     public KetQuaForm()
     {
         initComponents();
+        //tableModelKetQua();
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
@@ -74,6 +80,70 @@ public class KetQuaForm extends javax.swing.JPanel
         jTextDiemNoi.setText("");
         //loadData();
 //        tk.setVisible(false);
+    }
+    
+    
+    public String tinhDiem(String tenTrinhDo,float nghe,float noi,float doc,float viet){
+        float diem = 0;
+        float diemTrungBinh = 0;
+        diem += nghe + noi + doc + viet;
+        
+        diemTrungBinh = (float) Math.ceil(diem / 4 * 10) / 10;
+        if(tenTrinhDo.equals("A2")){
+            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 6.5){
+                return "Đạt";
+            }else {
+                return "Không đạt";
+            }
+        }else {
+            if(nghe > 0 && noi > 0 && doc > 0 && viet > 0 && diemTrungBinh >= 4){
+                return "Đạt";
+            }else {
+                return "Không đạt";
+            }
+        }
+    }
+    
+    public void tableModelKetQua(){
+        tbModelKQThi.setRowCount(0);
+        Vector row;
+        for(DataThiSinh a: ketQuaThiBUS.getMixedList()){
+            row = new Vector();
+            row.add(a.thiSinhDTO.getMaThiSinh());
+            row.add(a.soBaoDanh);
+            row.add(a.thiSinhDTO.getHoTen());
+            row.add(a.thiSinhDTO.getSdt());
+            row.add(a.tenTrinhDo);
+            row.add(a.tenPhongThi);
+            row.add(a.maCaThi);
+            if(a.nghe==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.nghe));
+            }   
+            if(a.noi==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.noi));
+            }
+            if(a.doc==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.doc));
+            }
+            if(a.viet==-1){
+                row.add("NaN");
+            }else{
+                row.add(Float.toString(a.viet));
+            }
+            if(a.nghe!=(-1)&&a.noi!=(-1)&&a.doc!=(-1)&&a.viet!=(-1)){
+                row.add(tinhDiem(a.tenTrinhDo, a.nghe, a.noi, a.doc, a.viet));
+            }else{
+                row.add("Chưa có kết quả");
+            }
+            
+            tbModelKQThi.addRow(row);
+        }
     }
     
     private void filter(String query) {
@@ -361,6 +431,7 @@ public class KetQuaForm extends javax.swing.JPanel
         tableCol.add ("Điểm Nói");
         tableCol.add ("Điểm Đọc");
         tableCol.add ("Điểm Viết");
+        tableCol.add ("Kết Quả");
 
         tbModelKQThi = new DefaultTableModel(tableCol, 20){
             @Override
@@ -392,6 +463,7 @@ public class KetQuaForm extends javax.swing.JPanel
         jTableKQThi.getColumn (tableCol.elementAt (8)).setPreferredWidth (110);
         jTableKQThi.getColumn (tableCol.elementAt (9)).setPreferredWidth (110);
         jTableKQThi.getColumn (tableCol.elementAt (10)).setPreferredWidth (110);
+        jTableKQThi.getColumn (tableCol.elementAt (11)).setPreferredWidth (110);
         jTableKQThi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane4.setViewportView(jTableKQThi);
 
@@ -514,13 +586,84 @@ public class KetQuaForm extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSuaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaDiemActionPerformed
+        KetQuaThiDTO ketQua = new KetQuaThiDTO();
+        ketQua.setSoBaoDanh(jTextSBDTS.getText());
+        String nghe = jTextDiemNghe.getText();
+        String noi = jTextDiemNoi.getText();
+        String doc = jTextDiemDoc.getText();
+        String viet = jTextDiemViet.getText();
 
+        
+        String validate = "";
+        String soLuongPattern = "\\f+";
+        if (!jTextDiemNghe.getText().equals("") && !jTextDiemNoi.getText().equals("") && !jTextDiemDoc.getText().equals("") && !jTextDiemViet.getText().equals("")) {
+//            if (!Pattern.matches(soLuongPattern, jTextDiemNghe.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemNoi.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemDoc.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemViet.getText())) {
+//                
+//                System.out.println("Chữ");
+//                validate += "Số lượng phải là số nguyên dương!\n";
+//                if ((Float.parseFloat(nghe) > 0) && (Float.parseFloat(noi) > 0) && (Float.parseFloat(doc) > 0) && (Float.parseFloat(viet) > 0)) {
+//                    ketQua.setNghe(Float.parseFloat(nghe));
+//                    ketQua.setNoi(Float.parseFloat(noi));
+//                    ketQua.setDoc(Float.parseFloat(doc));
+//                    ketQua.setViet(Float.parseFloat(viet));
+//                    if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+//                        tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+//                        tbModelKQThi.setValueAt(noi, selectedRow, 8);
+//                        tbModelKQThi.setValueAt(doc, selectedRow, 9);
+//                        tbModelKQThi.setValueAt(viet, selectedRow, 10);
+//                        tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
+//                    }
+//                }
+//                
+//            }else{
+//                System.out.println("Số");
+//            }
+            try {
+                float fnghe=Float.parseFloat(nghe),fnoi=Float.parseFloat(noi),fdoc=Float.parseFloat(doc),fviet=Float.parseFloat(viet);
+                if ((fnghe >= 0&&fnghe<=10)&&(fnoi >= 0&&fnoi<=10)&&(fdoc >= 0&&fdoc<=10)&&(fviet >= 0&&fviet<=10)) {
+                    ketQua.setNghe(Float.parseFloat(nghe));
+                    ketQua.setNoi(Float.parseFloat(noi));
+                    ketQua.setDoc(Float.parseFloat(doc));
+                    ketQua.setViet(Float.parseFloat(viet));
+                    if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+                        tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+                        tbModelKQThi.setValueAt(noi, selectedRow, 8);
+                        tbModelKQThi.setValueAt(doc, selectedRow, 9);
+                        tbModelKQThi.setValueAt(viet, selectedRow, 10);
+                        tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
+                    }
+                }else{
+                    System.out.println("Vui lòng nhập điểm theo thang điểm 10");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                System.out.println("Vui lòng nhập số");
+            }
+            
+        }else{
+            System.out.println("Không được để trống");
+        }
+        
+        
+        
+        
+        
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
+        jTextSBDTS.setText("");
         jTextTenThiSinh.setText("");
+        jTextSDT.setText("");
+        jTextTrinhDo.setText("");
+        jTextPhongThi.setText("");
+        jTextCaThi.setText("");
         jTextDiemNghe.setText("");
         jTextDiemNoi.setText("");
+        jTextDiemDoc.setText("");
+        jTextDiemViet.setText("");
         jTableKQThi.clearSelection();
     }//GEN-LAST:event_jBtnSuaDiemActionPerformed
 
@@ -530,9 +673,16 @@ public class KetQuaForm extends javax.swing.JPanel
         jBtnSuaDiem.setEnabled(false);
         jBtnHuyDiem.setEnabled(false);
         jTextMaThiSinh.setText("");
+        jTextSBDTS.setText("");
         jTextTenThiSinh.setText("");
+        jTextSDT.setText("");
+        jTextTrinhDo.setText("");
+        jTextPhongThi.setText("");
+        jTextCaThi.setText("");
         jTextDiemNghe.setText("");
         jTextDiemNoi.setText("");
+        jTextDiemDoc.setText("");
+        jTextDiemViet.setText("");
 
         jTableKQThi.clearSelection();
     }//GEN-LAST:event_jBtnHuyDiemActionPerformed
@@ -567,7 +717,48 @@ public class KetQuaForm extends javax.swing.JPanel
     private void jTableKQThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKQThiMouseClicked
     {//GEN-HEADEREND:event_jTableKQThiMouseClicked
         // TODO add your handling code here:
-
+        selectedRow = jTableKQThi.getSelectedRow();
+        String nghe = (String) tbModelKQThi.getValueAt(selectedRow, 7);
+        String noi = (String) tbModelKQThi.getValueAt(selectedRow, 8);
+        String doc = (String) tbModelKQThi.getValueAt(selectedRow, 9);
+        String viet = (String) tbModelKQThi.getValueAt(selectedRow, 10);
+        if(selectedRow != -1){
+            jBtnSuaDiem.setEnabled(true);
+            jTextMaThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 0));
+            jTextSBDTS.setText((String) tbModelKQThi.getValueAt(selectedRow, 1));
+            jTextTenThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 2));
+            jTextSDT.setText((String) tbModelKQThi.getValueAt(selectedRow, 3));
+            jTextTrinhDo.setText((String) tbModelKQThi.getValueAt(selectedRow, 4));
+            jTextPhongThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 5));
+            jTextCaThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 6));
+            if(nghe.equals("NaN")){
+                jTextDiemNghe.setText("");
+            }else{
+                jTextDiemNghe.setText((String) tbModelKQThi.getValueAt(selectedRow, 7));
+            }
+            
+            if(noi.equals("NaN")){
+                jTextDiemNoi.setText("");
+            }else{
+                jTextDiemNoi.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+            }
+            
+            if(doc.equals("NaN")){
+                jTextDiemDoc.setText("");
+            }else{
+                jTextDiemDoc.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+            }
+            
+            if(viet.equals("NaN")){
+                jTextDiemViet.setText("");
+            }else{
+                jTextDiemViet.setText((String) tbModelKQThi.getValueAt(selectedRow, 10));
+            }
+            
+            
+            
+        }
+        
     }//GEN-LAST:event_jTableKQThiMouseClicked
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed

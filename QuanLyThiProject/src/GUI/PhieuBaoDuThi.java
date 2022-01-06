@@ -6,6 +6,11 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import BUS.CaThiBUS;
+import BUS.PhieuBaoDuThiBUS;
+import BUS.PhongThiBUS;
+import BUS.TrinhDoBUS;
+import DTO.PhieuBaoDuThiDTO;
 import DTO.ThiSinhDTO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +44,10 @@ public class PhieuBaoDuThi extends javax.swing.JFrame
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
     ThiSinhForm thiSinhForm;
+    PhieuBaoDuThiBUS phieuBaoDuThiBUS = new PhieuBaoDuThiBUS();
+    TrinhDoBUS trinhDoBUS = new TrinhDoBUS();
+    CaThiBUS caThiBUS = new CaThiBUS();
+    PhongThiBUS phongThiBUS = new PhongThiBUS();
 
     public PhieuBaoDuThi()
     {
@@ -50,6 +59,7 @@ public class PhieuBaoDuThi extends javax.swing.JFrame
     }
     
     public void fillTheForm(ThiSinhDTO thiSinh,String khoaThi,String trinhDo){
+        PhieuBaoDuThiDTO phieuBaoDuThiDTO = phieuBaoDuThiBUS.findPhieuBaoDuThiByMaThiSinh(thiSinh.getMaThiSinh());
         jTextMaTS.setText(thiSinh.getMaThiSinh());
         jTextTenTS.setText(thiSinh.getHoTen());
         jTextSDTTS.setText(thiSinh.getSdt());
@@ -59,12 +69,15 @@ public class PhieuBaoDuThi extends javax.swing.JFrame
         jTextEmailTS.setText(thiSinh.getMail());
         jTextKhoaThiTS.setText(khoaThi);
         
-        jTextSBDTS.setText("");
-        jTextMaPhongTS.setText("");
-        jTextMaCaTS.setText("");
-        jTextNgayThiTS.setText("");
+        if(phieuBaoDuThiDTO.getSoBaoDanh()!=null){
+            jTextSBDTS.setText(phieuBaoDuThiDTO.getSoBaoDanh());
+            jTextMaPhongTS.setText(phongThiBUS.findPhongThiByMaPhongThi(phieuBaoDuThiDTO.getMaPhongThi(), DashBoard.phongThiDTOs).getTenPhongThi());
+            jTextMaCaTS.setText(phieuBaoDuThiDTO.getMaCaThi());
+            jTextNgayThiTS.setText(phieuBaoDuThiDTO.getMaThiSinh());
+
+            jTextTrinhDo.setText(trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
+        }
         
-        jTextTrinhDo.setText(trinhDo);
     }
 
     /**

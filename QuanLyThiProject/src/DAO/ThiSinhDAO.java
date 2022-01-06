@@ -142,7 +142,6 @@ public class ThiSinhDAO {
                 + " DiaChi='" + thiSinhDTO.getDiaChi()+ "',"
                 + " MaKhoaThi='" + thiSinhDTO.getMaKhoaThi()+ "',"
                 + " MaTrinhDo='" + thiSinhDTO.getMaTrinhDo()+ "',"
-                + " Status='" + thiSinhDTO.getTinhTrang()+ "'"
                 + " WHERE MaThiSinh='" + thiSinhDTO.getMaThiSinh()+ "';";
         if (conn.executeUpdate(sql)) {
             conn.close();
@@ -185,6 +184,46 @@ public class ThiSinhDAO {
         conn.close();
         System.out.println("ThiSinhDAO delete fail.");
         return false;
+    }
+    
+    public ArrayList<ThiSinhDTO> getByMaTrinhDo(String maTrinhDo,String maKhoaThi){
+        ArrayList<ThiSinhDTO> thiSinhDTOs = new ArrayList<ThiSinhDTO>();
+        conn = new Connect();
+        conn.getConnection();
+        //int count = 0;
+        String query = "select * from ThiSinh where Status<>0 and MaTrinhDo ='"+maTrinhDo+"' and MaKhoaThi='"+maKhoaThi+"'";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+//                count++;
+//                System.out.println(count);
+                ThiSinhDTO cp = new ThiSinhDTO();
+                cp.setMaThiSinh(conn.rs.getString(1));
+                cp.setHoTen(conn.rs.getString(2));
+                cp.setGioiTinh(conn.rs.getString(3));
+                cp.setNgaySinh(conn.rs.getString(4));
+                cp.setCmnd(conn.rs.getString(5));
+                cp.setNgayCap(conn.rs.getString(6));
+                cp.setNoiCap(conn.rs.getString(7));
+                cp.setSdt(conn.rs.getString(8));
+                cp.setMail(conn.rs.getString(9));
+                cp.setDiaChi(conn.rs.getString(10));
+                cp.setMaKhoaThi(conn.rs.getString(11));
+                cp.setMaTrinhDo(conn.rs.getString(12));
+                cp.setTinhTrang(conn.rs.getInt(13));
+                //System.out.println(cp);
+                thiSinhDTOs.add(cp);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.findByMaTrinhDo.executeQuery error.");
+        }
+        try{
+            conn.getConn().close();
+        }catch (SQLException e){
+            System.out.println("ThiSinhDAO.findByMaTrinhDo.close error.");
+        }
+        return thiSinhDTOs;
     }
 
     public ArrayList<DataThiSinh> timKiemThiSinh(String hoTen, String sdt){

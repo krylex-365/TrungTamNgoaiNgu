@@ -25,6 +25,38 @@ public class ThiSinhBUS {
     public ArrayList<ThiSinhThongKe> getThongke(String matrinhdo){
         return thiSinhDAO.getListThongKe(matrinhdo);
     }
+    public ArrayList<ThiSinhDTO> getByMaTrinhDo(String matrinhdo,String maKhoaThi){
+        return thiSinhDAO.getByMaTrinhDo(matrinhdo,maKhoaThi);
+    }
+    
+    public String getHoTenByMaThiSinh(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                return a.getHoTen();
+            }
+        }
+        return null;
+    }
+    
+    public int getStatusByMaThiSinh(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                return a.getTinhTrang();
+            }
+        }
+        return 0;
+    }
+    
+    public boolean allowToUpdate(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                if(a.getTinhTrang()==3||a.getTinhTrang()==4){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.insertThiSinh(thiSinh)){
@@ -64,11 +96,15 @@ public class ThiSinhBUS {
     
     public boolean Delete(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs,ArrayList<PhieuBaoDuThiDTO> phieuBaoDuThiDTOs){
         for(PhieuBaoDuThiDTO pbdt: phieuBaoDuThiDTOs){
+            System.out.println("PBDT: "+pbdt.getMaThiSinh());
+            System.out.println("ThiSinh: "+ maThiSinh);
             if(pbdt.getMaThiSinh().equals(maThiSinh)){
                 if(utl.stringToDate(pbdt.getNgayThi()).before(utl.getDateWithoutTimeUsingFormat())){
+//                    System.out.println("NgayThi:  "+pbdt.getNgayThi());
+//                    System.out.println("NgayHienTai:  "+utl.getDateWithoutTimeUsingFormat());
+//                    System.out.println("Thi roi khong xoa dc");
                     return false;
                 }
-                break;
             }
         }
         if(thiSinhDAO.deleteThiSinh(maThiSinh)){
@@ -86,12 +122,24 @@ public class ThiSinhBUS {
         return null;
     }
     
-    public boolean UpdataStatus(String maThiSinh,int status){
-        if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
-            return true;
+    public boolean UpdateStatusAfterModified(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
+            if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                return true;
+            }
+                return false;
+    }
+    
+    public boolean UpdataStatus(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        if(allowToUpdate(maThiSinh,thiSinhDTOs)){
+            if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            return false;
+            System.out.println("Khong duoc sua status");
         }
+        return false;
     }
     
     
