@@ -397,6 +397,7 @@ public class BangThiSinh extends javax.swing.JFrame {
                             row.add(thiSinh.getMaThiSinh());
                             row.add(thiSinh.getHoTen());
                             row.add(pbdt.getSoBaoDanh());
+                            row.add("Chưa thi");
                             phongThiForm.tbModelPTTS.addRow(row);
                         }    
                     }

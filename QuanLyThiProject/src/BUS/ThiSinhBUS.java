@@ -122,12 +122,24 @@ public class ThiSinhBUS {
         return null;
     }
     
+    public boolean UpdateStatusAfterModified(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
+            if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                return true;
+            }
+                return false;
+    }
+    
     public boolean UpdataStatus(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
-        if(allowToUpdate(maThiSinh,thiSinhDTOs)&&thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
-            return true;
+        if(allowToUpdate(maThiSinh,thiSinhDTOs)){
+            if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            return false;
+            System.out.println("Khong duoc sua status");
         }
+        return false;
     }
     
     

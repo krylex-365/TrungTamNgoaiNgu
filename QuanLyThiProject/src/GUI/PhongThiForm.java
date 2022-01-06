@@ -1269,9 +1269,17 @@ public class PhongThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXoaTSPTActionPerformed
         // TODO add your handling code here:
         String SBD = (String) tbModelPTTS.getValueAt(rowThiSinh, 2);
+        String maThiSinh = (String) tbModelPTTS.getValueAt(rowThiSinh, 0);
+        System.out.println("mathisinh:  "+maThiSinh);
         if(!phieuBaoDuThiBUS.CheckThiChua(SBD)&&phieuBaoDuThiBUS.Delete(SBD, DashBoard.phieuBaoDuThiDTOs)&&ketQuaBUS.Delete(SBD,DashBoard.ketQuaThiDTOs)){     
-            thiSinhBUS.UpdataStatus(jTextMaTSPT.getText(), 2,DashBoard.thiSinhDTOs);
+            if(thiSinhBUS.UpdateStatusAfterModified(maThiSinh, 2,DashBoard.thiSinhDTOs)){
+                System.out.println("Loi update status");
+                System.out.println("How can this error");
+            }
             tbModelPTTS.removeRow(rowThiSinh);   
+        }
+        for(ThiSinhDTO a : DashBoard.thiSinhDTOs){
+            System.out.println(a);
         }
         clearPhongThiTS(); 
     }//GEN-LAST:event_jBtnXoaTSPTActionPerformed
@@ -1349,7 +1357,7 @@ public class PhongThiForm extends javax.swing.JPanel {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if(phieuBaoDuThiBUS.CheckThiChua((String) jTablePTTS.getModel().getValueAt(i, 2))&&ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs))
-                    thiSinhBUS.UpdataStatus((String) jTablePTTS.getModel().getValueAt(i, 0), 3,DashBoard.thiSinhDTOs);
+                    thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 3,DashBoard.thiSinhDTOs);
                 }
             }
             //System.out.println("List dc chon!!" + a);
@@ -1367,7 +1375,7 @@ public class PhongThiForm extends javax.swing.JPanel {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs,phieuBaoDuThiBUS.getNgayThiBySBD((String)jTablePTTS.getModel().getValueAt(i, 2)))) {
-                        thiSinhBUS.UpdataStatus((String) jTablePTTS.getModel().getValueAt(i, 0), 4,DashBoard.thiSinhDTOs);
+                        thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 4,DashBoard.thiSinhDTOs);
                     }   
                 }
             }
