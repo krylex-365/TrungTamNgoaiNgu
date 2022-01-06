@@ -819,18 +819,21 @@ public class ThiSinhForm extends javax.swing.JPanel {
         {
             
             if (thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)) {
-                JOptionPane.showMessageDialog(this, "Thêm Thông tin thành Công!!");
+                JOptionPane.showMessageDialog(this, "Thêm thí sinh thành công!");
+                initTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thí sinh thất bại!");
+                clear();
             }
-
-            clear();
-
         } else // Ch?c nang cho Sửa
         {
             if(thiSinhBUS.Update(thiSinh, DashBoard.thiSinhDTOs)){
-                JOptionPane.showMessageDialog(this, "Sửa Thông tin thành Công!!");
+                JOptionPane.showMessageDialog(this, "Sửa thí sinh thành công!");
+                initTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thí sinh thất bại!");
+                clear();
             }
-            
-            clear();
         }
 
     }//GEN-LAST:event_jBtnTuyBienActionPerformed
@@ -1016,8 +1019,11 @@ public class ThiSinhForm extends javax.swing.JPanel {
         String maThiSinh =(String) modelthisinh.getValueAt(selectedRow, 1);
         if(thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs)){
             modelthisinh.removeRow(selectedRow);
+            JOptionPane.showMessageDialog(this, "Xóa thí sinh thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thí sinh thất bại!");
         }
-        
+        clear();
     }//GEN-LAST:event_jBtnXoaTS1ActionPerformed
 
     private void filter(String query) {
