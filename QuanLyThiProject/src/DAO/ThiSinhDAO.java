@@ -142,7 +142,6 @@ public class ThiSinhDAO {
                 + " DiaChi='" + thiSinhDTO.getDiaChi()+ "',"
                 + " MaKhoaThi='" + thiSinhDTO.getMaKhoaThi()+ "',"
                 + " MaTrinhDo='" + thiSinhDTO.getMaTrinhDo()+ "',"
-                + " Status='" + thiSinhDTO.getTinhTrang()+ "'"
                 + " WHERE MaThiSinh='" + thiSinhDTO.getMaThiSinh()+ "';";
         if (conn.executeUpdate(sql)) {
             conn.close();
