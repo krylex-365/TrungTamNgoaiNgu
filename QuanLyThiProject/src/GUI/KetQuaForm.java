@@ -596,60 +596,57 @@ public class KetQuaForm extends javax.swing.JPanel
         
         String validate = "";
         String soLuongPattern = "\\f+";
-        if (!Pattern.matches(soLuongPattern, jTextDiemNghe.getText())
-                && !Pattern.matches(soLuongPattern, jTextDiemNoi.getText())
-                && !Pattern.matches(soLuongPattern, jTextDiemDoc.getText())
-                && !Pattern.matches(soLuongPattern, jTextDiemViet.getText())) {
-            validate += "Số lượng phải là số nguyên dương!\n";
-            if ((Float.parseFloat(nghe) > 0) && (Float.parseFloat(noi) > 0) && (Float.parseFloat(doc) > 0) && (Float.parseFloat(viet) > 0)) {
-                ketQua.setNghe(Float.parseFloat(nghe));
-                ketQua.setNoi(Float.parseFloat(noi));
-                ketQua.setDoc(Float.parseFloat(doc));
-                ketQua.setViet(Float.parseFloat(viet));
-                if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
-                    tbModelKQThi.setValueAt(nghe, selectedRow, 7);
-                    tbModelKQThi.setValueAt(noi, selectedRow, 8);
-                    tbModelKQThi.setValueAt(doc, selectedRow, 9);
-                    tbModelKQThi.setValueAt(viet, selectedRow, 10);
-                    tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()),ketQua.getNghe(),ketQua.getNoi(),ketQua.getDoc(),ketQua.getViet()), selectedRow, 11);
+        if (!jTextDiemNghe.getText().equals("") && !jTextDiemNoi.getText().equals("") && !jTextDiemDoc.getText().equals("") && !jTextDiemViet.getText().equals("")) {
+//            if (!Pattern.matches(soLuongPattern, jTextDiemNghe.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemNoi.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemDoc.getText())
+//                    || !Pattern.matches(soLuongPattern, jTextDiemViet.getText())) {
+//                
+//                System.out.println("Chữ");
+//                validate += "Số lượng phải là số nguyên dương!\n";
+//                if ((Float.parseFloat(nghe) > 0) && (Float.parseFloat(noi) > 0) && (Float.parseFloat(doc) > 0) && (Float.parseFloat(viet) > 0)) {
+//                    ketQua.setNghe(Float.parseFloat(nghe));
+//                    ketQua.setNoi(Float.parseFloat(noi));
+//                    ketQua.setDoc(Float.parseFloat(doc));
+//                    ketQua.setViet(Float.parseFloat(viet));
+//                    if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+//                        tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+//                        tbModelKQThi.setValueAt(noi, selectedRow, 8);
+//                        tbModelKQThi.setValueAt(doc, selectedRow, 9);
+//                        tbModelKQThi.setValueAt(viet, selectedRow, 10);
+//                        tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
+//                    }
+//                }
+//                
+//            }else{
+//                System.out.println("Số");
+//            }
+            try {
+                float fnghe=Float.parseFloat(nghe),fnoi=Float.parseFloat(noi),fdoc=Float.parseFloat(doc),fviet=Float.parseFloat(viet);
+                if ((fnghe >= 0&&fnghe<=10)&&(fnoi >= 0&&fnoi<=10)&&(fdoc >= 0&&fdoc<=10)&&(fviet >= 0&&fviet<=10)) {
+                    ketQua.setNghe(Float.parseFloat(nghe));
+                    ketQua.setNoi(Float.parseFloat(noi));
+                    ketQua.setDoc(Float.parseFloat(doc));
+                    ketQua.setViet(Float.parseFloat(viet));
+                    if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
+                        tbModelKQThi.setValueAt(nghe, selectedRow, 7);
+                        tbModelKQThi.setValueAt(noi, selectedRow, 8);
+                        tbModelKQThi.setValueAt(doc, selectedRow, 9);
+                        tbModelKQThi.setValueAt(viet, selectedRow, 10);
+                        tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
+                    }
+                }else{
+                    System.out.println("Vui lòng nhập điểm theo thang điểm 10");
                 }
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                System.out.println("Vui lòng nhập số");
             }
-            System.out.println("Vo day");
-        } else {
-            if (nghe.equals("")) {
-                ketQua.setNghe(-1);
-                nghe = "NaN";
-            } else {
-                ketQua.setNghe(Float.parseFloat(jTextDiemNghe.getText()));
-            }
-
-            if (noi.equals("")) {
-                ketQua.setNoi(-1);
-                noi = "NaN";
-            } else {
-                ketQua.setNoi(Float.parseFloat(jTextDiemNoi.getText()));
-            }
-
-            if (doc.equals("")) {
-                ketQua.setDoc(-1);
-                doc = "NaN";
-            } else {
-                ketQua.setDoc(Float.parseFloat(jTextDiemDoc.getText()));
-            }
-
-            if (viet.equals("")) {
-                ketQua.setViet(-1);
-                viet = "NaN";
-            } else {
-                ketQua.setViet(Float.parseFloat(jTextDiemViet.getText()));
-            }
-            if (ketQuaThiBUS.Update(ketQua, DashBoard.ketQuaThiDTOs)) {
-                tbModelKQThi.setValueAt(nghe, selectedRow, 7);
-                tbModelKQThi.setValueAt(noi, selectedRow, 8);
-                tbModelKQThi.setValueAt(doc, selectedRow, 9);
-                tbModelKQThi.setValueAt(viet, selectedRow, 10);
-            }
+            
+        }else{
+            System.out.println("Không được để trống");
         }
+        
         
         
         

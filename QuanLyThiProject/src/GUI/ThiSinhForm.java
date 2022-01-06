@@ -1158,17 +1158,16 @@ public class ThiSinhForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
+            //ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
-                    jTableTS.getModel().setValueAt("Chưa đóng tiền",i,12);
-                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
+                    if(thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1),2,DashBoard.thiSinhDTOs)){
+                        jTableTS.getModel().setValueAt("Chưa đóng tiền",i,12);
+                    }else{
+                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2)+"Dang da duoc them vao phong thi");
+                    }
                 }
             }
-            for(String str: a){
-                thiSinhBUS.UpdataStatus(str,1);
-            }
-            System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemChuaDongActionPerformed
 
@@ -1178,17 +1177,17 @@ public class ThiSinhForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
-            ArrayList<String> a = new ArrayList<>();
+           // ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
-                    jTableTS.getModel().setValueAt("Đã đóng tiền",i,12);
-                    a.add((String) jTableTS.getModel().getValueAt(i, 1));
+                    if(thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1),2,DashBoard.thiSinhDTOs)){
+                        jTableTS.getModel().setValueAt("Đã đóng tiền",i,12);
+                    }else{
+                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2)+"Dang da duoc them vao phong thi khong duoc thay doi trang thai");
+                    }
                 }
             }
-            for(String str: a){
-                thiSinhBUS.UpdataStatus(str,2);
-            }
-            System.out.println("List dc chon!!" + a);
+
         }
     }//GEN-LAST:event_jMenuItemDaDongActionPerformed
 

@@ -43,6 +43,39 @@ public class PhieuBaoDuThiDAO {
         return phieuBaoDuThiDTOs;
     }
     
+    public int countThiSinhPhongThi(String maPhongThi,String maCaThi){
+        int count = 0;
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select COUNT(*) from PhieuBaoDuThi where MaPhongThi='"+maPhongThi+"' and MaCaThi='"+maCaThi+"'";
+        //String temp = "select COUNT(*) as soluong from PhieuBaoDuThi where MaPhongThi='PG000001' and MaCaThi='CA000001'";
+        try {
+            conn.executeQuery(query);
+            conn.rs.next();
+            count = conn.rs.getInt(1);
+//            while (conn.rs.next()) {
+//                PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO();
+//                pbdt.setSoBaoDanh(conn.rs.getString(1));
+//                pbdt.setMaThiSinh(conn.rs.getString(2));
+//                pbdt.setMaPhongThi(conn.rs.getString(3));
+//                pbdt.setMaCaThi(conn.rs.getString(4));
+//                pbdt.setNgayThi(conn.rs.getString(5));
+//                phieuBaoDuThiDTOs.add(pbdt);
+//            }
+            conn.getConn().close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("ThiSinhDAO.getList.executeQuery error.");
+        }
+        System.out.println(count);
+        return count;
+    }
+//    
+//    public static void main(String[] args) {
+//        PhieuBaoDuThiDAO pbdt = new PhieuBaoDuThiDAO();
+//        System.out.println(pbdt.countThiSinhPhongThi("PG000001","CA000001"));
+//    }
+    
     public boolean insertPhieuBaoDuThi(PhieuBaoDuThiDTO phieuBaoDuThiDTO) {
         conn = new Connect();
         conn.getConnection();

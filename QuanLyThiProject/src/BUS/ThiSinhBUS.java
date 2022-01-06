@@ -37,6 +37,26 @@ public class ThiSinhBUS {
         }
         return null;
     }
+    
+    public int getStatusByMaThiSinh(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                return a.getTinhTrang();
+            }
+        }
+        return 0;
+    }
+    
+    public boolean allowToUpdate(String maThiSinh,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        for(ThiSinhDTO a : thiSinhDTOs){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                if(a.getTinhTrang()==3||a.getTinhTrang()==4){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public boolean Add(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.insertThiSinh(thiSinh)){
@@ -102,8 +122,8 @@ public class ThiSinhBUS {
         return null;
     }
     
-    public boolean UpdataStatus(String maThiSinh,int status){
-        if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+    public boolean UpdataStatus(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
+        if(allowToUpdate(maThiSinh,thiSinhDTOs)&&thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
             return true;
         }else{
             return false;

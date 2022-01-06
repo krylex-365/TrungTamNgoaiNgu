@@ -392,7 +392,7 @@ public class BangThiSinh extends javax.swing.JFrame {
                     ThiSinhDTO thiSinh = phongThiForm.thiSinhBUS.findByMaThiSinh((String) jTableThiSinh.getModel().getValueAt(i, 1));
                     PhieuBaoDuThiDTO pbdt;
                     if((pbdt = phongThiForm.phieuBaoDuThiBUS.Add(phongThiForm.phongThi, thiSinh, phongThiForm.caThi.getMaCaThi(), DashBoard.phieuBaoDuThiDTOs, DashBoard.trinhDoDTOs, DashBoard.khoaThiDTOs))!= null){
-                        if(phongThiForm.thiSinhBUS.UpdataStatus(thiSinh.getMaThiSinh(), 3)){
+                        if(phongThiForm.thiSinhBUS.UpdataStatus(thiSinh.getMaThiSinh(), 3,DashBoard.thiSinhDTOs)){
                             Vector row = new Vector();
                             row.add(thiSinh.getMaThiSinh());
                             row.add(thiSinh.getHoTen());

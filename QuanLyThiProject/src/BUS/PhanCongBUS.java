@@ -39,6 +39,16 @@ public class PhanCongBUS {
         return list;
     }
     
+    public boolean checkNhiemVu(String maPhongThi,String maCaThi,String nhiemVu,ArrayList<PhanCongDTO> phanCongDTOs){
+        for(PhanCongDTO a : phanCongDTOs){
+            if(a.getMaPhongThi().equals(maPhongThi)&&a.getMaCaThi().equals(maCaThi)){
+                if(a.getNhiemVu().equals(nhiemVu)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public ArrayList<GiaoVienDTO> getGiaoViensBy(String maPhongThi,String maCaThi,ArrayList<PhanCongDTO> phanCongDTOs,ArrayList<GiaoVienDTO> giaoVienDTOs){
         ArrayList<GiaoVienDTO> list = new ArrayList<>();
@@ -59,16 +69,21 @@ public class PhanCongBUS {
         return true;
     }
     
-    public boolean Add(PhanCongDTO phanCongDTO,ArrayList<PhanCongDTO> phanCongDTOs){
+    public boolean checkFull(String maPhongThi,String maCaThi,ArrayList<PhanCongDTO> phanCongDTOs){
         int count = 0;
         for(PhanCongDTO a : phanCongDTOs){
-            if(phanCongDTO.getMaPhongThi().equals(a.getMaPhongThi())&&phanCongDTO.getMaCaThi().equals(a.getMaCaThi())){
+            if(maPhongThi.equals(a.getMaPhongThi())&&maCaThi.equals(a.getMaCaThi())){
                 count++;
                 if(count>=2){
                     return false;
                 }
             }
         }
+        return true;
+    }
+    
+    public boolean Add(PhanCongDTO phanCongDTO,ArrayList<PhanCongDTO> phanCongDTOs){
+        
         if(phanCongDAO.insertPhieuBaoDuThi(phanCongDTO)){
             phanCongDTOs.add(phanCongDTO);
             return true;

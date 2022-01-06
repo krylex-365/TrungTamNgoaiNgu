@@ -86,7 +86,7 @@ public class PhieuBaoDuThiBUS {
         int num = trinhDoDTO.getSoLuongTS()+1;
         PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO(trinhDoDTO.getMaTrinhDo()+num, thiSinhDTO.getMaThiSinh(), phongThiDTO.getMaPhongThi(), maCaThi, khoaThiBUS.findKhoaThi(thiSinhDTO.getMaKhoaThi()).getNgayThi());
         System.out.println(trinhDoDTO.getMaTrinhDo()+"-"+num);
-        if (phieuBaoDuThiDAO.insertPhieuBaoDuThi(pbdt)) {
+        if (phieuBaoDuThiDAO.countThiSinhPhongThi(phongThiDTO.getMaPhongThi(), maCaThi)<=phongThiDTO.getSoLuong()&&phieuBaoDuThiDAO.insertPhieuBaoDuThi(pbdt)) {
             
             if (trinhDoBUS.capNhatSLTS(thiSinhDTO.getMaTrinhDo(), num, trinhDoDTOs)) {
                 phieuBaoDuThiDTOs.add(pbdt);
