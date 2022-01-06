@@ -48,6 +48,15 @@ public class PhieuBaoDuThiBUS {
         }
         return null;
     }
+    
+    public PhieuBaoDuThiDTO findPhieuBaoDuThiByMaThiSinh(String maThiSinh){
+        for(PhieuBaoDuThiDTO a: phieuBaoDuThiDAO.getList()){
+            if(a.getMaThiSinh().equals(maThiSinh)){
+                return a;
+            }
+        }
+        return new PhieuBaoDuThiDTO();
+    }
 
     public boolean CheckThiChua(String SBD) {
         if (getNgayThiBySBD(SBD).before(utl.getDateWithoutTimeUsingFormat())) {

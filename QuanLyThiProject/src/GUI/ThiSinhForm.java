@@ -144,13 +144,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jTextCMND.setText(thiSinh.getCmnd());
         jDateNgayCap.setDate(utl.stringToDate(thiSinh.getNgayCap()));
         jTextNoiCap.setText(thiSinh.getNoiCap());
-        for(int i = 0; i < jCbTinhTrang.getItemCount();i++){
-            TinhTrang tt = (TinhTrang) jCbTinhTrang.getItemAt(i);
-            if(tt.num == thiSinh.getTinhTrang()){
-                 jCbTinhTrang.setSelectedIndex(i);
-                 break;
-            }
-        }
+        
         
     }
     
@@ -176,8 +170,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
         initComponents();
 
-        jCbTinhTrang.addItem(new TinhTrang("Đã đóng tiền", 2));
-        jCbTinhTrang.addItem(new TinhTrang("Chưa đóng tiền", 1));
 
         jBtnCapPhatMaTS.setEnabled(true);
         jBtnTuyBien.setEnabled(false);
@@ -347,8 +339,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jTextEmail = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jTextCMND = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jCbTinhTrang = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jCbKhoaThi = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
@@ -627,15 +617,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel19.setText("<html> <body>CMND<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel12.setText("<html> <body> Tình Trạng<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-
-        jCbTinhTrang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCbTinhTrangActionPerformed(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("<html> <body> Mã Khóa Thi<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
 
@@ -713,10 +694,13 @@ public class ThiSinhForm extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jBtnHuy)
-                        .addGap(54, 275, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(288, 288, 288))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -727,22 +711,16 @@ public class ThiSinhForm extends javax.swing.JPanel {
                                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCbTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jDateNgayCap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jTextNoiCap, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(2, 2, 2))
-                                            .addComponent(jTextCMND, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                                        .addComponent(jDateNgayCap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jTextNoiCap, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(2, 2, 2))
+                                        .addComponent(jTextCMND, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addContainerGap()))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,10 +778,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextNoiCap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCbTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(48, 48, 48)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -945,8 +920,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
         thiSinh.setCmnd(jTextCMND.getText());
         thiSinh.setNgayCap(ngayCap);
         thiSinh.setNoiCap(jTextNoiCap.getText());
-        TinhTrang tinhTrang = (TinhTrang) jCbTinhTrang.getSelectedItem();
-        thiSinh.setTinhTrang(tinhTrang.num);
         KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
         thiSinh.setMaKhoaThi(khoaThiTemp.getMaKhoaThi());
         
@@ -1029,11 +1002,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableThongkeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableThongkeMouseClicked
-
-    private void jCbTinhTrangActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbTinhTrangActionPerformed
-    {//GEN-HEADEREND:event_jCbTinhTrangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCbTinhTrangActionPerformed
 
     private void jCbKhoaThiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbKhoaThiActionPerformed
     {//GEN-HEADEREND:event_jCbKhoaThiActionPerformed
@@ -1316,14 +1284,12 @@ public class ThiSinhForm extends javax.swing.JPanel {
     private javax.swing.JButton jButtonTimKiem;
     private javax.swing.JComboBox<String> jCbGioiTinh;
     private javax.swing.JComboBox<KhoaThiDTO> jCbKhoaThi;
-    private javax.swing.JComboBox<TinhTrang> jCbTinhTrang;
     private javax.swing.JComboBox<TrinhDoDTO> jCbTrinhDo;
     private com.toedter.calendar.JDateChooser jDateNgayBDTK;
     private com.toedter.calendar.JDateChooser jDateNgayCap;
     private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private com.toedter.calendar.JDateChooser jDateNgaySinh;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
