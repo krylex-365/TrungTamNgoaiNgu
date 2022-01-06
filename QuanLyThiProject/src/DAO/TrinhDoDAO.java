@@ -64,8 +64,10 @@ public class TrinhDoDAO {
     public boolean sua(String maTrinhDo, String tenTrinhDo, String lePhi) {
         conn = new Connect();
         conn.getConnection();
-        String query = "update TrinhDo set TenTrinhDo = N'" + tenTrinhDo + "', " +
-                "LePhi = '" + lePhi + "' where MaTrinhDo = '" + maTrinhDo + "'";
+        String query = "update TrinhDo set "
+//                + "TenTrinhDo = N'" + tenTrinhDo + "', " 
+                + "LePhi = '" + lePhi 
+                + "' where MaTrinhDo = '" + maTrinhDo + "'";
         if(conn.executeUpdate(query)){
             try {
                 conn.getConn().close();

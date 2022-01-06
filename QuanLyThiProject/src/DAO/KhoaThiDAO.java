@@ -88,13 +88,15 @@ public class KhoaThiDAO {
         return false;
     }
 
-    public boolean updateKhoaThi(KhoaThiDTO khoaThiDTO) {
+    public boolean updateKhoaThi(KhoaThiDTO khoaThiDTO, boolean check) {
         conn = new Connect();
         conn.getConnection();
         String sql = "UPDATE KhoaThi SET"
-                + " TenKhoaThi=N'" + khoaThiDTO.getTenKhoaThi()+ "',"
-                + " NgayThi='" + khoaThiDTO.getNgayThi()+ "'"
-                + " WHERE MaKhoaThi='" + khoaThiDTO.getMaKhoaThi()+ "';";
+                + " TenKhoaThi=N'" + khoaThiDTO.getTenKhoaThi()+ "'";
+        if (check) {
+            sql += ", NgayThi='" + khoaThiDTO.getNgayThi()+ "'";
+        }
+        sql += " WHERE MaKhoaThi='" + khoaThiDTO.getMaKhoaThi()+ "';";
         if (conn.executeUpdate(sql)) {
             conn.close();
             System.out.println("KhoaThiDAO update success.");

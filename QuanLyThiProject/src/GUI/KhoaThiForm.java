@@ -42,6 +42,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
     DefaultTableModel tbModelKhoaThi, tbModelTKKT;
     private int rowKhoaThi;
     private KhoaThiDTO khoaThiSelected = new KhoaThiDTO();
+    private boolean checkUpdateNgayThi = false; 
     KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
 
     /**
@@ -92,19 +93,20 @@ public class KhoaThiForm extends javax.swing.JPanel {
     public void xoaVector(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
-    
+
     public void clear() {
         jBtnCapPhatMaKT.setEnabled(true);
         jBtnThemKT.setEnabled(false);
         jBtnSuaKT.setEnabled(false);
         jBtnXoaKT.setEnabled(false);
         jBtnHuy.setEnabled(false);
+        jDateNgayThi.setEnabled(true);
         jTextMaKT.setText("");
         jTextTenKT.setText("");
         jDateNgayThi.setCalendar(null);
         jTableKhoaThi.clearSelection();
     }
-    
+
     private void filter(String query) {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKhoaThi);
         jTableKhoaThi.setRowSorter(tr);
@@ -223,7 +225,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
             }
         });
 
-        jDateNgayThi.setBackground(new java.awt.Color(214, 217, 223));
+        jDateNgayThi.setBackground(new java.awt.Color(255, 255, 255));
         jDateNgayThi.setDateFormatString("yyyy-MM-dd");
         JTextFieldDateEditor editor = (JTextFieldDateEditor) jDateNgayThi.getDateEditor();
         editor.setEditable(false);
@@ -487,13 +489,24 @@ public class KhoaThiForm extends javax.swing.JPanel {
         clear();
     }//GEN-LAST:event_jBtnThemKTActionPerformed
 
+    public String checkBeforeUpdate() {
+        String noti = "";
+        try {
+            String ngayThi = khoaThiSelected.getNgayThi();
+            Date dateThi = new SimpleDateFormat("yyyy-MM-dd").parse(ngayThi);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+            System.out.println("- Load sai ngày thi!");
+        }
+        return noti;
+    }
 
     private void jBtnSuaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaKTActionPerformed
         // TODO add your handling code here:
         String tenKhoaThi = (String) jTextTenKT.getText(),
                 ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
         KhoaThiDTO khoaThiDTO = new KhoaThiDTO(khoaThiSelected.getMaKhoaThi(), tenKhoaThi, ngayThi);
-        if (khoaThiBUS.sua(khoaThiDTO, DashBoard.khoaThiDTOs)) {
+        if (khoaThiBUS.sua(khoaThiDTO, DashBoard.khoaThiDTOs, checkUpdateNgayThi)) {
             suaVector(tbModelKhoaThi, rowKhoaThi, khoaThiDTO);
             JOptionPane.showMessageDialog(this, "Sửa khóa thi thành công!");
         } else {
@@ -519,7 +532,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
         }
         return noti;
     }
-    
+
     private void jBtnXoaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaKTActionPerformed
         // TODO add your handling code here:
         String check = checkBeforeDel(khoaThiSelected.getMaKhoaThi());
@@ -546,7 +559,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
-        
+        clear();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
@@ -574,6 +587,15 @@ public class KhoaThiForm extends javax.swing.JPanel {
                 khoaThiSelected.setNgayThi(ngayThi);
                 Date dateThi = new SimpleDateFormat("yyyy-MM-dd").parse(ngayThi);
                 jDateNgayThi.setDate(dateThi);
+                long millis = System.currentTimeMillis();
+                Date date = new java.sql.Date(millis);
+                if (dateThi.before(date)) {
+                    jDateNgayThi.setEnabled(false);
+                    checkUpdateNgayThi = false;
+                } else {
+                    jDateNgayThi.setEnabled(true);
+                    checkUpdateNgayThi = true;
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e);
                 System.out.println("- Load sai ngày thi!");

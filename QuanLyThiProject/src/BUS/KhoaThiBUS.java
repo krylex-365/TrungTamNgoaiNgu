@@ -94,8 +94,8 @@ public class KhoaThiBUS {
         return false;
     }
 
-    public boolean sua(KhoaThiDTO khoaThiDTO, ArrayList<KhoaThiDTO> khoaThiDTOs) {
-        if (khoaThiDAO.updateKhoaThi(khoaThiDTO)) {
+    public boolean sua(KhoaThiDTO khoaThiDTO, ArrayList<KhoaThiDTO> khoaThiDTOs, boolean check) {
+        if (khoaThiDAO.updateKhoaThi(khoaThiDTO, check)) {
             khoaThiDTOs.set(indexKhoaThi(khoaThiDTO.getMaKhoaThi(), khoaThiDTOs), khoaThiDTO);
             System.out.println("Sửa thành công KhoaThiBUS");
             return true;
