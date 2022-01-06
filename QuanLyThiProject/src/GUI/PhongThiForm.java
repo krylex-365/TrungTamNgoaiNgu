@@ -148,8 +148,6 @@ public class PhongThiForm extends javax.swing.JPanel {
         }
     }
     
-    
-
     public void themVector(DefaultTableModel model, PhongThiDTO phongThiDTO, String tenKhoaThi, String tenTrinhDo) {
         Vector newrow = new Vector();
         newrow.add(phongThiDTO.getMaPhongThi());
@@ -215,6 +213,12 @@ public class PhongThiForm extends javax.swing.JPanel {
         jTablePhongThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
+    
+    private void filterPTTS(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelPTTS);
+        jTablePTTS.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+    }
 
     public void addComboKhoaThi(JComboBox cmb, ArrayList<KhoaThiDTO> list) {
         for (KhoaThiDTO a : list) {
@@ -274,7 +278,6 @@ public class PhongThiForm extends javax.swing.JPanel {
         jPanelQlyPT = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePTGV = new javax.swing.JTable();
-        jTextTimKiemPT1 = new javax.swing.JTextField();
         jBtnChoose = new javax.swing.JButton();
         jPanelChonGV = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -300,14 +303,14 @@ public class PhongThiForm extends javax.swing.JPanel {
         jTextSBD = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTablePTTS = new javax.swing.JTable();
-        jBtnTimKiem = new javax.swing.JButton();
         jLabelTenPhongThi = new javax.swing.JLabel();
         jBtnBack = new javax.swing.JButton();
-        jBtnWord = new javax.swing.JButton();
-        jBtnPDF = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jCbCaThi = new javax.swing.JComboBox<>();
-        jBtnRefresh2 = new javax.swing.JButton();
+        jLbTimKiemPTTS = new javax.swing.JLabel();
+        jTextTimKiemPTTS = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jMenuItemChuaThi.setText("Chưa thi");
         jMenuItemChuaThi.addActionListener(new java.awt.event.ActionListener() {
@@ -625,8 +628,7 @@ public class PhongThiForm extends javax.swing.JPanel {
         jTablePTGV.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane2.setViewportView(jTablePTGV);
 
-        jPanelQlyPT.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 530, 250));
-        jPanelQlyPT.add(jTextTimKiemPT1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 220, 30));
+        jPanelQlyPT.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 530, 220));
 
         jBtnChoose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_checked_16.png"))); // NOI18N
         jBtnChoose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -924,15 +926,7 @@ public class PhongThiForm extends javax.swing.JPanel {
         jTablePTTS.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane3.setViewportView(jTablePTTS);
 
-        jPanelQlyPT.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 530, 290));
-
-        jBtnTimKiem.setText("Tìm kiếm");
-        jBtnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemActionPerformed(evt);
-            }
-        });
-        jPanelQlyPT.add(jBtnTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 80, 30));
+        jPanelQlyPT.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 530, 280));
 
         jLabelTenPhongThi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTenPhongThi.setForeground(new java.awt.Color(153, 153, 255));
@@ -949,22 +943,6 @@ public class PhongThiForm extends javax.swing.JPanel {
         });
         jPanelQlyPT.add(jBtnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 30));
 
-        jBtnWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-word-32.png"))); // NOI18N
-        jBtnWord.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnWordActionPerformed(evt);
-            }
-        });
-        jPanelQlyPT.add(jBtnWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 30, 30));
-
-        jBtnPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_pdf_32.png"))); // NOI18N
-        jBtnPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnPDFActionPerformed(evt);
-            }
-        });
-        jPanelQlyPT.add(jBtnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 30, 30));
-
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(153, 153, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -973,17 +951,30 @@ public class PhongThiForm extends javax.swing.JPanel {
         jPanelQlyPT.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 110, 30));
         jPanelQlyPT.add(jCbCaThi, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 240, 32));
 
-        jBtnRefresh2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
-        jBtnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRefresh2.setMaximumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.setMinimumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRefresh2ActionPerformed(evt);
+        jLbTimKiemPTTS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiemPTTS.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+        jPanelQlyPT.add(jLbTimKiemPTTS, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, 30));
+
+        jTextTimKiemPTTS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemPTTSKeyReleased(evt);
             }
         });
-        jPanelQlyPT.add(jBtnRefresh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, 40, 30));
+        jPanelQlyPT.add(jTextTimKiemPTTS, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 140, 30));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Danh Sách Thí Sinh");
+        jLabel12.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(83, 86, 88)));
+        jPanelQlyPT.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 190, 30));
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Danh Sách Giáo Viên");
+        jLabel13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(83, 86, 88)));
+        jPanelQlyPT.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 190, 30));
 
         jTabbedPane1.addTab("Sắp Xếp Phòng Thi", jPanelQlyPT);
 
@@ -1082,10 +1073,13 @@ public class PhongThiForm extends javax.swing.JPanel {
         caThi = (CaThiDTO) jCbCaThi.getSelectedItem();
         tbModelPTTS.setRowCount(0);
         tableModelThiSinh(phongThi.getMaPhongThi(), caThi.getMaCaThi());
+        jTablePTTS.setRowSorter(null);
+        jTablePTTS.setAutoCreateRowSorter(true);
+        jTablePTTS.setModel(tbModelPTTS);
         tableModelGiaoVien(phongThi.getMaPhongThi(),caThi.getMaCaThi());
         System.out.println("MaPhongThi:"+phongThi.getMaPhongThi()+"   MaCaThi:"+caThi.getMaCaThi());
         clearPhongThiTS();
-        
+        clearPhongThiGV();
     }//GEN-LAST:event_jBtnChooseActionPerformed
 
     private void jCbKhoaThiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbKhoaThiActionPerformed
@@ -1284,27 +1278,12 @@ public class PhongThiForm extends javax.swing.JPanel {
         clearPhongThiTS(); 
     }//GEN-LAST:event_jBtnXoaTSPTActionPerformed
 
-    private void jBtnTimKiemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemActionPerformed
-    {//GEN-HEADEREND:event_jBtnTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnTimKiemActionPerformed
-
     private void jBtnBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnBackActionPerformed
     {//GEN-HEADEREND:event_jBtnBackActionPerformed
         jTabbedPane1.setEnabledAt(0, true);
         jTabbedPane1.setSelectedIndex(0);
         jTabbedPane1.remove(jPanelQlyPT);
     }//GEN-LAST:event_jBtnBackActionPerformed
-
-    private void jBtnWordActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnWordActionPerformed
-    {//GEN-HEADEREND:event_jBtnWordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnWordActionPerformed
-
-    private void jBtnPDFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnPDFActionPerformed
-    {//GEN-HEADEREND:event_jBtnPDFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnPDFActionPerformed
 
     public String initTenPhong() {
         String tenPhong = "";
@@ -1331,11 +1310,6 @@ public class PhongThiForm extends javax.swing.JPanel {
     
     
     
-    private void jBtnRefresh2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh2ActionPerformed
-    {//GEN-HEADEREND:event_jBtnRefresh2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnRefresh2ActionPerformed
-
     private void jTextSBDMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTextSBDMouseClicked
     {//GEN-HEADEREND:event_jTextSBDMouseClicked
         // TODO add your handling code here:
@@ -1414,6 +1388,12 @@ public class PhongThiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTablePTTSMouseEntered
 
+    private void jTextTimKiemPTTSKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemPTTSKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiemPTTS.getText();
+        filterPTTS(query);
+    }//GEN-LAST:event_jTextTimKiemPTTSKeyReleased
+
     public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
@@ -1468,16 +1448,12 @@ public class PhongThiForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnHuy;
     private javax.swing.JButton jBtnHuyGVPT;
     private javax.swing.JButton jBtnHuyTSPT;
-    private javax.swing.JButton jBtnPDF;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnRefresh2;
     private javax.swing.JButton jBtnSuaGVPT;
     private javax.swing.JButton jBtnSuaPT;
     private javax.swing.JButton jBtnThemGVPT;
     private javax.swing.JButton jBtnThemPT;
     private javax.swing.JButton jBtnThemTSPT;
-    private javax.swing.JButton jBtnTimKiem;
-    private javax.swing.JButton jBtnWord;
     private javax.swing.JButton jBtnXoaGVPT;
     private javax.swing.JButton jBtnXoaPT;
     private javax.swing.JButton jBtnXoaTSPT;
@@ -1489,6 +1465,8 @@ public class PhongThiForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -1501,6 +1479,7 @@ public class PhongThiForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelTenPhongThi;
     private javax.swing.JLabel jLbTimKiem;
+    private javax.swing.JLabel jLbTimKiemPTTS;
     private javax.swing.JMenuItem jMenuItemChuaThi;
     private javax.swing.JMenuItem jMenuItemDaThi;
     private javax.swing.JPanel jPanelChonGV;
@@ -1525,7 +1504,7 @@ public class PhongThiForm extends javax.swing.JPanel {
     private javax.swing.JTextField jTextTenPhongThi;
     private javax.swing.JTextField jTextTenTSPT;
     private javax.swing.JTextField jTextTimKiem;
-    private javax.swing.JTextField jTextTimKiemPT1;
+    private javax.swing.JTextField jTextTimKiemPTTS;
     // End of variables declaration//GEN-END:variables
 
     public JTextField GetjTextTenGVPT() {
