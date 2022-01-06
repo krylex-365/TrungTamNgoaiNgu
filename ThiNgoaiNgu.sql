@@ -52,6 +52,7 @@ create table PhanCong(
 	MaPhongThi nvarchar(20) not null, /*PK FK*/
 	MaCaThi nvarchar(20) not null, /*PK FK*/
 	MaGiaoVien nvarchar(20) not null, /*PK FK*/
+	NgayThi date,
 	NhiemVu nvarchar(20),
 	Status int default 1,
 	constraint PK_PhanCong primary key (MaPhongThi, MaCaThi, MaGiaoVien)
@@ -148,10 +149,10 @@ values ('PG000001','A2P001',30,'KH000001','TD000001',1),
 ('PG000006','B1P006',32,'KH000003','TD000002',1);
 
 insert into CaThi
-values ('CA000001','07:00:00','10:00:00',1),
-('CA000002','08:00:00','11:00:00',1),
-('CA000003','13:00:00','16:00:00',1),
-('CA000004','14:00:00','17:00:00',1);
+values ('CA000001','07:00','10:00',1),
+('CA000002','08:00','11:00',1),
+('CA000003','13:00','16:00',1),
+('CA000004','14:00','17:00',1);
 
 insert into GiaoVien
 values ('GV000001','Nguyen A','1','0909090909','A@mail.com',1),
@@ -161,16 +162,16 @@ values ('GV000001','Nguyen A','1','0909090909','A@mail.com',1),
 ('GV000005','Phung E','0','0909090909','E@mail.com',1);
 
 insert into PhanCong
-values ('PG000001','CA000001','GV000001','Canh thi',1),
-('PG000001','CA000001','GV000002','Cham diem',1),
-('PG000002','CA000003','GV000003','Canh thi',1),
-('PG000002','CA000003','GV000004','Cham diem',1),
-('PG000003','CA000001','GV000001','Canh thi',1),
-('PG000003','CA000001','GV000003','Cham diem',1),
-('PG000004','CA000001','GV000002','Canh thi',1),
-('PG000004','CA000001','GV000004','Cham diem',1),
-('PG000005','CA000001','GV000003','Canh thi',1),
-('PG000005','CA000001','GV000001','Cham diem',1);
+values ('PG000001','CA000001','GV000001','2021-11-17','Canh thi',1),
+('PG000001','CA000001','GV000002','2021-11-17','Cham diem',1),
+('PG000002','CA000003','GV000003','2021-11-17','Canh thi',1),
+('PG000002','CA000003','GV000004','2021-11-17','Cham diem',1),
+('PG000003','CA000001','GV000001','2021-12-17','Canh thi',1),
+('PG000003','CA000001','GV000003','2021-12-17','Cham diem',1),
+('PG000004','CA000001','GV000002','2021-12-17','Canh thi',1),
+('PG000004','CA000001','GV000004','2021-12-17','Cham diem',1),
+('PG000005','CA000001','GV000003','2022-01-17','Canh thi',1),
+('PG000005','CA000001','GV000001','2022-01-17','Cham diem',1);
 
 insert into ThiSinh
 values ('TS000001','Tran O','1','2000-02-04','123456789000','2018-10-15','CATPHCM','0907020408','O@mail.com','234/REC','KH000001','TD000001',1),
@@ -181,12 +182,12 @@ values ('TS000001','Tran O','1','2000-02-04','123456789000','2018-10-15','CATPHC
 ('TS000006','Le Q','1','1999-12-04','326147824000','2019-02-09','CATPHCM','0903050807','Q@mail.com','653/TMW','KH000003','TD000002',1);
 
 insert into PhieuBaoDuThi
-values ('A201','TS000001','PG000001','CA000001','2021-11-17',1),
-('B101','TS000002','PG000002','CA000003','2021-11-17',1);
+values ('A20001','TS000001','PG000001','CA000001','2021-11-17',1),
+('B10001','TS000002','PG000002','CA000003','2021-11-17',1);
 
 insert into KetQuaThi
-values ('A201','6','8','7','6',1),
-('B101','6','8','7','6',1);
+values ('A20001','6','8','7','6',1),
+('B10001','6','8','7','6',1);
 
 insert into MaDuLieuCuoi
 values ('KH000004','TD000002','PG000006','CA000004','GV00005','TS000006');
