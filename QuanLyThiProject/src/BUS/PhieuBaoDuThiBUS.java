@@ -113,8 +113,9 @@ public class PhieuBaoDuThiBUS {
         PhieuBaoDuThiDTO pbdt = new PhieuBaoDuThiDTO(initSoBaoDanh(trinhDoDTO, num), thiSinhDTO.getMaThiSinh(), phongThiDTO.getMaPhongThi(), maCaThi, khoaThiBUS.findKhoaThi(thiSinhDTO.getMaKhoaThi()).getNgayThi());
         System.out.println(trinhDoDTO.getMaTrinhDo() + "-" + num);
         if (phieuBaoDuThiDAO.countThiSinhPhongThi(phongThiDTO.getMaPhongThi(), maCaThi) <= phongThiDTO.getSoLuong() && phieuBaoDuThiDAO.insertPhieuBaoDuThi(pbdt)) {
+            phieuBaoDuThiDTOs.add(pbdt);
             if (trinhDoBUS.capNhatSLTS(thiSinhDTO.getMaTrinhDo(), num, trinhDoDTOs)) {
-                phieuBaoDuThiDTOs.add(pbdt);
+                
                 System.out.println("Thêm thành công PhieuBaoDuThiBUS");
                 return pbdt;
             }
