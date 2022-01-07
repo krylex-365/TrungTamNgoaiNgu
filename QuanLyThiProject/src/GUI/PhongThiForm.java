@@ -121,6 +121,7 @@ public class PhongThiForm extends javax.swing.JPanel {
     }
 
     public void tableModelThiSinh(String maPhongThi, String maCa) {
+        tbModelPTTS.setRowCount(0);
         Vector row;
         for (PhieuBaoDuThiDTO a : phieuBaoDuThiBUS.getThiSinhs(maPhongThi, maCa, DashBoard.phieuBaoDuThiDTOs)) {
             row = new Vector();
