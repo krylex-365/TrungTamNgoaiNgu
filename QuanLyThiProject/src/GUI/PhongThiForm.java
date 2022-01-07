@@ -1192,9 +1192,9 @@ public class PhongThiForm extends javax.swing.JPanel {
             int row = tempJTable.getSelectedRow();
             tbModelPTTS.setRowCount(0);
             tbModelPTGV.setRowCount(0);
-            phongThi = phongThiBUS.findPhongThiByMaPhongThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 0), DashBoard.phongThiDTOs);
+            phongThi = phongThiBUS.findPhongThiByMaPhongThi((String) jTablePhongThi.getValueAt(rowPhongThi, 0), DashBoard.phongThiDTOs);
 
-//            System.out.println((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 0));
+//            System.out.println((String) jTablePhongThi.getValueAt(rowPhongThi, 0));
 //            System.out.println(phongThi);
             if (row != -1) {
                 jTabbedPane1.add(jPanelQlyPT, 1);
@@ -1202,7 +1202,7 @@ public class PhongThiForm extends javax.swing.JPanel {
                 jTabbedPane1.setSelectedIndex(1);
                 jTabbedPane1.setEnabledAt(0, false);
                 jTabbedPane1.setSelectedIndex(1);
-                jLabelTenPhongThi.setText((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 1));
+                jLabelTenPhongThi.setText((String) jTablePhongThi.getValueAt(rowPhongThi, 1));
 
                 jCbCaThi.removeAllItems();
                 addComboCaThi(jCbCaThi, DashBoard.caThiDTOs);
@@ -1211,13 +1211,13 @@ public class PhongThiForm extends javax.swing.JPanel {
             JTable tempJTable = (JTable) evt.getSource();
             rowPhongThi = tempJTable.getSelectedRow();
             if (rowPhongThi != -1) {
-                phongThiSelected.setMaPhongThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 0));
-                phongThiSelected.setTenPhongThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 1));
-                phongThiSelected.setMaKhoaThi((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 2));
-                tenKhoaThi = (String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 3);
-                phongThiSelected.setMaTrinhDo((String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 4));
-                tenTrinhDo = (String) jTablePhongThi.getModel().getValueAt(rowPhongThi, 5);
-                phongThiSelected.setSoLuong((Integer) jTablePhongThi.getModel().getValueAt(rowPhongThi, 6));
+                phongThiSelected.setMaPhongThi((String) jTablePhongThi.getValueAt(rowPhongThi, 0));
+                phongThiSelected.setTenPhongThi((String) jTablePhongThi.getValueAt(rowPhongThi, 1));
+                phongThiSelected.setMaKhoaThi((String) jTablePhongThi.getValueAt(rowPhongThi, 2));
+                tenKhoaThi = (String) jTablePhongThi.getValueAt(rowPhongThi, 3);
+                phongThiSelected.setMaTrinhDo((String) jTablePhongThi.getValueAt(rowPhongThi, 4));
+                tenTrinhDo = (String) jTablePhongThi.getValueAt(rowPhongThi, 5);
+                phongThiSelected.setSoLuong((Integer) jTablePhongThi.getValueAt(rowPhongThi, 6));
                 jTextMaPT.setText(phongThiSelected.getMaPhongThi());
                 jTextTenPhongThi.setText(phongThiSelected.getTenPhongThi());
                 jCbKhoaThi.setSelectedItem(phongThiSelected.getMaKhoaThi() + ". " + tenKhoaThi);
@@ -1340,9 +1340,9 @@ public class PhongThiForm extends javax.swing.JPanel {
 //                jTextMaTD.setText(maLoaiChiPhi);
 //                jTextTenTD.setText(tenLoaiChiPhi);
 //            }
-            jTextMaTSPT.setText((String) tbModelPTTS.getValueAt(rowThiSinh, 0));
-            jTextTenTSPT.setText((String) tbModelPTTS.getValueAt(rowThiSinh, 1));
-            jTextSBD.setText((String) tbModelPTTS.getValueAt(rowThiSinh, 2));
+            jTextMaTSPT.setText((String) jTablePTTS.getValueAt(rowThiSinh, 0));
+            jTextTenTSPT.setText((String) jTablePTTS.getValueAt(rowThiSinh, 1));
+            jTextSBD.setText((String) jTablePTTS.getValueAt(rowThiSinh, 2));
             jBtnXoaTSPT.setEnabled(true);
             jBtnHuyTSPT.setEnabled(true);
             jBtnThemTSPT.setEnabled(false);

@@ -98,6 +98,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
 
     public void initTable() {
         modelthisinh.setRowCount(0);
+        DashBoard.thiSinhDTOs = DashBoard.thiSinhDAO.getList();
         tableModel(modelthisinh);
         jTableTS.setRowSorter(null);
         jTableTS.setAutoCreateRowSorter(true);
@@ -893,7 +894,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
 
-            String maThiSinh = (String) modelthisinh.getValueAt(selectedRow, 1);
+            String maThiSinh = (String) jTableTS.getValueAt(selectedRow, 1);
 
             fillTheForm(thiSinhBUS.findByMaThiSinh(maThiSinh));
 

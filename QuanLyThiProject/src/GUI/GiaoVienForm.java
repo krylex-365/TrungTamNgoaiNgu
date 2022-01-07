@@ -429,15 +429,15 @@ public class GiaoVienForm extends javax.swing.JPanel {
         if (evt.getSource() == jTableGV) {
             selectedRow = jTableGV.getSelectedRow();
             if (selectedRow != -1) {
-                giaoVienSelected.setMaGiaoVien((String) jTableGV.getModel().getValueAt(selectedRow, 0));
-                giaoVienSelected.setHoTen((String) jTableGV.getModel().getValueAt(selectedRow, 1));
+                giaoVienSelected.setMaGiaoVien((String) jTableGV.getValueAt(selectedRow, 0));
+                giaoVienSelected.setHoTen((String) jTableGV.getValueAt(selectedRow, 1));
                 if (jTableGV.getValueAt(selectedRow, 2).equals("Nam")) {
                     jCbGioiTinh.setSelectedIndex(0);
                 } else {
                     jCbGioiTinh.setSelectedIndex(1);
                 }
-                giaoVienSelected.setMail((String) jTableGV.getModel().getValueAt(selectedRow, 4));
-                giaoVienSelected.setSdt((String) jTableGV.getModel().getValueAt(selectedRow, 3));
+                giaoVienSelected.setMail((String) jTableGV.getValueAt(selectedRow, 4));
+                giaoVienSelected.setSdt((String) jTableGV.getValueAt(selectedRow, 3));
 
                 jTextTenGiangVien.setText(giaoVienSelected.getHoTen());
                 jTextSDT.setText(giaoVienSelected.getSdt());

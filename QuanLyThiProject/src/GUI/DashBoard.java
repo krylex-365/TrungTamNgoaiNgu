@@ -48,7 +48,7 @@ public class DashBoard extends javax.swing.JFrame
     public static ArrayList<CaThiDTO> caThiDTOs;
     GiaoVienDAO giaoVienDAO;
     public static ArrayList<GiaoVienDTO> giaoVienDTOs;
-    ThiSinhDAO thiSinhDAO;
+    public static ThiSinhDAO thiSinhDAO;
     public static ArrayList<ThiSinhDTO> thiSinhDTOs;
     PhanCongDAO phanCongDAO;
     public static ArrayList<PhanCongDTO> phanCongDTOs;
