@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/DTO/PhanCongDTO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/BUS/ThiSinhBUS.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/GUI/ThiSinhForm.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/GUI/GiaoVienForm.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/GUI/PhongThiForm.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/BUS/PhieuBaoDuThiBUS.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/GUI/BangThiSinh.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/BUS/PhanCongBUS.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/GUI/QuanLyThiProject.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/DAO/PhanCongDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/TrungTamNgoaiNgu/QuanLyThiProject/src/BUS/KhoaThiBUS.java</file>
         </group>
     </open-files>
 </project-private>
