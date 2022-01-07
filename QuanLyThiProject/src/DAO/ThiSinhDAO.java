@@ -127,7 +127,7 @@ public class ThiSinhDAO {
         return false;
     }
 
-    public boolean updateThiSinh(ThiSinhDTO thiSinhDTO) {
+    public boolean updateThiSinh(ThiSinhDTO thiSinhDTO, boolean checkKhoa, boolean checkTrinh) {
         conn = new Connect();
         conn.getConnection();
         String sql = "UPDATE ThiSinh SET"
@@ -139,10 +139,14 @@ public class ThiSinhDAO {
                 + " NoiCap='" + thiSinhDTO.getNoiCap()+ "',"
                 + " Sdt='" + thiSinhDTO.getSdt()+ "',"
                 + " Mail='" + thiSinhDTO.getMail()+ "',"
-                + " DiaChi='" + thiSinhDTO.getDiaChi()+ "',"
-                + " MaKhoaThi='" + thiSinhDTO.getMaKhoaThi()+ "',"
-                + " MaTrinhDo='" + thiSinhDTO.getMaTrinhDo()+ "',"
-                + " WHERE MaThiSinh='" + thiSinhDTO.getMaThiSinh()+ "';";
+                + " DiaChi='" + thiSinhDTO.getDiaChi()+ "'";
+        if (checkKhoa) {
+            sql += ", MaKhoaThi='" + thiSinhDTO.getMaKhoaThi()+ "'";
+        }
+        if (checkTrinh) {
+            sql += ", MaTrinhDo='" + thiSinhDTO.getMaTrinhDo()+ "'";
+        }
+        sql += " WHERE MaThiSinh='" + thiSinhDTO.getMaThiSinh()+ "';";
         if (conn.executeUpdate(sql)) {
             conn.close();
             System.out.println("ThiSinhDAO update success.");

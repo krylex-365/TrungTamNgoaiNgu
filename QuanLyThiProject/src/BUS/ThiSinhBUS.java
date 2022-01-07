@@ -79,11 +79,19 @@ public class ThiSinhBUS {
         return false;
     }
     
-    public boolean Update(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
-        if(thiSinhDAO.updateThiSinh(thiSinh)){
+    public boolean Update(ThiSinhDTO thiSinhDTO ,ArrayList<ThiSinhDTO> thiSinhDTOS){
+        ThiSinhDTO thiSinh = findByMaThiSinh(thiSinhDTO.getMaThiSinh());
+        boolean checkKhoaThi = false, checkTrinhDo = false;
+        if (!thiSinhDTO.getMaKhoaThi().equals(thiSinh.getMaKhoaThi())) {
+            checkKhoaThi = true;
+        }
+        if (!thiSinhDTO.getMaTrinhDo().equals(thiSinh.getMaTrinhDo())) {
+            checkTrinhDo = true;
+        }
+        if(thiSinhDAO.updateThiSinh(thiSinhDTO, checkKhoaThi, checkTrinhDo)){
             for(ThiSinhDTO thisinh: thiSinhDTOS){
-                if(thisinh.getMaThiSinh().equals(thiSinh.getMaThiSinh())){
-                    thisinh = thiSinh;
+                if(thisinh.getMaThiSinh().equals(thiSinhDTO.getMaThiSinh())){
+                    thisinh = thiSinhDTO;
                 }
             }
             System.out.println("ThiSinhBUS.Update success");
