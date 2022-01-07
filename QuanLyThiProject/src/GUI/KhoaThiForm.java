@@ -46,6 +46,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
     private KhoaThiDTO khoaThiSelected = new KhoaThiDTO();
     private boolean checkUpdateNgayThi = false;
     KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
+    TableRowSorter<DefaultTableModel> tr;
 
     /**
      * Creates new form jPanel2
@@ -109,7 +110,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
     }
 
     private void filter(String query) {
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKhoaThi);
+        tr = new TableRowSorter<DefaultTableModel>(tbModelKhoaThi);
         jTableKhoaThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
@@ -510,12 +511,13 @@ public class KhoaThiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         rowKhoaThi = jTableKhoaThi.getSelectedRow();
         if (rowKhoaThi != -1) {
-            khoaThiSelected.setMaKhoaThi((String) jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 0));
-            khoaThiSelected.setTenKhoaThi((String) jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 1));
+            System.out.println("row: " + rowKhoaThi);
+            khoaThiSelected.setMaKhoaThi((String) jTableKhoaThi.getValueAt(rowKhoaThi, 0));
+            khoaThiSelected.setTenKhoaThi((String) jTableKhoaThi.getValueAt(rowKhoaThi, 1));
             jTextMaKT.setText(khoaThiSelected.getMaKhoaThi());
             jTextTenKT.setText(khoaThiSelected.getTenKhoaThi());
             try {
-                String ngayThi = jTableKhoaThi.getModel().getValueAt(rowKhoaThi, 2).toString();
+                String ngayThi = jTableKhoaThi.getValueAt(rowKhoaThi, 2).toString();
                 khoaThiSelected.setNgayThi(ngayThi);
                 Date dateThi = new SimpleDateFormat("yyyy-MM-dd").parse(ngayThi);
                 jDateNgayThi.setDate(dateThi);
@@ -532,6 +534,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, e);
                 System.out.println("- Load sai ngày thi!");
             }
+            System.out.println(khoaThiSelected.toString());
             jBtnCapPhatMaKT.setEnabled(false);
             jBtnThemKT.setEnabled(false);
             jBtnSuaKT.setEnabled(true);

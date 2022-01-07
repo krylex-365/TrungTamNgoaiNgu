@@ -472,9 +472,9 @@ public class TrinhDoForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         rowTrinhDo = jTableTrinhDo.getSelectedRow();
         if (rowTrinhDo != -1) {
-            jTextMaTD.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 0));
-            jTextTenTD.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 1));
-            jTextLePhi.setText((String) jTableTrinhDo.getModel().getValueAt(rowTrinhDo, 2));
+            jTextMaTD.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 0));
+            jTextTenTD.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 1));
+            jTextLePhi.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 2));
 //            jBtnCapPhatMaTD.setEnabled(false);
 //            jBtnThemTD.setEnabled(false);
             jBtnSuaTD.setEnabled(true);

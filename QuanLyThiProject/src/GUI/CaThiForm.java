@@ -513,9 +513,9 @@ public class CaThiForm extends javax.swing.JPanel
         rowCaThi = jTableCaThi.getSelectedRow();
         if (rowCaThi != -1)
         {
-            caThiSelected.setMaCaThi((String) jTableCaThi.getModel().getValueAt(rowCaThi, 0));
-            caThiSelected.setGioBatDau((String) jTableCaThi.getModel().getValueAt(rowCaThi, 1));
-            caThiSelected.setGioKetThuc((String) jTableCaThi.getModel().getValueAt(rowCaThi, 2));
+            caThiSelected.setMaCaThi((String) jTableCaThi.getValueAt(rowCaThi, 0));
+            caThiSelected.setGioBatDau((String) jTableCaThi.getValueAt(rowCaThi, 1));
+            caThiSelected.setGioKetThuc((String) jTableCaThi.getValueAt(rowCaThi, 2));
             String[] tgBD = caThiSelected.getGioBatDau().split(":"),
                     tgKT = caThiSelected.getGioKetThuc().split(":");
             jTextMaCT.setText(caThiSelected.getMaCaThi());
