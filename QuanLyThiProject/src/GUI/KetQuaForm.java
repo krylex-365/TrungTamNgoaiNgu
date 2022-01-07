@@ -80,6 +80,27 @@ public class KetQuaForm extends javax.swing.JPanel {
 //        tk.setVisible(false);
     }
 
+    public void initTable() {
+        tbModelKQThi.setRowCount(0);
+        tableModelKetQua();
+        jTableKQThi.setRowSorter(null);
+        jTableKQThi.setAutoCreateRowSorter(true);
+        jBtnSuaDiem.setEnabled(false);
+        jBtnHuyDiem.setEnabled(false);
+        jTextMaThiSinh.setText("");
+        jTextSBDTS.setText("");
+        jTextTenThiSinh.setText("");
+        jTextSDT.setText("");
+        jTextTrinhDo.setText("");
+        jTextPhongThi.setText("");
+        jTextCaThi.setText("");
+        jTextDiemNghe.setText("");
+        jTextDiemNoi.setText("");
+        jTextDiemDoc.setText("");
+        jTextDiemViet.setText("");
+        jTableKQThi.clearSelection();
+    }
+
     public String tinhDiem(String tenTrinhDo, float nghe, float noi, float doc, float viet) {
         float diem = 0;
         float diemTrungBinh = 0;
@@ -645,7 +666,7 @@ public class KetQuaForm extends javax.swing.JPanel {
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
         jTextTimKiem.setText("");
-//        initTable();
+        initTable();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased

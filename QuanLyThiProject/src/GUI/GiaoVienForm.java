@@ -45,8 +45,7 @@ import javax.swing.RowFilter;
  *
  * @author Hyung
  */
-public class GiaoVienForm extends javax.swing.JPanel
-{
+public class GiaoVienForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
@@ -62,8 +61,7 @@ public class GiaoVienForm extends javax.swing.JPanel
     GiaoVienBUS giaoVienBUS = new GiaoVienBUS();
     private GiaoVienDTO giaoVienSelected = new GiaoVienDTO();
 
-    public GiaoVienForm()
-    {
+    public GiaoVienForm() {
         initComponents();
         jBtnCapPhatMaGV.setEnabled(true);
         jBtnThemGV.setEnabled(false);
@@ -79,8 +77,7 @@ public class GiaoVienForm extends javax.swing.JPanel
 //        tk.setVisible(false);
     }
 
-    public void initTableGV()
-    {
+    public void initTableGV() {
         tbModelGV.setRowCount(0);
         tableModel(tbModelGV);
         jTableGV.setRowSorter(null);
@@ -89,18 +86,14 @@ public class GiaoVienForm extends javax.swing.JPanel
         clear();
     }
 
-    public void tableModel(DefaultTableModel model)
-    {
-        for (GiaoVienDTO giaovien : DashBoard.giaoVienDTOs)
-        {
+    public void tableModel(DefaultTableModel model) {
+        for (GiaoVienDTO giaovien : DashBoard.giaoVienDTOs) {
             Vector row = new Vector();
             row.add(giaovien.getMaGiaoVien());
             row.add(giaovien.getHoTen());
-            if (giaovien.getGioiTinh().equals("1"))
-            {
+            if (giaovien.getGioiTinh().equals("1")) {
                 row.add("Nam");
-            } else
-            {
+            } else {
                 row.add("Nữ");
             }
             row.add(giaovien.getSdt());
@@ -109,8 +102,7 @@ public class GiaoVienForm extends javax.swing.JPanel
         }
     }
 
-    public void clear()
-    {
+    public void clear() {
         jBtnCapPhatMaGV.setEnabled(true);
         jBtnThemGV.setEnabled(false);
         jBtnSuaGV.setEnabled(false);
@@ -123,8 +115,7 @@ public class GiaoVienForm extends javax.swing.JPanel
         jTableGV.clearSelection();
     }
 
-    private void filter(String query)
-    {
+    private void filter(String query) {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelGV);
         jTableGV.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
@@ -435,18 +426,14 @@ public class GiaoVienForm extends javax.swing.JPanel
 
     private void jTableGVMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableGVMouseClicked
     {//GEN-HEADEREND:event_jTableGVMouseClicked
-        if (evt.getSource() == jTableGV)
-        {
+        if (evt.getSource() == jTableGV) {
             selectedRow = jTableGV.getSelectedRow();
-            if (selectedRow != -1)
-            {
+            if (selectedRow != -1) {
                 giaoVienSelected.setMaGiaoVien((String) jTableGV.getModel().getValueAt(selectedRow, 0));
                 giaoVienSelected.setHoTen((String) jTableGV.getModel().getValueAt(selectedRow, 1));
-                if (jTableGV.getValueAt(selectedRow, 2).equals("Nam"))
-                {
+                if (jTableGV.getValueAt(selectedRow, 2).equals("Nam")) {
                     jCbGioiTinh.setSelectedIndex(0);
-                } else
-                {
+                } else {
                     jCbGioiTinh.setSelectedIndex(1);
                 }
                 giaoVienSelected.setMail((String) jTableGV.getModel().getValueAt(selectedRow, 4));
@@ -468,8 +455,7 @@ public class GiaoVienForm extends javax.swing.JPanel
 
     private void jBtnThemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemGVActionPerformed
         String valString = validation();
-        if (valString.equals(""))
-        {
+        if (valString.equals("")) {
             String magv = (String) jTextMaGiangVien.getText(),
                     tengv = (String) jTextTenGiangVien.getText(),
                     gioiTinh,
@@ -477,17 +463,14 @@ public class GiaoVienForm extends javax.swing.JPanel
                     mail = (String) jTextEmail.getText();
 
             Vector addRow = new Vector();
-            if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-            {
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
                 gioiTinh = "1";
-            } else
-            {
+            } else {
                 gioiTinh = "0";
             }
 //        
             GiaoVienDTO gv = new GiaoVienDTO(magv, tengv, gioiTinh, sdt, mail);
-            if (giaoVienBUS.themGiaoVien(gv, DashBoard.giaoVienDTOs))
-            {
+            if (giaoVienBUS.themGiaoVien(gv, DashBoard.giaoVienDTOs)) {
                 addRow = new Vector();
                 addRow.add(magv);
                 addRow.add(tengv);
@@ -496,13 +479,11 @@ public class GiaoVienForm extends javax.swing.JPanel
                 addRow.add(mail);
                 tbModelGV.addRow(addRow);
                 JOptionPane.showMessageDialog(this, "Thêm giáo viên thành công!");
-            } else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "Thêm giáo viên thất bại!");
             }
             clear();
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, valString);
         }
 
@@ -510,88 +491,69 @@ public class GiaoVienForm extends javax.swing.JPanel
 
     private void jBtnSuaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaGVActionPerformed
         String valString = validation();
-        if (valString.equals(""))
-        {
+        if (valString.equals("")) {
             String tengv = (String) jTextTenGiangVien.getText(),
                     sdt = (String) jTextSDT.getText(),
                     mail = (String) jTextEmail.getText(),
                     magv = (String) jTextMaGiangVien.getText();
 
             String gioiTinh;
-            if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-            {
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
                 gioiTinh = "1";
-            } else
-            {
+            } else {
                 gioiTinh = "0";
             }
 
             GiaoVienDTO giaoVienDTO = new GiaoVienDTO(giaoVienSelected.getMaGiaoVien(), tengv, gioiTinh, sdt, mail);
-            if (giaoVienBUS.suaGiaoVien(giaoVienDTO, DashBoard.giaoVienDTOs))
-            {
+            if (giaoVienBUS.suaGiaoVien(giaoVienDTO, DashBoard.giaoVienDTOs)) {
                 tbModelGV.setValueAt(magv, selectedRow, 0);
                 tbModelGV.setValueAt(tengv, selectedRow, 1);
                 tbModelGV.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
                 tbModelGV.setValueAt(sdt, selectedRow, 3);
                 tbModelGV.setValueAt(mail, selectedRow, 4);
                 JOptionPane.showMessageDialog(this, "Sửa giáo viên thành công!");
-            } else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "Sửa giáo viên thất bại!");
             }
             clear();
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, valString);
         }
     }//GEN-LAST:event_jBtnSuaGVActionPerformed
 
-    private String checkBeforeDel(String maGiaoVien)
-    {
+    private String checkBeforeDel(String maGiaoVien) {
         String noti = "";
         long millis = System.currentTimeMillis();
         Date date = new java.sql.Date(millis);
         Date datePhancong = null;
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-        for (GiaoVienDTO giaovien : DashBoard.giaoVienDTOs)
-        {
-            for (PhanCongDTO phancong : DashBoard.phanCongDTOs)
-            {
-                try
-                {
-                    datePhancong = myFormat.parse(phancong.getNgayThi());
-                } catch (ParseException ex)
-                {
-                    Logger.getLogger(GiaoVienForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (giaovien.getMaGiaoVien().equals(maGiaoVien)
-                        && giaovien.getMaGiaoVien().equals(phancong.getMaGiaoVien())
-                        && datePhancong.after(date) || datePhancong.equals(date))
-                {
-                    noti += "- Giáo viên hiện đang được phân công!";
-                    break;
-                }
+        for (PhanCongDTO phancong : DashBoard.phanCongDTOs) {
+            System.out.println("ngaythi: " + phancong.getNgayThi());
+            try {
+                datePhancong = new SimpleDateFormat("yyyy-MM-dd").parse(phancong.getNgayThi());
+            } catch (ParseException ex) {
+                Logger.getLogger(GiaoVienForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (maGiaoVien.equals(phancong.getMaGiaoVien())
+                    && datePhancong.after(date) || datePhancong.equals(date)) {
+                noti += "- Giáo viên hiện đang được phân công!";
+                break;
             }
         }
-
         return noti;
     }
 
     private void jBtnXoaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaGVActionPerformed
         String check = checkBeforeDel(giaoVienSelected.getMaGiaoVien());
-        if (check.equals(""))
-        {
-            if (giaoVienBUS.xoaGiaoVien(giaoVienSelected, DashBoard.giaoVienDTOs))
-            {
+        if (check.equals("")) {
+            if (giaoVienBUS.xoaGiaoVien(giaoVienSelected, DashBoard.giaoVienDTOs)) {
                 tbModelGV.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Xóa giáo viên thành công!");
-            } else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "Xóa giáo viên thất bại!");
             }
             clear();
-        } else
-        {
+        } else {
             check = "Không thể xóa\n" + check;
             JOptionPane.showMessageDialog(this, check);
         }
@@ -622,97 +584,79 @@ public class GiaoVienForm extends javax.swing.JPanel
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tableColThongKe = new Vector();
 
-    public JPanel getjPanel1()
-    {
+    public JPanel getjPanel1() {
         return jPanelGV;
     }
 
-    public JTextField getjTextManv()
-    {
+    public JTextField getjTextManv() {
         return jTextMaGiangVien;
     }
 
-    public DefaultTableModel getModelnv()
-    {
+    public DefaultTableModel getModelnv() {
         return tbModelGV;
     }
 
-    public JButton getjBtnCapPhatMaNV()
-    {
+    public JButton getjBtnCapPhatMaNV() {
         return jBtnCapPhatMaGV;
     }
 
-    public int getFlagAcc()
-    {
+    public int getFlagAcc() {
         return flagAcc;
     }
 
-    public void setFlagAcc(int flagAcc)
-    {
+    public void setFlagAcc(int flagAcc) {
         this.flagAcc = flagAcc;
     }
 
-    public String getManv()
-    {
+    public String getManv() {
         return manv;
     }
 
-    public void setManv(String manv)
-    {
+    public void setManv(String manv) {
         this.manv = manv;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 
-    public String validation()
-    {
+    public String validation() {
         String validate = "";
         String tenGV = jTextTenGiangVien.getText();
         String SDT = jTextSDT.getText();
         String email = jTextEmail.getText();
 
-        if (tenGV.equals("") || SDT.equals("") || email.equals(""))
-        {
+        if (tenGV.equals("") || SDT.equals("") || email.equals("")) {
             validate += "Các trường thông tin không được bỏ trống!\n";
             return validate;
-        } else
-        {
+        } else {
             String tenPattern = "^[^-\\s][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
             boolean flag1 = Pattern.matches(tenPattern, tenGV);
-            if (!flag1)
-            {
+            if (!flag1) {
                 validate += "Tên giáo viên không hợp lệ!\n";
             }
 
             String sdtPattern = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
             boolean flag2 = Pattern.matches(sdtPattern, SDT);
-            if (!flag2)
-            {
+            if (!flag2) {
                 validate += "Số điện thoại không hợp lệ!\n";
             }
 
             String emailPattern = "^[a-zA-Z][a-zA-Z0-9_\\.]{4,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$";
             boolean flag4 = Pattern.matches(emailPattern, jTextEmail.getText());
-            if (!flag4)
-            {
+            if (!flag4) {
                 validate += "Email không hợp lệ!\n";
             }
 

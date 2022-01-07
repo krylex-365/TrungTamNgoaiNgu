@@ -16,61 +16,65 @@ import java.util.Iterator;
  * @author User
  */
 public class KetQuaThiBUS {
+
     public Utils utl = new Utils();
     public KetQuaThiDAO ketQuaThiDAO = new KetQuaThiDAO();
-    
-    public ArrayList<DataThiSinh> getMixedList(){
+
+    public ArrayList<DataThiSinh> getMixedList() {
         return ketQuaThiDAO.getDataThiSinh();
     }
-    
-    public String getTenTrinhDo(String SBD){
-        for(DataThiSinh a : ketQuaThiDAO.getDataThiSinh()){
-            if(a.soBaoDanh.equals(SBD)){
+
+    public String getTenTrinhDo(String SBD) {
+        for (DataThiSinh a : ketQuaThiDAO.getDataThiSinh()) {
+            if (a.soBaoDanh.equals(SBD)) {
                 return a.tenTrinhDo;
             }
         }
         return null;
     }
-    
-    public boolean checkExist(String sbd,ArrayList<KetQuaThiDTO> ketQuaThiDTOs){
-        for(KetQuaThiDTO a : ketQuaThiDTOs){
-            if(a.getSoBaoDanh().equals(sbd)){
+
+    public boolean checkExist(String sbd, ArrayList<KetQuaThiDTO> ketQuaThiDTOs) {
+        for (KetQuaThiDTO a : ketQuaThiDTOs) {
+            if (a.getSoBaoDanh().equals(sbd)) {
                 return false;
             }
         }
         return true;
     }
-    
-    public boolean Add(KetQuaThiDTO ketQuaThiDTO,ArrayList<KetQuaThiDTO> ketQuaThiDTOs,Date ngayThi){
-        if(ngayThi.before(utl.getDateWithoutTimeUsingFormat())&&ketQuaThiDAO.insertKetQuaThi(ketQuaThiDTO)){
-            ketQuaThiDTOs.add(ketQuaThiDTO);
-            return true;
+
+    public boolean Add(KetQuaThiDTO ketQuaThiDTO, ArrayList<KetQuaThiDTO> ketQuaThiDTOs, Date ngayThi) {
+        if (ngayThi.before(utl.getDateWithoutTimeUsingFormat())) {
+            if (ketQuaThiDAO.insertKetQuaThi(ketQuaThiDTO)) {
+                ketQuaThiDTOs.add(ketQuaThiDTO);
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }
-    
-    public boolean Delete(String ketQuaThiDTO,ArrayList<KetQuaThiDTO> ketQuaThiDTOs){
-        if(ketQuaThiDAO.deleteKetQuaThi(ketQuaThiDTO)){
+
+    public boolean Delete(String ketQuaThiDTO, ArrayList<KetQuaThiDTO> ketQuaThiDTOs) {
+        if (ketQuaThiDAO.deleteKetQuaThi(ketQuaThiDTO)) {
             Iterator<KetQuaThiDTO> iterator = ketQuaThiDTOs.iterator();
             while (iterator.hasNext()) {
                 KetQuaThiDTO a = iterator.next();
                 if (a.getSoBaoDanh().equals(ketQuaThiDTO)) {
                     iterator.remove();
-                    
+
                 }
             }
             return true;
-            
+
         }
         return false;
     }
-    
-    
-    public boolean Update(KetQuaThiDTO ketQuaThiDTO,ArrayList<KetQuaThiDTO> ketQuaThiDTOs){
+
+    public boolean Update(KetQuaThiDTO ketQuaThiDTO, ArrayList<KetQuaThiDTO> ketQuaThiDTOs) {
         if (ketQuaThiDAO.updateKetQuaThi(ketQuaThiDTO)) {
             System.out.println("Update success");
-            for(KetQuaThiDTO a : ketQuaThiDTOs){
-                if(a.getSoBaoDanh().equals(ketQuaThiDTO.getSoBaoDanh())){
+            for (KetQuaThiDTO a : ketQuaThiDTOs) {
+                if (a.getSoBaoDanh().equals(ketQuaThiDTO.getSoBaoDanh())) {
                     a = ketQuaThiDTO;
                     break;
                 }

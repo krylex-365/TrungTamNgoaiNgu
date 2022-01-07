@@ -61,6 +61,15 @@ public class KhoaThiBUS {
         }
         return null;
     }
+    
+    public String findDate (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs) {
+        for (KhoaThiDTO khoaThi : khoaThiDTOs) {
+            if (khoaThi.getMaKhoaThi().equals(maKhoaThi)) {
+                return khoaThi.getNgayThi();
+            }
+        }
+        return null;
+    }
 
     public int indexKhoaThi (String maKhoaThi, ArrayList<KhoaThiDTO> khoaThiDTOs) {
         int i = -1, j = 0;

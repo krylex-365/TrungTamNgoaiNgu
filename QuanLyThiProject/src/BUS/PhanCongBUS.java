@@ -84,7 +84,7 @@ public class PhanCongBUS {
     
     public boolean Add(PhanCongDTO phanCongDTO,ArrayList<PhanCongDTO> phanCongDTOs){
         
-        if(phanCongDAO.insertPhieuBaoDuThi(phanCongDTO)){
+        if(phanCongDAO.insertPhanCong(phanCongDTO)){
             phanCongDTOs.add(phanCongDTO);
             return true;
         }
@@ -92,7 +92,7 @@ public class PhanCongBUS {
     }
     
     public boolean Delete(PhanCongDTO phanCongDTO,ArrayList<PhanCongDTO> phanCongDTOs,String maKhoaThi,ArrayList<KhoaThiDTO> khoaThiDTOs){
-        if(khoaKhiBUS.checkFinished(maKhoaThi, khoaThiDTOs)&&phanCongDAO.deletePhanCong(phanCongDTO)){
+        if(!khoaKhiBUS.checkFinished(maKhoaThi, khoaThiDTOs) && phanCongDAO.deletePhanCong(phanCongDTO)){
 //            for(PhanCongDTO a : phanCongDTOs){
 //                if(a.getMaCaThi().equals(phanCongDTO.getMaCaThi())&&a.getMaGiaoVien().equals(phanCongDTO.getMaGiaoVien())&&a.getMaPhongThi().equals(phanCongDTO.getMaPhongThi())){
 //                    phanCongDTOs.remove(a);

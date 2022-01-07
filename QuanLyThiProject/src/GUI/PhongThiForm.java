@@ -12,6 +12,7 @@ package GUI;
 //import DAO.XuatExcel;
 import BUS.GiaoVienBUS;
 import BUS.KetQuaThiBUS;
+import BUS.KhoaThiBUS;
 import BUS.PhanCongBUS;
 import BUS.PhieuBaoDuThiBUS;
 import BUS.PhongThiBUS;
@@ -65,6 +66,7 @@ public class PhongThiForm extends javax.swing.JPanel {
     GiaoVienBUS giaoVienBUS = new GiaoVienBUS();
     PhanCongBUS phanCongBUS = new PhanCongBUS();
     KetQuaThiBUS ketQuaBUS = new KetQuaThiBUS();
+    KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
     boolean flagSua = false;
 
     /**
@@ -1242,9 +1244,19 @@ public class PhongThiForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnThemGVPTActionPerformed
         // TODO add your handling code here:
         NhiemVu nv = (NhiemVu) jCbNhiemVu.getSelectedItem();
+        String ngay = khoaThiBUS.findDate(phongThi.getMaKhoaThi(), DashBoard.khoaThiDTOs);
+        for (PhanCongDTO phanCong : DashBoard.phanCongDTOs) {
+            if (phanCong.getMaGiaoVien().equals(jTextMaGVPT.getText())) {
+                System.out.println("Cùng giáo viên");
+                if (phanCong.getMaCaThi().equals(caThi.getMaCaThi()) && phanCong.getNgayThi().equals(ngay)) {
+                    JOptionPane.showMessageDialog(this, "Không thể thêm\nGiáo viên bị trùng ca thi và ngày thi!");
+                    return;
+                }   
+            }
+        }
         if (phanCongBUS.checkFull(phongThi.getMaPhongThi(), caThi.getMaCaThi(), DashBoard.phanCongDTOs)) {
             if (phanCongBUS.checkNhiemVu(phongThi.getMaPhongThi(), caThi.getMaCaThi(), nv.type, DashBoard.phanCongDTOs)) {
-                if (phanCongBUS.Add(new PhanCongDTO(phongThi.getMaPhongThi(), caThi.getMaCaThi(), jTextMaGVPT.getText(), null, nv.type), DashBoard.phanCongDTOs)) {
+                if (phanCongBUS.Add(new PhanCongDTO(phongThi.getMaPhongThi(), caThi.getMaCaThi(), jTextMaGVPT.getText(), ngay, nv.type), DashBoard.phanCongDTOs)) {
                     Vector row = new Vector();
                     row.add(jTextMaGVPT.getText());
                     row.add(jTextTenGVPT.getText());
@@ -1425,14 +1437,19 @@ public class PhongThiForm extends javax.swing.JPanel {
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
-                    if (phieuBaoDuThiBUS.CheckThiChua((String) jTablePTTS.getModel().getValueAt(i, 2)) && ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs)) {
-                        thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 3, DashBoard.thiSinhDTOs);
-                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                    if (!phieuBaoDuThiBUS.CheckThiChua((String) jTablePTTS.getModel().getValueAt(i, 2))) {
+                        if (ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs)) {
+                            thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 3, DashBoard.thiSinhDTOs);
+                            noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                        } else {
+                            noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                        }
                     } else {
-                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                        noti += "Không thể cập nhật thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + " vì đã qua ngày thi!\n";
                     }
                 }
             }
+            tableModelThiSinh(phongThi.getMaPhongThi(), caThi.getMaCaThi());
             JOptionPane.showMessageDialog(this, noti);
             //System.out.println("List dc chon!!" + a);
         }
@@ -1451,12 +1468,13 @@ public class PhongThiForm extends javax.swing.JPanel {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs, phieuBaoDuThiBUS.getNgayThiBySBD((String) jTablePTTS.getModel().getValueAt(i, 2)))) {
                         thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 4, DashBoard.thiSinhDTOs);
-                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
                     } else {
-                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
                     }
                 }
             }
+            tableModelThiSinh(phongThi.getMaPhongThi(), caThi.getMaCaThi());
             JOptionPane.showMessageDialog(this, noti);
             //System.out.println("List dc chon!!" + a);
         }

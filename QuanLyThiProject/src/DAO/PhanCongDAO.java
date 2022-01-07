@@ -31,7 +31,8 @@ public class PhanCongDAO {
                 dto.setMaPhongThi(conn.rs.getString(1));
                 dto.setMaCaThi(conn.rs.getString(2));
                 dto.setMaGiaoVien(conn.rs.getString(3));
-                dto.setNhiemVu(conn.rs.getString(4));
+                dto.setNgayThi(conn.rs.getString(4));
+                dto.setNhiemVu(conn.rs.getString(5));
                 phanCongDTOs.add(dto);
 //                System.out.println(dto);
             }
@@ -48,7 +49,7 @@ public class PhanCongDAO {
         return phanCongDTOs;
     }
 
-    public boolean insertPhieuBaoDuThi(PhanCongDTO phanCongDTO) {
+    public boolean insertPhanCong(PhanCongDTO phanCongDTO) {
         conn = new Connect();
         conn.getConnection();
         System.out.println("MaPhongThi : "+phanCongDTO.getMaPhongThi()+"  MaCaThi: "+phanCongDTO.getMaCaThi()+"  MaGiaoVien: "+phanCongDTO.getMaGiaoVien());
@@ -63,6 +64,7 @@ public class PhanCongDAO {
                 + " VALUES ('" + phanCongDTO.getMaPhongThi()
                 + "','" + phanCongDTO.getMaCaThi()
                 + "','" + phanCongDTO.getMaGiaoVien()
+                + "','" + phanCongDTO.getNgayThi()
                 + "','" + phanCongDTO.getNhiemVu()
                 + "', 1)"+
         " END";

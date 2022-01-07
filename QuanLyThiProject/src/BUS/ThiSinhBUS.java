@@ -79,7 +79,6 @@ public class ThiSinhBUS {
         return false;
     }
     
-    
     public boolean Update(ThiSinhDTO thiSinh,ArrayList<ThiSinhDTO> thiSinhDTOS){
         if(thiSinhDAO.updateThiSinh(thiSinh)){
             for(ThiSinhDTO thisinh: thiSinhDTOS){
@@ -108,6 +107,7 @@ public class ThiSinhBUS {
             }
         }
         if(thiSinhDAO.deleteThiSinh(maThiSinh)){
+            thiSinhDTOs.remove(findByMaThiSinh(maThiSinh));
             return true;
         }
         return false;

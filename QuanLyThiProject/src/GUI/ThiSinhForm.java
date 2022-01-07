@@ -991,10 +991,10 @@ public class ThiSinhForm extends javax.swing.JPanel {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
                     if (thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1), 2, DashBoard.thiSinhDTOs)) {
                         jTableTS.getModel().setValueAt("Chưa đóng tiền", i, 12);
-                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1) + "\n";
                     } else {
                         System.out.println((String) jTableTS.getModel().getValueAt(i, 2) + "Dang da duoc them vao phong thi");
-                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1) + "\n";
                     }
                 }
             }
@@ -1014,10 +1014,10 @@ public class ThiSinhForm extends javax.swing.JPanel {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
                     if (thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1), 2, DashBoard.thiSinhDTOs)) {
                         jTableTS.getModel().setValueAt("Đã đóng tiền", i, 12);
-                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1) + "\n";
                     } else {
                         System.out.println((String) jTableTS.getModel().getValueAt(i, 2) + "Dang da duoc them vao phong thi khong duoc thay doi trang thai");
-                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1) + "\n";
                     }
                 }
             }

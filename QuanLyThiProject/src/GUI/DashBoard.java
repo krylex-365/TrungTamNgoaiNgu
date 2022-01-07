@@ -1031,7 +1031,7 @@ public class DashBoard extends javax.swing.JFrame
     private void ketquaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ketquaLabelMouseClicked
 //        chiPhiForm.initTableLoaiChiPhi();
         ketQuaThiDTOs = ketQuaThiDAO.getList();
-        ketQuaForm.tableModelKetQua();
+        ketQuaForm.initTable();
         jPanelThiSinh.setVisible(false);
         jPanelGiangVien.setVisible(false);
         jPanelKhoaThi.setVisible(false);
