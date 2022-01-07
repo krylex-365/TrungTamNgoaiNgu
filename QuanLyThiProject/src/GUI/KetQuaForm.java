@@ -566,6 +566,7 @@ public class KetQuaForm extends javax.swing.JPanel {
                         tbModelKQThi.setValueAt(viet, selectedRow, 10);
                         tbModelKQThi.setValueAt(tinhDiem(ketQuaThiBUS.getTenTrinhDo(jTextSBDTS.getText()), ketQua.getNghe(), ketQua.getNoi(), ketQua.getDoc(), ketQua.getViet()), selectedRow, 11);
                         JOptionPane.showMessageDialog(this, "Sửa điểm thành công!");
+                        initTable();
                     } else {
                         JOptionPane.showMessageDialog(this, "Sửa điểm thất bại!");
                     }
