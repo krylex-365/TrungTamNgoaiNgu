@@ -557,7 +557,7 @@ public class CaThiForm extends javax.swing.JPanel
     public String validation()
     {
         String validate = "";
-        if (Integer.parseInt(jComboGio1.getSelectedItem().toString()) >= 7 && Integer.parseInt(jComboGio1.getSelectedItem().toString()) <= 19)
+        if (Integer.parseInt(jComboGio1.getSelectedItem().toString()) >= 6 && Integer.parseInt(jComboGio1.getSelectedItem().toString()) <= 19)
         {
             if (Integer.parseInt(jComboGio2.getSelectedItem().toString()) > Integer.parseInt(jComboGio1.getSelectedItem().toString()) && Integer.parseInt(jComboGio2.getSelectedItem().toString()) <= 22)
             {

@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.KhoaThiBUS;
+import BUS.Utils;
 import DTO.KhoaThiDTO;
 import DTO.PhongThiDTO;
 import DTO.ThiSinhDTO;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -42,7 +44,7 @@ public class KhoaThiForm extends javax.swing.JPanel {
     DefaultTableModel tbModelKhoaThi;
     private int rowKhoaThi;
     private KhoaThiDTO khoaThiSelected = new KhoaThiDTO();
-    private boolean checkUpdateNgayThi = false; 
+    private boolean checkUpdateNgayThi = false;
     KhoaThiBUS khoaThiBUS = new KhoaThiBUS();
 
     /**
@@ -110,6 +112,30 @@ public class KhoaThiForm extends javax.swing.JPanel {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKhoaThi);
         jTableKhoaThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
+    }
+
+    public String validation() {
+        String validate = "";
+        String ngaythi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
+        StringBuilder message = new StringBuilder();
+
+        if (jTextTenKT.getText().equals("") || ngaythi.equals("")) {
+            validate += "Các trường thông tin không được bỏ trống!\n";
+            return validate;
+        } else {
+            String tenPattern = "^[^-\\s][a-zA-Z0-9 ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            Utils.afterDay(message, "Ngày Thi", ngaythi, "Ngày hiện tại",
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+            boolean flag1 = Pattern.matches(tenPattern, jTextTenKT.getText());
+            if (!flag1) {
+                validate += "Tên khóa thi không hợp lệ!\n";
+            }
+            if (!message.toString().equals("")) {
+                validate += message.toString();
+            }
+        }
+        return validate;
     }
 
     /**
@@ -383,17 +409,22 @@ public class KhoaThiForm extends javax.swing.JPanel {
 
     private void jBtnThemKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemKTActionPerformed
         // TODO add your handling code here:
-        String maKhoaThi = (String) jTextMaKT.getText(),
-                tenKhoaThi = (String) jTextTenKT.getText(),
-                ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
-        KhoaThiDTO khoaThiDTO = new KhoaThiDTO(maKhoaThi, tenKhoaThi, ngayThi);
-        if (khoaThiBUS.them(khoaThiDTO, DashBoard.khoaThiDTOs)) {
-            themVector(tbModelKhoaThi, khoaThiDTO);
-            JOptionPane.showMessageDialog(this, "Thêm khóa thi thành công!");
+        String check = validation();
+        if (check.equals("")) {
+            String maKhoaThi = (String) jTextMaKT.getText(),
+                    tenKhoaThi = (String) jTextTenKT.getText(),
+                    ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
+            KhoaThiDTO khoaThiDTO = new KhoaThiDTO(maKhoaThi, tenKhoaThi, ngayThi);
+            if (khoaThiBUS.them(khoaThiDTO, DashBoard.khoaThiDTOs)) {
+                themVector(tbModelKhoaThi, khoaThiDTO);
+                JOptionPane.showMessageDialog(this, "Thêm khóa thi thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm khóa thi thất bại!");
+            }
+            clear();
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm khóa thi thất bại!");
+            JOptionPane.showMessageDialog(this, check);
         }
-        clear();
     }//GEN-LAST:event_jBtnThemKTActionPerformed
 
     public String checkBeforeUpdate() {
@@ -410,16 +441,21 @@ public class KhoaThiForm extends javax.swing.JPanel {
 
     private void jBtnSuaKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaKTActionPerformed
         // TODO add your handling code here:
-        String tenKhoaThi = (String) jTextTenKT.getText(),
-                ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
-        KhoaThiDTO khoaThiDTO = new KhoaThiDTO(khoaThiSelected.getMaKhoaThi(), tenKhoaThi, ngayThi);
-        if (khoaThiBUS.sua(khoaThiDTO, DashBoard.khoaThiDTOs, checkUpdateNgayThi)) {
-            suaVector(tbModelKhoaThi, rowKhoaThi, khoaThiDTO);
-            JOptionPane.showMessageDialog(this, "Sửa khóa thi thành công!");
+        String valString = validation();
+        if (valString.equals("")) {
+            String tenKhoaThi = (String) jTextTenKT.getText(),
+                    ngayThi = (String) ((JTextField) jDateNgayThi.getDateEditor().getUiComponent()).getText();
+            KhoaThiDTO khoaThiDTO = new KhoaThiDTO(khoaThiSelected.getMaKhoaThi(), tenKhoaThi, ngayThi);
+            if (khoaThiBUS.sua(khoaThiDTO, DashBoard.khoaThiDTOs, checkUpdateNgayThi)) {
+                suaVector(tbModelKhoaThi, rowKhoaThi, khoaThiDTO);
+                JOptionPane.showMessageDialog(this, "Sửa khóa thi thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa khóa thi thất bại!");
+            }
+            clear();
         } else {
-            JOptionPane.showMessageDialog(this, "Sửa khóa thi thất bại!");
+            JOptionPane.showMessageDialog(this, valString);
         }
-        clear();
     }//GEN-LAST:event_jBtnSuaKTActionPerformed
 
     public String checkBeforeDel(String maKhoaThi) {

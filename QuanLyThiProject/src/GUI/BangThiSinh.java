@@ -384,8 +384,8 @@ public class BangThiSinh extends javax.swing.JFrame {
         if (jTableThiSinh.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
-
-            System.out.println(jTableThiSinh.getSelectedRowCount());
+            String noti = "";
+//            System.out.println(jTableThiSinh.getSelectedRowCount());
             //ArrayList<String> a = new ArrayList<>();
             for (int i = 0; i < jTableThiSinh.getRowCount(); i++) {
                 if (jTableThiSinh.getSelectionModel().isSelectedIndex(i)) {
@@ -400,14 +400,15 @@ public class BangThiSinh extends javax.swing.JFrame {
                             row.add(pbdt.getSoBaoDanh());
                             row.add("Chưa thi");
                             phongThiForm.tbModelPTTS.addRow(row);
-                            JOptionPane.showMessageDialog(this, "Thêm thí sinh thành công!");
+                            noti += "Thêm thành công thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1);
                             dispose();
                             phongThiForm.clearPhongThiTS();
                         } else {
-                            JOptionPane.showMessageDialog(this, "Thêm thí sinh thất bại!");
+                            noti += "Thêm thất bại thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1);
                         }
                     }
                 }
+                JOptionPane.showMessageDialog(this, noti);
             }
         }
     }//GEN-LAST:event_jBtnXacNhanActionPerformed

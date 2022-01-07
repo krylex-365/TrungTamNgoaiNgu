@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -73,8 +74,6 @@ public class ThiSinhForm extends javax.swing.JPanel {
     private Utils utl = new Utils();
 //    private Utils ult = new Utils();
 
-    
-
     public ThiSinhForm() {
         thiSinhBUS = new ThiSinhBUS();
         khoaThiBUS = new KhoaThiBUS();
@@ -96,7 +95,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         //loadData();
 //        tk.setVisible(false);
     }
-    
+
     public void initTable() {
         modelthisinh.setRowCount(0);
         tableModel(modelthisinh);
@@ -134,8 +133,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
                     row.add(trinhDo.getTenTrinhDo());
                 }
             }
-            
-            switch (thisinh.getTinhTrang()){
+
+            switch (thisinh.getTinhTrang()) {
                 case 1:
                     row.add("Chưa đóng tiền");
                     break;
@@ -149,22 +148,22 @@ public class ThiSinhForm extends javax.swing.JPanel {
                     row.add("Đã thi");
                     break;
             }
-            
+
             modelthisinh.addRow(row);
 
         }
     }
-    
-    public void fillTheForm(ThiSinhDTO thiSinh){
+
+    public void fillTheForm(ThiSinhDTO thiSinh) {
         jCbKhoaThi.setSelectedItem(khoaThiBUS.findKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs));
         jTextMaThiSinh.setText(thiSinh.getMaThiSinh());
         jTextTenThiSinh.setText(thiSinh.getHoTen());
-        if(thiSinh.getGioiTinh().equals("1")){
+        if (thiSinh.getGioiTinh().equals("1")) {
             jCbGioiTinh.setSelectedIndex(1);
-        }else{
+        } else {
             jCbGioiTinh.setSelectedIndex(0);
         }
-        
+
         jDateNgaySinh.setDate(utl.stringToDate(thiSinh.getNgaySinh()));
         jCbTrinhDo.setSelectedItem(trinhDoBUS.findTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         jTextSDT.setText(thiSinh.getSdt());
@@ -173,11 +172,10 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jTextCMND.setText(thiSinh.getCmnd());
         jDateNgayCap.setDate(utl.stringToDate(thiSinh.getNgayCap()));
         jTextNoiCap.setText(thiSinh.getNoiCap());
-        
-        
+
     }
-    
-    public void loadComboBox(){
+
+    public void loadComboBox() {
         jCbKhoaThi.removeAllItems();
         jCbTrinhDo.removeAllItems();
         for (KhoaThiDTO kt : DashBoard.khoaThiDTOs) {
@@ -186,7 +184,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         }
 
         //Phần trình độ xong thì bỏ //
-        for(TrinhDoDTO td: DashBoard.trinhDoDTOs){
+        for (TrinhDoDTO td : DashBoard.trinhDoDTOs) {
             jCbTrinhDo.addItem(td);
             //jComboBoxKT.addItem(kt);
         }
@@ -814,25 +812,34 @@ public class ThiSinhForm extends javax.swing.JPanel {
         thiSinh.setNoiCap(jTextNoiCap.getText());
         KhoaThiDTO khoaThiTemp = (KhoaThiDTO) jCbKhoaThi.getSelectedItem();
         thiSinh.setMaKhoaThi(khoaThiTemp.getMaKhoaThi());
-        
+
         if (!jBtnThemTS1.isEnabled()) // Ch?c nang cho them
         {
-            
-            if (thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)) {
-                JOptionPane.showMessageDialog(this, "Thêm thí sinh thành công!");
-                initTable();
+            String valString = validation();
+            if (valString.equals("")) {
+                if (thiSinhBUS.Add(thiSinh, DashBoard.thiSinhDTOs)) {
+                    JOptionPane.showMessageDialog(this, "Thêm thí sinh thành công!");
+                    initTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thí sinh thất bại!");
+                    clear();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm thí sinh thất bại!");
-                clear();
+                JOptionPane.showMessageDialog(this, valString);
             }
         } else // Ch?c nang cho Sửa
         {
-            if(thiSinhBUS.Update(thiSinh, DashBoard.thiSinhDTOs)){
-                JOptionPane.showMessageDialog(this, "Sửa thí sinh thành công!");
-                initTable();
+            String valString = validation();
+            if (valString.equals("")) {
+                if (thiSinhBUS.Update(thiSinh, DashBoard.thiSinhDTOs)) {
+                    JOptionPane.showMessageDialog(this, "Sửa thí sinh thành công!");
+                    initTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thí sinh thất bại!");
+                    clear();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Sửa thí sinh thất bại!");
-                clear();
+                JOptionPane.showMessageDialog(this, valString);
             }
         }
 
@@ -885,13 +892,11 @@ public class ThiSinhForm extends javax.swing.JPanel {
             loadComboBox();
             JTable tempJTable = (JTable) evt.getSource();
             int row = tempJTable.getSelectedRow();
-            
-            
+
             String maThiSinh = (String) modelthisinh.getValueAt(selectedRow, 1);
-            
+
             fillTheForm(thiSinhBUS.findByMaThiSinh(maThiSinh));
-            
-            
+
             if (row != -1) {
 
                 System.out.println("Rơ ch?n : " + row);
@@ -969,8 +974,8 @@ public class ThiSinhForm extends javax.swing.JPanel {
         modelthisinh.getValueAt(selectedRow, 0);
 
         PhieuBaoDuThi pbdt = new PhieuBaoDuThi();
-        ThiSinhDTO thiSinh = thiSinhBUS.findByMaThiSinh((String)modelthisinh.getValueAt(selectedRow, 1));
-        pbdt.fillTheForm(thiSinh,khoaThiBUS.findTenKhoaKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs),trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
+        ThiSinhDTO thiSinh = thiSinhBUS.findByMaThiSinh((String) modelthisinh.getValueAt(selectedRow, 1));
+        pbdt.fillTheForm(thiSinh, khoaThiBUS.findTenKhoaKhoaThi(thiSinh.getMaKhoaThi(), DashBoard.khoaThiDTOs), trinhDoBUS.findTenTrinhDo(thiSinh.getMaTrinhDo(), DashBoard.trinhDoDTOs));
         pbdt.thiSinhForm = this;
     }//GEN-LAST:event_jBtnTaoPhieuActionPerformed
 
@@ -981,15 +986,19 @@ public class ThiSinhForm extends javax.swing.JPanel {
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
             //ArrayList<String> a = new ArrayList<>();
+            String noti = "";
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
-                    if(thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1),2,DashBoard.thiSinhDTOs)){
-                        jTableTS.getModel().setValueAt("Chưa đóng tiền",i,12);
-                    }else{
-                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2)+"Dang da duoc them vao phong thi");
+                    if (thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1), 2, DashBoard.thiSinhDTOs)) {
+                        jTableTS.getModel().setValueAt("Chưa đóng tiền", i, 12);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                    } else {
+                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2) + "Dang da duoc them vao phong thi");
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
                     }
                 }
             }
+            JOptionPane.showMessageDialog(this, noti);
         }
     }//GEN-LAST:event_jMenuItemChuaDongActionPerformed
 
@@ -999,25 +1008,28 @@ public class ThiSinhForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Empty!!");
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
-           // ArrayList<String> a = new ArrayList<>();
+            // ArrayList<String> a = new ArrayList<>();
+            String noti = "";
             for (int i = 0; i < jTableTS.getRowCount(); i++) {
                 if (jTableTS.getSelectionModel().isSelectedIndex(i)) {
-                    if(thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1),2,DashBoard.thiSinhDTOs)){
-                        jTableTS.getModel().setValueAt("Đã đóng tiền",i,12);
-                    }else{
-                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2)+"Dang da duoc them vao phong thi khong duoc thay doi trang thai");
+                    if (thiSinhBUS.UpdataStatus((String) jTableTS.getModel().getValueAt(i, 1), 2, DashBoard.thiSinhDTOs)) {
+                        jTableTS.getModel().setValueAt("Đã đóng tiền", i, 12);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
+                    } else {
+                        System.out.println((String) jTableTS.getModel().getValueAt(i, 2) + "Dang da duoc them vao phong thi khong duoc thay doi trang thai");
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTableTS.getModel().getValueAt(i, 1);
                     }
                 }
             }
-
+            JOptionPane.showMessageDialog(this, noti);
         }
     }//GEN-LAST:event_jMenuItemDaDongActionPerformed
 
     private void jBtnXoaTS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaTS1ActionPerformed
         // TODO add your handling code here:
-        System.out.println("Dong dc chon: "+selectedRow+"   Gia tri dc chon:  "+(String) modelthisinh.getValueAt(selectedRow, 1));
-        String maThiSinh =(String) modelthisinh.getValueAt(selectedRow, 1);
-        if(thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs)){
+        System.out.println("Dong dc chon: " + selectedRow + "   Gia tri dc chon:  " + (String) modelthisinh.getValueAt(selectedRow, 1));
+        String maThiSinh = (String) modelthisinh.getValueAt(selectedRow, 1);
+        if (thiSinhBUS.Delete(maThiSinh, DashBoard.thiSinhDTOs, DashBoard.phieuBaoDuThiDTOs)) {
             modelthisinh.removeRow(selectedRow);
             JOptionPane.showMessageDialog(this, "Xóa thí sinh thành công!");
         } else {
@@ -1031,7 +1043,7 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jTableTS.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
     }
-    
+
     private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
         // TODO add your handling code here:
         String query = (String) jTextTimKiem.getText();
@@ -1043,6 +1055,75 @@ public class ThiSinhForm extends javax.swing.JPanel {
         jTextTimKiem.setText("");
         initTable();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
+
+    public String validation() {
+        String validate = "";
+        String tenTS = jTextTenThiSinh.getText();
+        String ngaySinhTS = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+        String SDT = jTextSDT.getText();
+        String diachi = jTextDiaChi.getText();
+        String email = jTextEmail.getText();
+        String cmnd = jTextCMND.getText();
+        String ngayCap = (String) ((JTextField) jDateNgayCap.getDateEditor().getUiComponent()).getText();
+        String noicap = jTextNoiCap.getText();
+        if (tenTS.equals("") || ngaySinhTS.equals("") || SDT.equals("") || diachi.equals("")
+                || email.equals("") || cmnd.equals("") || ngayCap.equals("") || noicap.equals("")) {
+            validate += "Các trường thông tin không được bỏ trống!\n";
+            return validate;
+        } else {
+            String tenPattern = "^[^-\\s][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            boolean flag1 = Pattern.matches(tenPattern, tenTS);
+            if (!flag1) {
+                validate += "Tên thí thi không hợp lệ!\n";
+            }
+
+            int hientai = Calendar.getInstance().get(Calendar.YEAR);
+            int year = Integer.parseInt(ngaySinhTS.substring(0, 4));
+            int namsinh = hientai - year;
+            if (namsinh >= 80) {
+                validate += "Tuổi thí sinh không hợp lệ!\n";
+            }
+
+            String sdtPattern = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+            boolean flag2 = Pattern.matches(sdtPattern, SDT);
+            if (!flag2) {
+                validate += "Số điện thoại không hợp lệ!\n";
+            }
+
+            String diachiPattern = "^[^-\\s][a-zA-Z0-9 ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            boolean flag3 = Pattern.matches(diachiPattern, diachi);
+            if (!flag3) {
+                validate += "Địa chỉ không hợp lệ!\n";
+            }
+
+            String emailPattern = "^[a-zA-Z][a-zA-Z0-9_\\.]{4,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$";
+            boolean flag4 = Pattern.matches(emailPattern, jTextEmail.getText());
+            if (!flag4) {
+                validate += "Email không hợp lệ!\n";
+            }
+
+            String cmndPattern = "^(0\\d{11})$";
+            boolean flag5 = Pattern.matches(cmndPattern, cmnd);
+            if (!flag5) {
+                validate += "CMND không hợp lệ!\n";
+            }
+
+            int hientai2 = Calendar.getInstance().get(Calendar.YEAR);
+            int year2 = Integer.parseInt(ngayCap.substring(0, 4));
+            int ngaycmnd = hientai2 - year2;
+            if (ngaycmnd >= 20) {
+                validate += "Ngày cấp không hợp lệ!\n";
+            }
+
+            String noicapPattern = "^[^-\\s][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            boolean flag6 = Pattern.matches(noicapPattern, noicap);
+            if (!flag6) {
+                validate += "Nơi cấp không hợp lệ!\n";
+            }
+
+        }
+        return validate;
+    }
 
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.

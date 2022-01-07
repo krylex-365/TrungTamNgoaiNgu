@@ -1421,14 +1421,19 @@ public class PhongThiForm extends javax.swing.JPanel {
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
             //ArrayList<String> a = new ArrayList<>();
+            String noti = "";
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if (phieuBaoDuThiBUS.CheckThiChua((String) jTablePTTS.getModel().getValueAt(i, 2)) && ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs)) {
                         thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 3, DashBoard.thiSinhDTOs);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                    } else {
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
                     }
                 }
             }
+            JOptionPane.showMessageDialog(this, noti);
             //System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemChuaThiActionPerformed
@@ -1440,14 +1445,19 @@ public class PhongThiForm extends javax.swing.JPanel {
         } else {
 //            System.out.println(jTableTS.getSelectedRowCount());
             //ArrayList<String> a = new ArrayList<>();
+            String noti = "";
             for (int i = 0; i < jTablePTTS.getRowCount(); i++) {
                 if (jTablePTTS.getSelectionModel().isSelectedIndex(i)) {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs, phieuBaoDuThiBUS.getNgayThiBySBD((String) jTablePTTS.getModel().getValueAt(i, 2)))) {
                         thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 4, DashBoard.thiSinhDTOs);
+                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
+                    } else {
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2);
                     }
                 }
             }
+            JOptionPane.showMessageDialog(this, noti);
             //System.out.println("List dc chon!!" + a);
         }
     }//GEN-LAST:event_jMenuItemDaThiActionPerformed
