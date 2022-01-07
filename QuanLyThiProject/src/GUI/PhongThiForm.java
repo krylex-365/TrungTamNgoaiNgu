@@ -1197,6 +1197,11 @@ public class PhongThiForm extends javax.swing.JPanel {
 //            System.out.println((String) jTablePhongThi.getValueAt(rowPhongThi, 0));
 //            System.out.println(phongThi);
             if (row != -1) {
+                jTextMaGVPT.setText("");
+                jTextSBD.setText("");
+                jTextMaTSPT.setText("");
+                jTextTenTSPT.setText("");
+                jTextTenGVPT.setText("");
                 jTabbedPane1.add(jPanelQlyPT, 1);
                 jTabbedPane1.setTitleAt(1, "Sắp Xếp Phòng Thi");
                 jTabbedPane1.setSelectedIndex(1);
