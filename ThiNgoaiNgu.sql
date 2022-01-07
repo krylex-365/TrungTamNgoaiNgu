@@ -150,7 +150,7 @@ values ('PG000001','A2P001',30,'KH000001','TD000001',1),
 
 insert into CaThi
 values ('CA000001','07:00','10:00',1),
-('CA000002','13:00','16:00',1),
+('CA000002','13:00','16:00',1)
 
 insert into GiaoVien
 values ('GV000001','Nguyen A','1','0909090909','A@mail.com',1),

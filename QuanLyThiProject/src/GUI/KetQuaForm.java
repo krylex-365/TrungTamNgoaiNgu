@@ -624,39 +624,39 @@ public class KetQuaForm extends javax.swing.JPanel {
         if (selectedRow != -1) {
             jBtnSuaDiem.setEnabled(true);
             jBtnHuyDiem.setEnabled(true);
-            jTextMaThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 0));
-            jTextSBDTS.setText((String) tbModelKQThi.getValueAt(selectedRow, 1));
-            jTextTenThiSinh.setText((String) tbModelKQThi.getValueAt(selectedRow, 2));
-            jTextSDT.setText((String) tbModelKQThi.getValueAt(selectedRow, 3));
-            jTextTrinhDo.setText((String) tbModelKQThi.getValueAt(selectedRow, 4));
-            jTextPhongThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 5));
-            jTextCaThi.setText((String) tbModelKQThi.getValueAt(selectedRow, 6));
-            String nghe = (String) tbModelKQThi.getValueAt(selectedRow, 7);
-            String noi = (String) tbModelKQThi.getValueAt(selectedRow, 8);
-            String doc = (String) tbModelKQThi.getValueAt(selectedRow, 9);
-            String viet = (String) tbModelKQThi.getValueAt(selectedRow, 10);
+            jTextMaThiSinh.setText((String) jTableKQThi.getValueAt(selectedRow, 0));
+            jTextSBDTS.setText((String) jTableKQThi.getValueAt(selectedRow, 1));
+            jTextTenThiSinh.setText((String) jTableKQThi.getValueAt(selectedRow, 2));
+            jTextSDT.setText((String) jTableKQThi.getValueAt(selectedRow, 3));
+            jTextTrinhDo.setText((String) jTableKQThi.getValueAt(selectedRow, 4));
+            jTextPhongThi.setText((String) jTableKQThi.getValueAt(selectedRow, 5));
+            jTextCaThi.setText((String) jTableKQThi.getValueAt(selectedRow, 6));
+            String nghe = (String) jTableKQThi.getValueAt(selectedRow, 7);
+            String noi = (String) jTableKQThi.getValueAt(selectedRow, 8);
+            String doc = (String) jTableKQThi.getValueAt(selectedRow, 9);
+            String viet = (String) jTableKQThi.getValueAt(selectedRow, 10);
             if (nghe.equals("NaN")) {
                 jTextDiemNghe.setText("");
             } else {
-                jTextDiemNghe.setText((String) tbModelKQThi.getValueAt(selectedRow, 7));
+                jTextDiemNghe.setText((String) jTableKQThi.getValueAt(selectedRow, 7));
             }
 
             if (noi.equals("NaN")) {
                 jTextDiemNoi.setText("");
             } else {
-                jTextDiemNoi.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+                jTextDiemNoi.setText((String) jTableKQThi.getValueAt(selectedRow, 8));
             }
 
             if (doc.equals("NaN")) {
                 jTextDiemDoc.setText("");
             } else {
-                jTextDiemDoc.setText((String) tbModelKQThi.getValueAt(selectedRow, 8));
+                jTextDiemDoc.setText((String) jTableKQThi.getValueAt(selectedRow, 8));
             }
 
             if (viet.equals("NaN")) {
                 jTextDiemViet.setText("");
             } else {
-                jTextDiemViet.setText((String) tbModelKQThi.getValueAt(selectedRow, 10));
+                jTextDiemViet.setText((String) jTableKQThi.getValueAt(selectedRow, 10));
             }
 
         }
