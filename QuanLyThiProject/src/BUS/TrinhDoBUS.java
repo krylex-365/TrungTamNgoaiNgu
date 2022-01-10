@@ -112,7 +112,7 @@ public class TrinhDoBUS {
             TrinhDoDTO trinhDoDTO = new TrinhDoDTO();
             for (TrinhDoDTO trinhDo : trinhDoDTOs) {
                 if (trinhDo.getMaTrinhDo().equals(maTrinhDo)) {
-                    trinhDo.setSoLuongTS(trinhDo.getSoLuongTS()+SLTS);        
+                    trinhDo.setSoLuongTS(SLTS);        
                     break;
                 }
             }

@@ -651,7 +651,7 @@ public class KetQuaForm extends javax.swing.JPanel {
             if (doc.equals("NaN")) {
                 jTextDiemDoc.setText("");
             } else {
-                jTextDiemDoc.setText((String) jTableKQThi.getValueAt(selectedRow, 8));
+                jTextDiemDoc.setText((String) jTableKQThi.getValueAt(selectedRow, 9));
             }
 
             if (viet.equals("NaN")) {

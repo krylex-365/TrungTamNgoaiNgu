@@ -400,16 +400,16 @@ public class BangThiSinh extends javax.swing.JFrame {
                             row.add(pbdt.getSoBaoDanh());
                             row.add("Chưa thi");
                             phongThiForm.tbModelPTTS.addRow(row);
-                            noti += "Thêm thành công thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1);
+                            noti += "Thêm thành công thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1) + "\n";
                             dispose();
                             phongThiForm.clearPhongThiTS();
                         } else {
-                            noti += "Thêm thất bại thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1);
+                            noti += "Thêm thất bại thí sinh " + (String) jTableThiSinh.getModel().getValueAt(i, 1) + "\n";
                         }
                     }
                 }
-                JOptionPane.showMessageDialog(this, noti);
             }
+            JOptionPane.showMessageDialog(this, noti);
         }
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
