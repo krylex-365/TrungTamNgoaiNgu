@@ -168,8 +168,6 @@ public class KetQuaForm extends javax.swing.JPanel {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKQThi);
         jTableKQThi.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
-        
-        
     }
 
     /**
@@ -623,9 +621,6 @@ public class KetQuaForm extends javax.swing.JPanel {
     private void jTableKQThiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKQThiMouseClicked
     {//GEN-HEADEREND:event_jTableKQThiMouseClicked
         // TODO add your handling code here:
-        System.out.println("Dong dang chon tren table:  "+jTableKQThi.getSelectedRow());
-        System.out.println("Dong dang chọn:  "+jTableKQThi.getAutoResizeMode());
-        System.out.println("");
         selectedRow = jTableKQThi.getSelectedRow();
         if (selectedRow != -1) {
             jBtnSuaDiem.setEnabled(true);

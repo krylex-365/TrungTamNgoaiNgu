@@ -43,7 +43,6 @@ public class KetQuaThiBUS {
     }
 
     public boolean Add(KetQuaThiDTO ketQuaThiDTO, ArrayList<KetQuaThiDTO> ketQuaThiDTOs, Date ngayThi) {
-        System.out.println(ngayThi);
         if (ngayThi.before(utl.getDateWithoutTimeUsingFormat())) {
             if (ketQuaThiDAO.insertKetQuaThi(ketQuaThiDTO)) {
                 ketQuaThiDTOs.add(ketQuaThiDTO);
