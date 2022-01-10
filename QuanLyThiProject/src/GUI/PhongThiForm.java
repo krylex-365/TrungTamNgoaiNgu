@@ -128,10 +128,10 @@ public class PhongThiForm extends javax.swing.JPanel {
             row.add(a.getMaThiSinh());
             row.add(thiSinhBUS.getHoTenByMaThiSinh(a.getMaThiSinh(), DashBoard.thiSinhDTOs));
             row.add(a.getSoBaoDanh());
-            if (thiSinhBUS.getStatusByMaThiSinh(a.getMaThiSinh(), DashBoard.thiSinhDTOs) == 3) {
-                row.add("Chưa thi");
-            } else {
+            if (thiSinhBUS.getStatusByMaThiSinh(a.getMaThiSinh(), DashBoard.thiSinhDTOs) == 4) {
                 row.add("Đã thi");
+            } else {
+                row.add("Chưa thi");
             }
             tbModelPTTS.addRow(row);
         }
