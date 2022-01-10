@@ -132,6 +132,11 @@ public class ThiSinhBUS {
     
     public boolean UpdateStatusAfterModified(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
             if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                for(ThiSinhDTO a: thiSinhDTOs){
+                    if(a.getMaThiSinh().equals(maThiSinh)){
+                        a.setTinhTrang(status);
+                    }
+                }
                 return true;
             }
                 return false;
@@ -140,6 +145,11 @@ public class ThiSinhBUS {
     public boolean UpdataStatus(String maThiSinh,int status,ArrayList<ThiSinhDTO> thiSinhDTOs){
         if(allowToUpdate(maThiSinh,thiSinhDTOs)){
             if(thiSinhDAO.updateStatusThiSinh(maThiSinh, status)){
+                for(ThiSinhDTO a: thiSinhDTOs){
+                    if(a.getMaThiSinh().equals(maThiSinh)){
+                        a.setTinhTrang(status);
+                    }
+                }
                 return true;
             }else{
                 return false;

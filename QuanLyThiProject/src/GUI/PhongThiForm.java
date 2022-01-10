@@ -1446,12 +1446,13 @@ public class PhongThiForm extends javax.swing.JPanel {
                     if (!phieuBaoDuThiBUS.CheckThiChua((String) jTablePTTS.getModel().getValueAt(i, 2))) {
                         if (ketQuaBUS.Delete((String) jTablePTTS.getModel().getValueAt(i, 2), DashBoard.ketQuaThiDTOs)) {
                             thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 3, DashBoard.thiSinhDTOs);
-                            noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                            noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 0) + "\n";
+                            tbModelPTTS.setValueAt("Chưa thi", i, 3);
                         } else {
-                            noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                            noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 0) + "\n";
                         }
                     } else {
-                        noti += "Không thể cập nhật thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + " vì đã qua ngày thi!\n";
+                        noti += "Không thể cập nhật thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 0) + " vì đã qua ngày thi!\n";
                     }
                 }
             }
@@ -1474,9 +1475,10 @@ public class PhongThiForm extends javax.swing.JPanel {
                     //a.add((String) jTablePTTS.getModel().getValueAt(i, 0));
                     if (ketQuaBUS.Add(new KetQuaThiDTO((String) jTablePTTS.getModel().getValueAt(i, 2), -1, -1, -1, -1), DashBoard.ketQuaThiDTOs, phieuBaoDuThiBUS.getNgayThiBySBD((String) jTablePTTS.getModel().getValueAt(i, 2)))) {
                         thiSinhBUS.UpdateStatusAfterModified((String) jTablePTTS.getModel().getValueAt(i, 0), 4, DashBoard.thiSinhDTOs);
-                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                        noti += "Cập nhật thành công thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 0) + "\n";
+                        tbModelPTTS.setValueAt("Đã thi", i, 3);
                     } else {
-                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 2) + "\n";
+                        noti += "Cập nhật thất bại thí sinh " + (String) jTablePTTS.getModel().getValueAt(i, 0) + "\n";
                     }
                 }
             }

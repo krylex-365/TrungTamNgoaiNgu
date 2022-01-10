@@ -586,14 +586,17 @@ public class KetQuaForm extends javax.swing.JPanel {
                     jTableKQThi.clearSelection();
                 } else {
                     System.out.println("Vui lòng nhập điểm theo thang điểm 10");
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập điểm theo thang điểm 10!");
                 }
             } catch (NumberFormatException e) {
                 System.out.println(e);
                 System.out.println("Vui lòng nhập số");
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số!");
             }
 
         } else {
             System.out.println("Không được để trống");
+            JOptionPane.showMessageDialog(this, "Các cột điểm không được bỏ trống!");
         }
 
 
