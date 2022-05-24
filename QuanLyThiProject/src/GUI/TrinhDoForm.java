@@ -59,9 +59,9 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jBtnSuaTD.setEnabled(false);
         jBtnXoaTD.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnCapPhatMaTD.setVisible(false);
-        jBtnThemTD.setVisible(false);
-        jBtnXoaTD.setVisible(false);
+//        jBtnCapPhatMaTD.setVisible(false);
+//        jBtnThemTD.setVisible(false);
+//        jBtnXoaTD.setVisible(false);
     }
 
     public void initTable() {
@@ -82,14 +82,16 @@ public class TrinhDoForm extends javax.swing.JPanel {
 
     public void clear() {
         jBtnCapPhatMaTD.setEnabled(true);
-//        jBtnThemTD.setEnabled(false);
+        jBtnThemTD.setEnabled(false);
         jBtnSuaTD.setEnabled(false);
         jBtnXoaTD.setEnabled(false);
-//        jBtnHuy.setEnabled(false);
+        jBtnHuy.setEnabled(false);
         jTextMaTD.setText("");
         jTextTenTD.setText("");
         jTextLePhi.setText("");
         jTableTrinhDo.clearSelection();
+        jTextTenTD.setBackground(new Color(214, 217, 223));
+        jTextTenTD.setEditable(false);
     }
 
     private void filter(String query) {
@@ -226,11 +228,8 @@ public class TrinhDoForm extends javax.swing.JPanel {
                                 .addGap(24, 24, 24))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBtnSuaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtnThemTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -238,12 +237,18 @@ public class TrinhDoForm extends javax.swing.JPanel {
                                     .addComponent(jTextTenTD, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtnCapPhatMaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextLePhi, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextLePhi, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jBtnXoaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(202, 202, 202)
+                                    .addComponent(jBtnXoaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBtnSuaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnThemTD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -265,12 +270,12 @@ public class TrinhDoForm extends javax.swing.JPanel {
                     .addComponent(jTextLePhi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnSuaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnThemTD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnXoaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnSuaTD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -363,6 +368,8 @@ public class TrinhDoForm extends javax.swing.JPanel {
         jBtnSuaTD.setEnabled(false);
         jBtnXoaTD.setEnabled(false);
         jBtnHuy.setEnabled(true);
+        jTextTenTD.setBackground(new Color(255, 255, 255));
+        jTextTenTD.setEditable(true);
         jTextMaTD.setText(trinhDoBUS.util.initMaTrinhDo());
     }//GEN-LAST:event_jBtnCapPhatMaTDActionPerformed
 
@@ -475,10 +482,12 @@ public class TrinhDoForm extends javax.swing.JPanel {
             jTextMaTD.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 0));
             jTextTenTD.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 1));
             jTextLePhi.setText((String) jTableTrinhDo.getValueAt(rowTrinhDo, 2));
-//            jBtnCapPhatMaTD.setEnabled(false);
-//            jBtnThemTD.setEnabled(false);
+            jBtnCapPhatMaTD.setEnabled(false);
+            jBtnThemTD.setEnabled(false);
+            jTextTenTD.setBackground(new Color(214, 217, 223));
+            jTextTenTD.setEditable(false);
             jBtnSuaTD.setEnabled(true);
-//            jBtnXoaTD.setEnabled(true);
+            jBtnXoaTD.setEnabled(true);
             jBtnHuy.setEnabled(true);
         }
     }//GEN-LAST:event_jTableTrinhDoMouseClicked

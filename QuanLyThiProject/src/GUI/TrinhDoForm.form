@@ -99,12 +99,8 @@
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBtnSuaTD" min="-2" pref="110" max="-2" attributes="0"/>
-                                              <Component id="jLabel28" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <Component id="jBtnThemTD" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel28" min="-2" pref="108" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -116,15 +112,24 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jBtnCapPhatMaTD" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jBtnHuy" min="-2" pref="110" max="-2" attributes="0"/>
-                                          <Component id="jTextLePhi" min="-2" pref="190" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jTextLePhi" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
-                                  <Component id="jBtnXoaTD" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="jBtnHuy" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
+                                              <Component id="jBtnXoaTD" min="-2" pref="110" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="jBtnSuaTD" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="jBtnThemTD" min="-2" pref="110" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace pref="42" max="32767" attributes="0"/>
@@ -154,13 +159,13 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtnHuy" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnSuaTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnThemTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnXoaTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtnThemTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnXoaTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnHuy" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnSuaTD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="62" max="32767" attributes="0"/>
                       </Group>
