@@ -102,7 +102,7 @@ public class PhongThiBUS {
     }
 
     public boolean xoa(PhongThiDTO phongThiDTO, ArrayList<PhongThiDTO> phongThiDTOs) {
-        if (phongThiDAO.deletePhongThi(phongThiDTO.getMaKhoaThi())) {
+        if (phongThiDAO.deletePhongThi(phongThiDTO.getMaPhongThi())) {
             phongThiDTOs.remove(phongThiDTO);
             System.out.println("Xóa thành công PhongThiBUS");
             return true;
