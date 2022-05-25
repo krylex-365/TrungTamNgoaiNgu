@@ -561,7 +561,7 @@ public class CaThiForm extends javax.swing.JPanel
         {
             if (Integer.parseInt(jComboGio2.getSelectedItem().toString()) > Integer.parseInt(jComboGio1.getSelectedItem().toString()) && Integer.parseInt(jComboGio2.getSelectedItem().toString()) <= 22)
             {
-                validate += "Giờ thi hợp lệ!\n";
+                validate += "";
             } else
             {
                 validate += "Giờ kết thúc không hợp lệ!\n";
