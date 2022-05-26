@@ -8,7 +8,7 @@
 - 🥅 Ứng dụng kiến thức đã học vào bài toán.
 
 ---
-### 🎯 Desktop App
+### 🎯 Desktop App (CRUD)
 - 🔭 Quản lý Khóa Thi
 - 🌱 Quản lý Trình Độ
 - 👯 Quản lý Ca Thi
